@@ -82,51 +82,12 @@
     .green-block-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
     .green-block-text { font-size: 14px; color: var(--gray-700); line-height: 1.7; }
 
-    .header-shell { transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
-    .header-shell.is-scrolled { background: rgba(250,250,250,0.96); box-shadow: 0 10px 30px rgba(10,10,10,0.06); }
-
-    .hero-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr); gap: 48px; align-items: start; }
-    .hero-intro { font-size: 20px; color: var(--gray-700); line-height: 1.65; max-width: 620px; margin-bottom: 32px; }
-    .hero-actions { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; }
-    .hero-panel { position: sticky; top: 112px; z-index: 2; border: 1px solid var(--green-border); background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); border-radius: 24px; padding: 28px; box-shadow: 0 20px 60px rgba(22,101,52,0.08); }
-    .eyebrow { font-size: 12px; font-weight: 700; color: var(--green); letter-spacing: 1.6px; text-transform: uppercase; }
-    .hero-panel-title { font-size: 28px; font-weight: 800; line-height: 1.05; letter-spacing: -1px; margin: 14px 0 18px; }
-    .hero-proof-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
-    .hero-proof-item { padding: 14px 0; border-top: 1px solid var(--gray-200); }
-    .hero-proof-item strong { display: block; font-size: 22px; font-weight: 800; color: var(--black); letter-spacing: -0.8px; margin-bottom: 4px; }
-    .hero-proof-item span { font-size: 14px; color: var(--gray-700); line-height: 1.5; }
-    .hero-subnote { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
-
-    .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
-    .signal-card { padding: 20px 22px; border-radius: 18px; border: 1px solid var(--gray-200); background: rgba(255,255,255,0.78); backdrop-filter: blur(14px); }
-    .signal-card strong { display: block; font-size: 14px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 8px; }
-    .signal-card span { font-size: 14px; color: var(--gray-700); line-height: 1.6; }
-
-    .section-anchor { scroll-margin-top: 110px; }
-    .proof-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
-    .proof-summary .signal-card { background: var(--green-bg); border-color: var(--green-border); }
-
-    .scroll-nav { position: fixed; top: 50%; right: 24px; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; width: 180px; z-index: 40; }
-    .scroll-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 14px; border: 1px solid rgba(10,10,10,0.06); background: rgba(255,255,255,0.82); backdrop-filter: blur(18px); color: var(--gray-500); text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 0.3px; transition: transform 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
-    .scroll-link:hover { transform: translateX(-4px); color: var(--black); border-color: var(--green-border); box-shadow: 0 10px 30px rgba(10,10,10,0.06); }
-    .scroll-link.active { color: var(--green); border-color: var(--green-border); box-shadow: 0 12px 32px rgba(22,101,52,0.12); }
-    .scroll-link span:last-child { color: var(--gray-300); }
-
-    .floating-cta { position: fixed; right: 24px; bottom: 24px; z-index: 45; width: min(340px, calc(100vw - 32px)); padding: 18px 20px; border-radius: 20px; border: 1px solid var(--green-border); background: rgba(255,255,255,0.94); backdrop-filter: blur(18px); box-shadow: 0 24px 60px rgba(10,10,10,0.14); opacity: 0; transform: translateY(16px); pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
-    .floating-cta.is-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .floating-cta-title { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 6px; }
-    .floating-cta-text { font-size: 13px; color: var(--gray-700); line-height: 1.5; margin-bottom: 14px; }
-
     /* Responsive */
     @media (max-width: 1024px) {
       .mega-title { font-size: 64px; letter-spacing: -3px; }
       .title-md { font-size: 44px; letter-spacing: -2px; }
       .wrap { padding-left: 32px; padding-right: 32px; }
       .section { padding-top: 72px; padding-bottom: 72px; }
-      .hero-layout { grid-template-columns: 1fr; }
-      .hero-panel { position: static; }
-      .signal-grid, .proof-summary { grid-template-columns: 1fr; }
-      .scroll-nav { display: none; }
     }
     @media (max-width: 768px) {
       .mega-title { font-size: 44px; letter-spacing: -2px; }
@@ -137,103 +98,44 @@
       .compare-wrap { overflow-x: auto; }
       .compare-table { min-width: 640px; }
       .nav-links { display: none !important; }
-      .hero-intro { font-size: 18px; }
-      .hero-actions { gap: 18px; }
-      .floating-cta { left: 16px; right: 16px; width: auto; bottom: 16px; }
     }
     @media (max-width: 480px) {
       .mega-title { font-size: 36px; letter-spacing: -1.5px; }
       .title-md { font-size: 30px; letter-spacing: -1px; }
       .wrap { padding-left: 16px; padding-right: 16px; }
-      .hero-panel { padding: 22px; border-radius: 20px; }
     }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header id="site-header" class="header-shell" style="position: sticky; top: 0; z-index: 50; background: rgba(250,250,250,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--gray-200);">
+  <header style="position: sticky; top: 0; z-index: 50; background: rgba(250,250,250,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--gray-200);">
     <div class="wrap" style="padding-top: 20px; padding-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
       <a href="#" style="font-weight: 800; font-size: 14px; letter-spacing: 2px; color: var(--black); text-decoration: none;">ДОЛГОВ AI И ПАРТНЁРЫ</a>
       <div class="nav-links" style="display: flex; align-items: center; gap: 24px; font-size: 13px;">
         <a href="#cases" style="color: var(--gray-500); text-decoration: none;">Когда нужно</a>
-        <a href="#solution" style="color: var(--gray-500); text-decoration: none;">Что получаете</a>
+        <a href="#how" style="color: var(--gray-500); text-decoration: none;">Как работает</a>
         <a href="#pricing" style="color: var(--gray-500); text-decoration: none;">Условия</a>
       </div>
     </div>
   </header>
 
-  <nav class="scroll-nav" aria-label="Навигация по разделам">
-    <a class="scroll-link" href="#problem" data-scroll-link><span>Проблема</span><span>01</span></a>
-    <a class="scroll-link" href="#cases" data-scroll-link><span>Сценарии</span><span>02</span></a>
-    <a class="scroll-link" href="#solution" data-scroll-link><span>Решение</span><span>03</span></a>
-    <a class="scroll-link" href="#how" data-scroll-link><span>Внедрение</span><span>04</span></a>
-    <a class="scroll-link" href="#proof" data-scroll-link><span>Proof</span><span>05</span></a>
-    <a class="scroll-link" href="#pricing" data-scroll-link><span>Условия</span><span>06</span></a>
-    <a class="scroll-link" href="#faq" data-scroll-link><span>FAQ</span><span>07</span></a>
-  </nav>
-
-  <aside id="floating-cta" class="floating-cta" aria-label="Быстрая консультация">
-    <div class="floating-cta-title">Разберём ваш текущий стек и backlog</div>
-    <div class="floating-cta-text">На звонке фиксируем, где AI-модель даст быстрый ROI: сайт, внутренние интерфейсы, автоматизации или продуктовый backlog.</div>
-    <a href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D1%80%D0%B0%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%B5%D0%BA%20%D0%B8%20backlog" target="_blank" class="btn-dark" style="width: 100%; justify-content: center; padding: 14px 20px; font-size: 14px;">Записаться на разбор</a>
-  </aside>
-
   <!-- 01 / HERO -->
   <section class="wrap section" style="padding-top: 100px; padding-bottom: 80px; position: relative;">
     <div class="blob blob-green" style="width: 700px; height: 700px; top: -100px; right: -200px;"></div>
     <div class="blob blob-gray" style="width: 600px; height: 600px; bottom: -150px; left: -150px;"></div>
-    <div class="hero-layout">
-      <div>
-        <div class="mega-title" style="margin-bottom: 32px;">
-          УПРАВЛЯЙТЕ<br>
-          <span class="muted">РАЗРАБОТКОЙ</span><br>
-          <span class="green">КАК ПРОДУКТОМ</span>
-        </div>
-        <p class="hero-intro">
-          AI-операционная модель разработки с внешним партнёром. Вы ставите задачи из привычного интерфейса, AI-система выполняет, контекст накапливается на вашей стороне, а зависимость от подрядчиков и координационный хаос уходят из процесса.
-        </p>
-        <div class="hero-actions">
-          <a href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20AI-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%20%D0%B4%D0%BB%D1%8F%20%D0%BD%D0%B0%D1%88%D0%B5%D0%B9%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8" target="_blank" class="btn-dark">Записаться на стратегический звонок</a>
-          <a href="#cases" style="font-size: 16px; color: var(--gray-500); text-decoration: none;">Посмотреть сценарии ↓</a>
-        </div>
-
-        <div class="signal-grid">
-          <div class="signal-card">
-            <strong>Не замена команды</strong>
-            <span>AI-контур дополняет текущую разработку или заменяет управленческий слой там, где он тормозит результат.</span>
-          </div>
-          <div class="signal-card">
-            <strong>Одна точка входа</strong>
-            <span>Founder, CTO или продакт ставит задачу напрямую через трекер, мессенджер или IDE.</span>
-          </div>
-          <div class="signal-card">
-            <strong>Контекст на вашей стороне</strong>
-            <span>Код, правила, конфигурации и история решений не уезжают вместе с внешним исполнителем.</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-panel">
-        <div class="eyebrow">Что получаете за 4 недели</div>
-        <div class="hero-panel-title">Рабочий контур вместо ещё одного “аудита”</div>
-        <div class="hero-proof-list">
-          <div class="hero-proof-item">
-            <strong>1 выбранный интерфейс</strong>
-            <span>Трекер, чат или терминал. Вход в систему остаётся привычным для команды.</span>
-          </div>
-          <div class="hero-proof-item">
-            <strong>2-3 выполненных задачи</strong>
-            <span>Показываем модель не на слайдах, а на реальном code/change/deploy цикле.</span>
-          </div>
-          <div class="hero-proof-item">
-            <strong>Контекст и правила</strong>
-            <span>Память, workflow, ограничения и документация фиксируются в вашем периметре.</span>
-          </div>
-        </div>
-        <div class="hero-subnote">
-          Подходит, если нужно вернуть управляемость сайту, backlog, внутренним кабинетам или продуктовому development-процессу без долгого найма и ручной координации, при этом сохранив инфраструктуру и доступы у себя.
-        </div>
+    <div class="mega-title" style="margin-bottom: 48px;">
+      УПРАВЛЯЙТЕ<br>
+      <span class="muted">РАЗРАБОТКОЙ</span><br>
+      <span class="green">КАК ПРОДУКТОМ</span>
+    </div>
+    <div style="display: flex; gap: 48px; flex-wrap: wrap; align-items: flex-start;">
+      <p style="font-size: 20px; color: var(--gray-700); line-height: 1.65; max-width: 560px; flex: 1; min-width: 300px;">
+        AI-операционная модель разработки с внешним партнёром. Вы ставите задачи из привычного интерфейса — трекера, мессенджера или терминала. AI-система выполняет, контекст накапливается, бюджеты не раздуваются, зависимость от подрядчиков исчезает.
+      </p>
+      <div style="display: flex; gap: 32px; align-items: center; padding-top: 8px;">
+        <a href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20AI-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8" target="_blank" style="font-size: 16px; font-weight: 600; color: var(--green); text-decoration: none;">Записаться на звонок →</a>
+        <a href="#cases" style="font-size: 16px; color: var(--gray-500); text-decoration: none;">Когда это нужно ↓</a>
       </div>
     </div>
   </section>
@@ -241,7 +143,7 @@
   <div class="section-line"></div>
 
   <!-- 02 / ПРОБЛЕМА -->
-  <section id="problem" class="wrap section section-anchor">
+  <section class="wrap section">
     <div class="section-num">02 / Проблема</div>
     <div class="title-md" style="margin-bottom: 24px; max-width: 960px;">
       РАЗРАБОТКА —<br><span class="green">ЧЁРНЫЙ ЯЩИК</span>
@@ -272,7 +174,7 @@
   <div class="section-line"></div>
 
   <!-- 03 / КОГДА ЭТО НУЖНО -->
-  <section id="cases" class="wrap section section-anchor">
+  <section id="cases" class="wrap section">
     <div class="section-num">03 / Когда это нужно</div>
     <div class="title-md" style="margin-bottom: 48px;">
       УЗНАЁТЕ <span class="green">СЕБЯ?</span>
@@ -310,13 +212,13 @@
   <div class="section-line"></div>
 
   <!-- 04 / РЕШЕНИЕ -->
-  <section id="solution" class="wrap section section-anchor">
+  <section class="wrap section">
     <div class="section-num">04 / Решение</div>
     <div class="title-md" style="margin-bottom: 24px; max-width: 1000px;">
       AI-СИСТЕМА, КОТОРАЯ<br><span class="green">ВСТРАИВАЕТСЯ В ВАШ ПРОЦЕСС</span>
     </div>
     <p style="font-size: 18px; color: var(--gray-700); line-height: 1.7; max-width: 740px; margin-bottom: 48px;">
-      Мы разворачиваем на вашем стеке и вашей инфраструктуре управляемую AI-систему: агенты, правила, контекст, контроль качества и понятный интерфейс постановки задач. Ценность не в “доступе к AI”, а в спроектированном контуре эксплуатации, где модели и доступы остаются на вашей стороне.
+      Мы разворачиваем на вашем стеке и вашей инфраструктуре управляемую AI-систему: агенты, правила, контекст, контроль. Вы ставите задачи — система выполняет. Модели и доступы остаются на вашей стороне. Ценность — в спроектированном контуре и методологии эксплуатации, а не в конкретной модели. Работает комплиментарно вашей команде.
     </p>
 
     <div class="grid-3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
@@ -338,7 +240,7 @@
   <div class="section-line"></div>
 
   <!-- 05 / КАК ЭТО ВЫГЛЯДИТ -->
-  <section id="interface" class="wrap section section-anchor">
+  <section class="wrap section">
     <div class="section-num">05 / Интерфейс</div>
     <div class="title-md" style="margin-bottom: 24px;">
       КАК ВЫ <span class="green">СТАВИТЕ ЗАДАЧИ</span>
@@ -369,7 +271,7 @@
   <div class="section-line"></div>
 
   <!-- 06 / ВНЕДРЕНИЕ -->
-  <section id="how" class="wrap section section-anchor">
+  <section id="how" class="wrap section">
     <div class="section-num">06 / Внедрение</div>
     <div class="title-md" style="margin-bottom: 16px;">
       4 НЕДЕЛИ —<br><span class="green">КОНКРЕТНЫЕ РЕЗУЛЬТАТЫ</span>
@@ -413,30 +315,15 @@
   <div class="section-line"></div>
 
   <!-- 07 / PROOF -->
-  <section id="proof" class="wrap section section-anchor" style="position: relative;">
+  <section class="wrap section" style="position: relative;">
     <div class="blob blob-green" style="width: 600px; height: 600px; top: 50px; left: -250px;"></div>
     <div class="section-num">07 / Proof</div>
     <div class="title-md" style="margin-bottom: 16px;">
       КЕЙС: <span class="green">VEYRA</span>
     </div>
-    <p style="font-size: 18px; color: var(--gray-700); line-height: 1.7; max-width: 720px; margin-bottom: 32px;">
-      VEYRA стал полигоном, на котором эта модель прошла проверку в боевой среде: от сайта и CMS до клиентских воркспейсов, CRM-интеграций и непрерывных продуктовых итераций.
+    <p style="font-size: 18px; color: var(--gray-700); line-height: 1.7; max-width: 640px; margin-bottom: 48px;">
+      Голосовые AI-агенты для бизнеса. Реальный продукт, на котором обкатана вся методология.
     </p>
-
-    <div class="proof-summary">
-      <div class="signal-card">
-        <strong>Живой production-контекст</strong>
-        <span>Методология собрана не вокруг демо-задач, а вокруг реальных релизов и клиентских сценариев.</span>
-      </div>
-      <div class="signal-card">
-        <strong>Экономика видна бизнесу</strong>
-        <span>Можно сравнивать скорость, стоимость и накопление контекста против студии или классического подрядчика.</span>
-      </div>
-      <div class="signal-card">
-        <strong>Повторяемый workflow</strong>
-        <span>Те же принципы переносятся в клиентский проект: правила, память, интерфейсы постановки задач и контроль.</span>
-      </div>
-    </div>
 
     <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 48px;">
       <div>
@@ -479,7 +366,7 @@
   <div class="section-line"></div>
 
   <!-- 08 / ПОЧЕМУ Я -->
-  <section id="team" class="wrap section section-anchor">
+  <section id="team" class="wrap section">
     <div class="section-num">08 / Кто за этим стоит</div>
     <div class="title-md" style="margin-bottom: 24px;">
       ОТ SKIPP К <span class="green">МЕТОДОЛОГИИ</span>
@@ -523,7 +410,7 @@
   <div class="section-line"></div>
 
   <!-- 09 / УСЛОВИЯ -->
-  <section id="pricing" class="wrap section section-anchor">
+  <section id="pricing" class="wrap section">
     <div class="section-num">09 / Условия</div>
     <div class="title-md" style="margin-bottom: 16px;">
       ВНЕДРЕНИЕ → БАЗА → <span class="green">ОБЪЁМ</span>
@@ -561,7 +448,7 @@
   <div class="section-line"></div>
 
   <!-- 10 / SCOPE -->
-  <section id="scope" class="wrap section section-anchor">
+  <section class="wrap section">
     <div class="section-num">10 / Scope</div>
     <div class="title-md" style="margin-bottom: 48px;">
       ЧТО ВХОДИТ ВО <span class="green">ВНЕДРЕНИЕ</span>
@@ -594,7 +481,7 @@
   <div class="section-line"></div>
 
   <!-- 11 / FAQ -->
-  <section id="faq" class="wrap section section-anchor">
+  <section class="wrap section">
     <div class="section-num">11 / F.A.Q.</div>
     <div class="title-md" style="margin-bottom: 48px;">F.A.Q.</div>
 
@@ -657,8 +544,6 @@
       </div>
     </div>
   </footer>
-
-  <script src="site.js"></script>
 
 </body>
 </html>

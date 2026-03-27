@@ -36,18 +36,24 @@
 
     .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; pointer-events: none; z-index: 0; }
     .blob-green { background: radial-gradient(circle, rgba(22,101,52,0.2) 0%, transparent 70%); }
-
-    @media (max-width: 768px) {
-
     .wrap { max-width: 900px; margin: 0 auto; padding-left: 48px; padding-right: 48px; }
+    .header-shell { transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .header-shell.is-scrolled { background: rgba(250,250,250,0.96); box-shadow: 0 10px 30px rgba(10,10,10,0.06); }
+    .intro-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr); gap: 32px; align-items: start; margin-bottom: 48px; }
+    .proof-card { padding: 24px; border-radius: 18px; border: 1px solid var(--green-border); background: rgba(255,255,255,0.82); backdrop-filter: blur(18px); box-shadow: 0 20px 60px rgba(22,101,52,0.08); }
+    .proof-card-title { font-size: 12px; font-weight: 700; color: var(--green); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+    .proof-metric { padding: 14px 0; border-top: 1px solid var(--gray-200); }
+    .proof-metric strong { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.7px; margin-bottom: 4px; }
+    .proof-metric span { font-size: 14px; color: var(--gray-700); line-height: 1.55; }
 
     @media (max-width: 768px) { .wrap { padding-left: 20px; padding-right: 20px; } }
+    @media (max-width: 768px) { .intro-grid { grid-template-columns: 1fr; } }
     @media (max-width: 480px) { .wrap { padding-left: 16px; padding-right: 16px; } }
   </style>
 </head>
 <body>
   <!-- Header -->
-  <header style="position: sticky; top: 0; z-index: 50; background: rgba(250,250,250,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--gray-200);">
+  <header id="site-header" class="header-shell" style="position: sticky; top: 0; z-index: 50; background: rgba(250,250,250,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--gray-200);">
     <div style="max-width: 900px; margin: 0 auto; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center;">
       <a href="index.html" style="font-weight: 800; font-size: 14px; letter-spacing: 2px; color: var(--black); text-decoration: none;">ДОЛГОВ AI И ПАРТНЁРЫ</a>
       <a href="index.html" style="font-size: 13px; color: var(--gray-500); text-decoration: none;">← Назад</a>
@@ -58,14 +64,35 @@
     <div class="blob blob-green" style="width: 500px; height: 500px; top: -100px; right: -300px;"></div>
 
     <!-- Name -->
-    <div style="margin-bottom: 48px;">
-      <div style="font-size: 13px; font-weight: 500; color: var(--gray-400); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;">Основатель</div>
-      <h1 style="font-size: 56px; font-weight: 900; letter-spacing: -2.5px; line-height: 1; margin-bottom: 20px;">
-        АЛЕКСАНДР<br><span style="color: var(--green);">ДОЛГОВ</span>
-      </h1>
-      <p style="font-size: 20px; color: var(--gray-700); line-height: 1.65; max-width: 640px;">
-        Управленец и продуктовый лидер с предпринимательским подходом. Запускаю и развиваю продукты «от стратегии до результата».
-      </p>
+    <div class="intro-grid">
+      <div>
+        <div style="font-size: 13px; font-weight: 500; color: var(--gray-400); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;">Основатель</div>
+        <h1 style="font-size: 56px; font-weight: 900; letter-spacing: -2.5px; line-height: 1; margin-bottom: 20px;">
+          АЛЕКСАНДР<br><span style="color: var(--green);">ДОЛГОВ</span>
+        </h1>
+        <p style="font-size: 20px; color: var(--gray-700); line-height: 1.65; max-width: 640px; margin-bottom: 20px;">
+          Управленец и продуктовый лидер с предпринимательским подходом. Запускаю и развиваю продукты «от стратегии до результата», а сейчас перевожу этот опыт в управляемую AI-модель разработки для бизнеса.
+        </p>
+        <p style="font-size: 16px; color: var(--gray-700); line-height: 1.75; max-width: 640px;">
+          Эта страница нужна не для “биографии ради биографии”, а чтобы было понятно, откуда взялась методология: консалтинг, масштабирование B2B-направлений, сотни проектов рядом с разработкой в Skipp и собственный боевой AI-продукт.
+        </p>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-title">Почему мне можно доверять</div>
+        <div class="proof-metric">
+          <strong>5+ лет рядом с разработкой</strong>
+          <span>В Skipp видел десятки инженерных команд и типовые провалы в управлении продуктовой разработкой.</span>
+        </div>
+        <div class="proof-metric">
+          <strong>Боевой AI-контур</strong>
+          <span>На VEYRA модель проверялась на реальных релизах, интеграциях и клиентских сценариях, а не на демо-задачах.</span>
+        </div>
+        <div class="proof-metric">
+          <strong>Фокус на управляемости</strong>
+          <span>Задача не “писать код дешевле”, а возвращать бизнесу контроль над сроками, контекстом и качеством изменений.</span>
+        </div>
+      </div>
     </div>
 
     <div style="height: 1px; background: var(--gray-200); margin-bottom: 48px;"></div>
@@ -149,6 +176,8 @@
       </div>
     </div>
   </footer>
+
+  <script src="site.js"></script>
 
 </body>
 </html>

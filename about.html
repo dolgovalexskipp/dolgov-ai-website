@@ -3,147 +3,379 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Александр Долгов — Долгов AI и партнёры</title>
-  <meta name="description" content="Александр Долгов — основатель Долгов AI и партнёры. Путь от McKinsey и Skyeng через Skipp к AI-операционной модели разработки.">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Александр Долгов — Долгов, Эй Ай и партнеры</title>
+  <meta name="description" content="Путь от стратегического консалтинга через Skyeng и Skipp к AI-first компании VEYRA и персональным AI-сессиям.">
+  <meta property="og:title" content="Александр Долгов — от консалтинга к AI-first">
+  <meta property="og:description" content="Стратегический консалтинг → Skyeng → Skipp ($1.6M raised) → VEYRA. Каждый этап — шаг к AI-операционной модели.">
   <style>
     @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Regular.ttf') format('truetype'); font-weight: 400; }
     @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Medium.ttf') format('truetype'); font-weight: 500; }
     @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-SemiBold.ttf') format('truetype'); font-weight: 600; }
     @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Bold.ttf') format('truetype'); font-weight: 700; }
     @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-ExtraBold.ttf') format('truetype'); font-weight: 800; }
-    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Black.ttf') format('truetype'); font-weight: 900; }
 
     :root {
-      --green: #166534;
-      --green-bg: rgba(22,101,52,0.06);
-      --green-border: rgba(22,101,52,0.15);
-      --bg: #FAFAFA;
-      --white: #FFFFFF;
-      --black: #0A0A0A;
-      --gray-900: #171717;
-      --gray-700: #404040;
-      --gray-500: #737373;
-      --gray-400: #A3A3A3;
-      --gray-300: #D4D4D4;
-      --gray-200: #E5E5E5;
-      --gray-100: #F5F5F5;
+      --paper: #f6f0e6;
+      --paper-2: #fdfbf7;
+      --ink: #10100f;
+      --muted: #67635d;
+      --muted-light: #8a857e;
+      --line: rgba(16,16,15,0.09);
+      --green-950: #11281d;
+      --green-900: #173a28;
+      --green-700: #3a754d;
+      --green-100: #e7efe8;
+      --shadow: 0 20px 60px rgba(16,16,15,0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --pill: 999px;
+      --max: 900px;
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Lufga', system-ui, sans-serif; background: var(--bg); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body {
+      font-family: 'Lufga', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(var(--max), calc(100vw - 40px)); margin: 0 auto; }
+    .card {
+      background: rgba(255,255,255,0.62);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      color: var(--green-700);
+    }
+    .label::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 28px;
+      border-radius: var(--pill);
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .btn-primary { background: var(--green-900); color: var(--paper-2); }
+    .btn-secondary { background: transparent; border: 1px solid var(--line); color: var(--ink); }
 
-    .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; pointer-events: none; z-index: 0; }
-    .blob-green { background: radial-gradient(circle, rgba(22,101,52,0.2) 0%, transparent 70%); }
+    /* ─── Nav ─── */
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(246,240,230,0.88);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0;
+    }
+    .brand { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+    .back { font-size: 14px; color: var(--muted); }
+    .back:hover { color: var(--ink); }
 
-    .wrap { max-width: 900px; margin: 0 auto; padding-left: 48px; padding-right: 48px; }
+    /* ─── Hero ─── */
+    .about-hero {
+      padding: 60px 0 40px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 32px;
+      align-items: end;
+    }
+    .about-photo {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4; }
+    .about-hero h1 {
+      font-size: clamp(42px, 5.5vw, 64px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .about-hero h1 .dim { color: #8b857d; }
+    .about-hero-sub {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 520px;
+    }
 
-    @media (max-width: 768px) { .wrap { padding-left: 20px; padding-right: 20px; } }
-    @media (max-width: 480px) { .wrap { padding-left: 16px; padding-right: 16px; } }
+    /* ─── Content ─── */
+    .section { padding: 34px 0; }
+    .divider { height: 1px; background: var(--line); }
+    .content-block { padding: 28px; }
+    .content-block h2 {
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .content-block p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .content-block p:last-child { margin-bottom: 0; }
+
+    /* ─── Timeline ─── */
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-year {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--muted-light);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding-top: 4px;
+    }
+    .timeline-year.current { color: var(--green-700); }
+    .timeline-content h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+    .timeline-content h3.current { color: var(--green-900); }
+    .timeline-content p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ─── Thesis ─── */
+    .thesis-box {
+      padding: 28px;
+      background: var(--green-100);
+      border: 1px solid rgba(58,117,77,0.12);
+      border-radius: var(--radius-xl);
+    }
+    .thesis-box h2 {
+      font-size: 28px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 14px 0 16px;
+    }
+    .thesis-box p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .thesis-box p:last-child { margin-bottom: 0; }
+
+    /* ─── CTA ─── */
+    .cta-box {
+      padding: 40px 28px;
+      background: var(--green-900);
+      color: var(--paper-2);
+      border-radius: var(--radius-xl);
+      text-align: center;
+    }
+    .cta-box h2 {
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .cta-box p { color: var(--green-100); font-size: 17px; line-height: 1.58; margin-bottom: 20px; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-box .btn-secondary { color: var(--paper-2); border-color: rgba(255,255,255,0.16); }
+
+    /* ─── Footer ─── */
+    .footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+      font-size: 13px; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 20px; }
+    .footer a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(var(--max), calc(100vw - 24px)); }
+      .about-hero { grid-template-columns: 1fr; }
+      .about-photo { max-width: 200px; }
+      .about-hero h1 { font-size: 42px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+      .cta-actions { flex-direction: column; }
+      .btn { width: 100%; }
+    }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header style="position: sticky; top: 0; z-index: 50; background: rgba(250,250,250,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--gray-200);">
-    <div style="max-width: 900px; margin: 0 auto; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center;">
-      <a href="index.html" style="font-weight: 800; font-size: 14px; letter-spacing: 2px; color: var(--black); text-decoration: none;">ДОЛГОВ AI И ПАРТНЁРЫ</a>
-      <a href="index.html" style="font-size: 13px; color: var(--gray-500); text-decoration: none;">← Назад</a>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="brand">Долгов, Эй Ай и партнеры</a>
+      <a href="index.html" class="back">&larr; На главную</a>
     </div>
-  </header>
+  </nav>
 
-  <div class="wrap" style="padding-top: 80px; padding-bottom: 80px; position: relative;">
-    <div class="blob blob-green" style="width: 500px; height: 500px; top: -100px; right: -300px;"></div>
+  <main class="wrap">
 
-    <!-- Name -->
-    <div style="margin-bottom: 48px;">
-      <div style="font-size: 13px; font-weight: 500; color: var(--gray-400); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;">Основатель</div>
-      <h1 style="font-size: 56px; font-weight: 900; letter-spacing: -2.5px; line-height: 1; margin-bottom: 20px;">
-        АЛЕКСАНДР<br><span style="color: var(--green);">ДОЛГОВ</span>
-      </h1>
-      <p style="font-size: 20px; color: var(--gray-700); line-height: 1.65; max-width: 640px;">
-        Управленец и продуктовый лидер с предпринимательским подходом. Запускаю и развиваю продукты «от стратегии до результата».
-      </p>
-    </div>
+    <!-- Hero -->
+    <section class="about-hero">
+      <div class="about-photo">
+        <img src="assets/alex-dolgov.jpg" alt="Александр Долгов">
+      </div>
+      <div>
+        <div class="label">Основатель</div>
+        <h1>Александр <span class="dim">Долгов</span></h1>
+        <p class="about-hero-sub">Предприниматель, продуктовый лидер, AI-практик. Строю AI-first компанию и помогаю другим перейти в тот же режим.</p>
+      </div>
+    </section>
 
-    <div style="height: 1px; background: var(--gray-200); margin-bottom: 48px;"></div>
+    <div class="divider"></div>
 
-    <!-- Путь -->
-    <div style="margin-bottom: 48px;">
-      <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; margin-bottom: 24px;">Путь</h2>
+    <!-- Thesis -->
+    <section class="section">
+      <div class="thesis-box">
+        <div class="label">Почему я этим занимаюсь</div>
+        <h2>Самое интересное сейчас &mdash; не инструменты, а режим работы</h2>
+        <p>Я наблюдаю это во всё большем количестве компаний. Картина одна и та же: зрелая команда, все используют Cursor или Claude Code, формально &laquo;работают с AI&raquo;. Но AI встроен поверх старой архитектуры работы. Тикет &rarr; человек пишет код &rarr; AI помогает &rarr; ревью &rarr; мерж. Тот же конвейер, просто чуть быстрее.</p>
+        <p>А рядом существует другой режим. Человек не &laquo;пишет код с помощью AI&raquo; &mdash; он оркестрирует агентов. У него сценарии, правила, контекст, память, автоматизации. Он садится не &laquo;делать задачу&raquo;, а улучшать систему, которая делает задачи. Один такой человек делает работу пятерых.</p>
+        <p>Разница между этими двумя режимами не в инструментах. Инструменты одинаковые. Разница в том, откуда человек смотрит на AI. Первых на рынке десятки тысяч. Вторых &mdash; единицы. Я помогаю перейти из первого режима во второй.</p>
+      </div>
+    </section>
 
-      <div style="display: flex; flex-direction: column; gap: 24px;">
-        <div style="display: flex; gap: 24px; align-items: baseline;">
-          <div style="font-size: 13px; font-weight: 600; color: var(--gray-400); min-width: 100px; letter-spacing: 0.5px;">2013</div>
-          <div>
-            <div style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">McKinsey & Company</div>
-            <div style="font-size: 15px; color: var(--gray-700); line-height: 1.6;">Стажёр. Аналитическая поддержка проектных команд, структурирование задач. Школа системного мышления и management consulting.</div>
+    <!-- Path -->
+    <section class="section">
+      <div class="card content-block">
+        <div class="label">Путь</div>
+        <h2>Каждый этап привёл к следующему</h2>
+
+        <div style="margin-top: 20px;">
+          <div class="timeline-item">
+            <div class="timeline-year">2013</div>
+            <div class="timeline-content">
+              <h3>Стратегический консалтинг</h3>
+              <p>Аналитическая поддержка проектных команд. Школа системного мышления: разбирать процессы на звенья, видеть узкие места, структурировать хаос в понятную логику действий.</p>
+            </div>
           </div>
-        </div>
 
-        <div style="display: flex; gap: 24px; align-items: baseline;">
-          <div style="font-size: 13px; font-weight: 600; color: var(--gray-400); min-width: 100px; letter-spacing: 0.5px;">2017—2020</div>
-          <div>
-            <div style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">Skyeng</div>
-            <div style="font-size: 15px; color: var(--gray-700); line-height: 1.6;">Управляющий директор направления для государственного сектора. Формирование продуктового портфеля, масштабирование до ~120 млн руб./год. ПМЭФ, ВЭФ, контракты с крупными заказчиками.</div>
+          <div class="timeline-item">
+            <div class="timeline-year">2017&mdash;2020</div>
+            <div class="timeline-content">
+              <h3>Skyeng</h3>
+              <p>Управляющий директор направления для государственного сектора. Масштабирование до ~120 млн руб./год. ПМЭФ, ВЭФ, контракты с крупными заказчиками. Главный урок: где знания не успевают передаваться, процессы держатся на людях, а операционная сложность мешает росту.</p>
+            </div>
           </div>
-        </div>
 
-        <div style="display: flex; gap: 24px; align-items: baseline;">
-          <div style="font-size: 13px; font-weight: 600; color: var(--gray-400); min-width: 100px; letter-spacing: 0.5px;">2020—2025</div>
-          <div>
-            <div style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">Skipp.dev — сооснователь</div>
-            <div style="font-size: 15px; color: var(--gray-700); line-height: 1.6;">Платформа найма разработчиков. $1.6M инвестиций (Grishin Robotics, TiltTech Capital, Ларьяновский), ТОП-5 стартапов России по Inc. 2021. Выручка ~150 млн руб./год, 5 000+ разработчиков. Кучу времени провёл рядом с разработкой, видел десятки проектов изнутри.</div>
+          <div class="timeline-item">
+            <div class="timeline-year">2020&mdash;2025</div>
+            <div class="timeline-content">
+              <h3>Skipp.dev &mdash; сооснователь</h3>
+              <p>Платформа найма разработчиков. $1.6M инвестиций (Grishin Robotics, TiltTech Capital), ТОП-5 стартапов России по Inc. 2021. Выручка ~150 млн руб./год, 5 000+ разработчиков. За 5 лет видел сотни проектов разработки изнутри. Одна и та же проблема: бизнес зависит от подрядчиков, теряет контекст, платит за процесс вместо результата.</p>
+            </div>
           </div>
-        </div>
 
-        <div style="display: flex; gap: 24px; align-items: baseline;">
-          <div style="font-size: 13px; font-weight: 600; color: var(--green); min-width: 100px; letter-spacing: 0.5px;">2025—н.в.</div>
-          <div>
-            <div style="font-size: 16px; font-weight: 700; color: var(--green); margin-bottom: 4px;">VEYRA — основатель</div>
-            <div style="font-size: 15px; color: var(--gray-700); line-height: 1.6;">Голосовые AI-ассистенты для бизнеса. Именно на этом продукте обкатал AI-операционную модель разработки: спроектировал архитектуру агентов, MCP-серверы, memory-систему, автоматизированные workflow. Доказал, что модель работает на реальном боевом продукте.</div>
+          <div class="timeline-item">
+            <div class="timeline-year current">2025</div>
+            <div class="timeline-content">
+              <h3 class="current">VEYRA &mdash; основатель</h3>
+              <p>Голосовые AI-агенты для бизнеса. Точка, где весь опыт сошёлся с AI на практике. Построил полный AI-операционный контур: 5 MCP-серверов, 9 автоматизированных скиллов, memory-система, платформа генерации материалов. Один человек закрывает работу команды из 5+.</p>
+            </div>
           </div>
-        </div>
 
-        <div style="display: flex; gap: 24px; align-items: baseline;">
-          <div style="font-size: 13px; font-weight: 600; color: var(--green); min-width: 100px; letter-spacing: 0.5px;">2026</div>
-          <div>
-            <div style="font-size: 16px; font-weight: 700; color: var(--green); margin-bottom: 4px;">Долгов AI и партнёры</div>
-            <div style="font-size: 15px; color: var(--gray-700); line-height: 1.6;">Масштабирование AI-методологии как сервиса. Накопленная за годы экспертиза в продукте + опыт работы с десятками проектов в Skipp + отлаженная AI-операционная модель = предложение для бизнеса, который хочет контролировать свою разработку.</div>
+          <div class="timeline-item">
+            <div class="timeline-year current">2026</div>
+            <div class="timeline-content">
+              <h3 class="current">Долгов, Эй Ай и партнеры</h3>
+              <p>Масштабирование практики. Накопленная экспертиза в продукте + опыт работы с сотнями проектов + отлаженная AI-операционная модель = персональные сессии для основателей и руководителей, которые хотят перейти в режим оркестратора.</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div style="height: 1px; background: var(--gray-200); margin-bottom: 48px;"></div>
-
-    <!-- Почему AI -->
-    <div style="margin-bottom: 48px;">
-      <h2 style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; margin-bottom: 24px;">Почему AI-операционная модель</h2>
-      <div style="font-size: 16px; color: var(--gray-700); line-height: 1.8; max-width: 700px;">
-        <p style="margin-bottom: 16px;">За 5 лет в Skipp я видел сотни проектов и десятки команд разработки. Одна и та же проблема: бизнес зависит от подрядчиков, теряет контекст, платит за процесс вместо результата. In-house команда решает часть проблем, но стоит дорого и масштабируется медленно.</p>
-        <p style="margin-bottom: 16px;">В 2025 году я начал строить VEYRA и впервые собрал полноценную AI-операционную модель: агенты, MCP-серверы, кастомные скиллы, memory-система, автоматизация. Результат: мультистраничный сайт, платформа материалов, CRM-интеграция, клиентские воркспейсы — всё без классической команды разработки.</p>
-        <p>Теперь я хочу масштабировать эту модель: дать бизнесу возможность управлять разработкой IT-продукта через проверенную, отлаженную AI-систему с ответственным партнёром.</p>
+    <!-- What I do daily -->
+    <section class="section">
+      <div class="card content-block">
+        <div class="label">Практика</div>
+        <h2>Что я делаю с AI каждый день</h2>
+        <p>Я не рассказываю про AI со стороны. Я живу в этом режиме и перевожу на AI-рельсы всё, что можно перевести &mdash; от legal до финансов, от продукта до продаж:</p>
+        <div style="margin-top: 14px; display: grid; gap: 10px;">
+          <div style="display: flex; gap: 10px; align-items: baseline;"><span style="color: var(--green-700); font-weight: 700;">+</span><span style="font-size: 16px; color: var(--muted); line-height: 1.55;">Разработка: система из 9 AI-агентов, sprint process, автоматические review</span></div>
+          <div style="display: flex; gap: 10px; align-items: baseline;"><span style="color: var(--green-700); font-weight: 700;">+</span><span style="font-size: 16px; color: var(--muted); line-height: 1.55;">Продажи: КП, outreach, CRM-синхронизация, рекапы встреч</span></div>
+          <div style="display: flex; gap: 10px; align-items: baseline;"><span style="color: var(--green-700); font-weight: 700;">+</span><span style="font-size: 16px; color: var(--muted); line-height: 1.55;">Контент: статьи, кейсы, публикация через CMS &mdash; от драфта до продакшна</span></div>
+          <div style="display: flex; gap: 10px; align-items: baseline;"><span style="color: var(--green-700); font-weight: 700;">+</span><span style="font-size: 16px; color: var(--muted); line-height: 1.55;">Legal: генерация договоров, версионирование, комментарии</span></div>
+          <div style="display: flex; gap: 10px; align-items: baseline;"><span style="color: var(--green-700); font-weight: 700;">+</span><span style="font-size: 16px; color: var(--muted); line-height: 1.55;">Материалы: брендовые презентации, клиентские воркспейсы, pitch deck</span></div>
+          <div style="display: flex; gap: 10px; align-items: baseline;"><span style="color: var(--green-700); font-weight: 700;">+</span><span style="font-size: 16px; color: var(--muted); line-height: 1.55;">Операции: session logs, backlog, decisions &mdash; полный second brain</span></div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div style="height: 1px; background: var(--gray-200); margin-bottom: 48px;"></div>
+    <!-- Approach -->
+    <section class="section">
+      <div class="card content-block">
+        <div class="label">Подход</div>
+        <h2>Не вдохновляю &mdash; строю вместе с вами</h2>
+        <p>Мне не интересно рассказывать, как AI изменит мир. Меня интересует конкретная задача конкретного человека: где он тратит время, что повторяется, что можно описать правилами &mdash; и превратить в систему.</p>
+        <p>Формат персональных сессий работает как изучение языка с носителем. Не лекции, а практика на вашем материале. Каждая сессия &mdash; конкретный результат: рабочий сценарий, настроенный инструмент, документ с планом. Дофамин от того, что заработало &mdash; лучшая мотивация продолжать.</p>
+        <p>Моя задача &mdash; не сделать вас зависимым от меня, а помочь стать оркестратором. Человеком, который не &laquo;использует AI&raquo;, а строит системы с его помощью.</p>
+      </div>
+    </section>
 
     <!-- CTA -->
-    <div style="padding: 40px; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 16px; text-align: center;">
-      <div style="font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px;">Давайте поговорим</div>
-      <p style="font-size: 15px; color: var(--gray-700); margin-bottom: 20px; line-height: 1.6;">Бесплатная консультация по текущим процессам разработки. Обсудим, подходит ли вам AI-модель.</p>
-      <a href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%20%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20AI-%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B8" target="_blank" style="display: inline-flex; align-items: center; padding: 16px 36px; background: var(--black); color: var(--white); font-weight: 600; font-size: 16px; border-radius: 100px; text-decoration: none; cursor: pointer; transition: all 0.35s;">Написать в Telegram</a>
-    </div>
-  </div>
+    <section class="section" style="padding-bottom: 40px;">
+      <div class="cta-box">
+        <h2>Давайте разберём вашу задачу</h2>
+        <p>Первая сессия &mdash; с гарантией. Если не видите ценности &mdash; не платите.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20AI-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8" style="background: var(--paper-2); color: var(--green-900);">Написать в Telegram</a>
+          <a class="btn btn-secondary" href="index.html#formats">Форматы и цены</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  <!-- Footer -->
-  <footer style="border-top: 1px solid var(--gray-200); padding: 28px 48px;">
-    <div style="max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-      <div style="font-size: 12px; color: var(--gray-400);">Долгов AI и партнёры</div>
-      <div style="display: flex; gap: 20px;">
-        <a href="https://t.me/dolgovalex" target="_blank" style="font-size: 12px; color: var(--gray-500); text-decoration: none;">Telegram</a>
-        <a href="mailto:dolgovalex@skipp.dev" style="font-size: 12px; color: var(--gray-500); text-decoration: none;">dolgovalex@skipp.dev</a>
+  <footer>
+    <div class="wrap footer">
+      <div>
+        <div style="font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 4px;">Долгов, Эй Ай и партнеры</div>
+        <div>AI-сессии для основателей и руководителей</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
+        <a href="mailto:dolgovalex@skipp.dev">dolgovalex@skipp.dev</a>
       </div>
     </div>
   </footer>

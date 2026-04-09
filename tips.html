@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Хаки и типсы — Долгов, Эй Ай и партнеры</title>
+  <meta name="description" content="Практические приёмы работы с AI: как накапливать контекст, строить правила, делать результат повторяемым. Из опыта персональных сессий.">
+  <meta property="og:title" content="AI-хаки для основателей и руководителей">
+  <meta property="og:description" content="Короткие заметки из практики: что реально работает в ежедневной работе с AI.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9679;</text></svg>">
+  <style>
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Regular.ttf') format('truetype'); font-weight: 400; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Medium.ttf') format('truetype'); font-weight: 500; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-SemiBold.ttf') format('truetype'); font-weight: 600; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-ExtraBold.ttf') format('truetype'); font-weight: 800; }
+
+    :root {
+      --paper: #f6f0e6;
+      --paper-2: #fdfbf7;
+      --ink: #10100f;
+      --muted: #67635d;
+      --muted-light: #8a857e;
+      --line: rgba(16,16,15,0.09);
+      --green-950: #11281d;
+      --green-900: #173a28;
+      --green-700: #3a754d;
+      --green-100: #e7efe8;
+      --shadow: 0 20px 60px rgba(16,16,15,0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --pill: 999px;
+      --max: 860px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lufga', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100vw - 40px)); margin: 0 auto; }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(246,240,230,0.88);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0;
+    }
+    .brand { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+    .back { font-size: 14px; color: var(--muted); }
+    .back:hover { color: var(--ink); }
+
+    /* Hero */
+    .tips-hero {
+      padding: 60px 0 20px;
+    }
+    .tips-hero h1 {
+      font-size: clamp(38px, 5vw, 56px);
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .tips-hero p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    /* Tags filter */
+    .tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 24px 0; border-bottom: 1px solid var(--line);
+    }
+    .tag {
+      padding: 6px 16px; border-radius: var(--pill);
+      font-size: 13px; font-weight: 600;
+      border: 1px solid var(--line); background: transparent;
+      color: var(--muted); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tag:hover, .tag.active {
+      background: var(--green-100); color: var(--green-900);
+      border-color: rgba(58,117,77,0.2);
+    }
+
+    /* Tips list */
+    .tips-list {
+      padding: 8px 0 60px;
+    }
+    .tip-card {
+      display: block;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+      transition: opacity 0.15s;
+    }
+    .tip-card:hover { opacity: 0.8; }
+    .tip-meta {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 10px;
+    }
+    .tip-tag {
+      padding: 3px 10px; border-radius: var(--pill);
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--green-100); color: var(--green-900);
+    }
+    .tip-date { font-size: 13px; color: var(--muted-light); }
+    .tip-card h2 {
+      font-size: 22px; line-height: 1.2;
+      letter-spacing: -0.02em; margin-bottom: 8px;
+    }
+    .tip-card p {
+      color: var(--muted); font-size: 16px; line-height: 1.55;
+      max-width: 700px;
+    }
+    .tip-read {
+      display: inline-block; margin-top: 12px;
+      font-size: 14px; font-weight: 700; color: var(--green-700);
+    }
+
+    /* Single tip view (for individual tip pages) */
+    .tip-full {
+      padding: 40px 0 60px;
+    }
+    .tip-full .tip-meta { margin-bottom: 16px; }
+    .tip-full h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .tip-body h2 {
+      font-size: 22px; line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 32px 0 12px;
+    }
+    .tip-body h3 {
+      font-size: 18px; line-height: 1.3;
+      margin: 24px 0 10px;
+    }
+    .tip-body p {
+      color: var(--muted); font-size: 17px; line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .tip-body ul, .tip-body ol {
+      color: var(--muted); font-size: 17px; line-height: 1.7;
+      margin: 0 0 16px 24px;
+    }
+    .tip-body li { margin-bottom: 6px; }
+    .tip-body code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 14px; padding: 2px 8px;
+      background: rgba(0,0,0,0.04); border-radius: 6px;
+    }
+    .tip-body pre {
+      background: var(--green-950); color: var(--green-100);
+      padding: 20px 24px; border-radius: var(--radius-lg);
+      overflow-x: auto; margin: 16px 0 24px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 14px; line-height: 1.6;
+    }
+    .tip-body blockquote {
+      border-left: 3px solid var(--green-700);
+      padding: 16px 20px; margin: 16px 0 24px;
+      background: var(--green-100); border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    }
+    .tip-body blockquote p { color: var(--green-900); margin: 0; }
+    .tip-cta {
+      margin-top: 40px; padding: 28px;
+      background: var(--green-100);
+      border: 1px solid rgba(58,117,77,0.12);
+      border-radius: var(--radius-xl);
+    }
+    .tip-cta p { color: var(--muted); font-size: 16px; line-height: 1.55; margin-bottom: 14px; }
+    .tip-cta p:last-child { margin: 0; }
+    .tip-cta strong { color: var(--ink); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 48px; padding: 0 24px; border-radius: var(--pill);
+      font-size: 14px; font-weight: 700; font-family: inherit;
+      border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--green-900); color: var(--paper-2);
+      margin-top: 12px;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+    /* Footer */
+    .footer {
+      padding: 28px 0; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 20px; }
+    .footer a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(var(--max), calc(100vw - 24px)); }
+      .tips-hero { padding-top: 40px; }
+      .tips-hero h1 { font-size: 34px; }
+      .tip-card h2 { font-size: 19px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="brand">Долгов, Эй Ай и партнеры</a>
+      <a href="index.html" class="back">&larr; Главная</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <section class="tips-hero">
+      <h1>Хаки и типсы</h1>
+      <p>Практические приёмы из персональных сессий. То, что реально работает в ежедневной работе с AI &mdash; без воды и хайпа</p>
+    </section>
+
+    <div class="tags">
+      <button class="tag active">Все</button>
+      <button class="tag">Контекст</button>
+      <button class="tag">Промптинг</button>
+      <button class="tag">Автоматизации</button>
+      <button class="tag">Процессы</button>
+      <button class="tag">Инструменты</button>
+    </div>
+
+    <div class="tips-list">
+
+      <a href="#" class="tip-card">
+        <div class="tip-meta">
+          <span class="tip-tag">Контекст</span>
+          <span class="tip-date">9 апреля 2026</span>
+        </div>
+        <h2>Как сделать так, чтобы контекст постоянно копился</h2>
+        <p>Главная проблема работы с AI &mdash; каждый раз начинаешь с чистого листа. Три конкретных приёма, чтобы AI помнил ваш контекст между сессиями, проектами и задачами</p>
+        <span class="tip-read">Читать &rarr;</span>
+      </a>
+
+      <a href="#" class="tip-card">
+        <div class="tip-meta">
+          <span class="tip-tag">Процессы</span>
+          <span class="tip-date">7 апреля 2026</span>
+        </div>
+        <h2>Почему &laquo;ускоритель&raquo; &mdash; ловушка, и как перейти в режим оркестратора</h2>
+        <p>AI как ускоритель &mdash; тот же процесс, просто быстрее. Но настоящий эффект начинается, когда перестаёшь делать задачу и начинаешь улучшать систему, которая делает задачи</p>
+        <span class="tip-read">Читать &rarr;</span>
+      </a>
+
+      <a href="#" class="tip-card">
+        <div class="tip-meta">
+          <span class="tip-tag">Промптинг</span>
+          <span class="tip-date">4 апреля 2026</span>
+        </div>
+        <h2>Правила вместо промптов: как получать стабильный результат</h2>
+        <p>Промпт &mdash; это разовый запрос. Правило &mdash; это инструкция, которая работает всегда. Как перейти от &laquo;подбери слова получше&raquo; к системе, которая даёт предсказуемый результат</p>
+        <span class="tip-read">Читать &rarr;</span>
+      </a>
+
+      <a href="#" class="tip-card">
+        <div class="tip-meta">
+          <span class="tip-tag">Автоматизации</span>
+          <span class="tip-date">1 апреля 2026</span>
+        </div>
+        <h2>Рекап встречи за 30 секунд: как собрать пайплайн из записи в задачи</h2>
+        <p>Запись звонка &rarr; транскрипт &rarr; структурированный рекап &rarr; задачи в трекере &rarr; follow-up клиенту. Весь пайплайн &mdash; одна команда</p>
+        <span class="tip-read">Читать &rarr;</span>
+      </a>
+
+      <a href="#" class="tip-card">
+        <div class="tip-meta">
+          <span class="tip-tag">Инструменты</span>
+          <span class="tip-date">28 марта 2026</span>
+        </div>
+        <h2>Claude Code, Cursor, ChatGPT &mdash; когда что использовать</h2>
+        <p>Каждый инструмент хорош в своём. Как я распределяю задачи между ними в ежедневной работе и почему &laquo;один инструмент для всего&raquo; не работает</p>
+        <span class="tip-read">Читать &rarr;</span>
+      </a>
+
+      <a href="#" class="tip-card">
+        <div class="tip-meta">
+          <span class="tip-tag">Контекст</span>
+          <span class="tip-date">25 марта 2026</span>
+        </div>
+        <h2>Second brain на файлах: почему .md лучше Notion для AI</h2>
+        <p>Notion удобен для людей, но непрозрачен для AI. Простые markdown-файлы с правильной структурой &mdash; идеальный формат для AI-системы, которая работает с вашим контекстом</p>
+        <span class="tip-read">Читать &rarr;</span>
+      </a>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap footer">
+      <div>
+        <div style="font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 4px;">Долгов, Эй Ай и партнеры</div>
+        <div>&copy; 2026</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
+        <a href="mailto:dolgovalex@skipp.dev">dolgovalex@skipp.dev</a>
+        <a href="index.html">Главная</a>
+        <a href="about.html">Обо мне</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

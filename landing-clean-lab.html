@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Долгов, Эй Ай и партнеры — clean lab</title>
+  <meta name="description" content="Помогаю founders и руководителям превратить AI из разовых попыток в понятную рабочую практику.">
+  <style>
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Regular.ttf') format('truetype'); font-weight: 400; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Medium.ttf') format('truetype'); font-weight: 500; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-SemiBold.ttf') format('truetype'); font-weight: 600; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-ExtraBold.ttf') format('truetype'); font-weight: 800; }
+
+    :root {
+      --paper: #f6f0e6;
+      --paper-2: #fdfbf7;
+      --ink: #10100f;
+      --muted: #67635d;
+      --line: rgba(16,16,15,0.09);
+      --green-950: #11281d;
+      --green-900: #173a28;
+      --green-700: #3a754d;
+      --green-100: #e7efe8;
+      --shadow: 0 20px 60px rgba(16,16,15,0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --pill: 999px;
+      --max: 1320px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Lufga', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(var(--max), calc(100vw - 40px)); margin: 0 auto; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(246,240,230,0.88);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+    }
+    .brand {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      color: var(--green-700);
+    }
+    .label::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+    }
+    .section { padding: 34px 0; }
+    .card {
+      background: rgba(255,255,255,0.62);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 54px 0 40px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 30px;
+      align-items: end;
+    }
+    .hero h1 {
+      margin: 18px 0 18px;
+      max-width: 860px;
+      font-size: clamp(58px, 7vw, 110px);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+      font-weight: 800;
+    }
+    .hero h1 span { color: #8b857d; }
+    .hero p {
+      margin: 0;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 21px;
+      line-height: 1.6;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: var(--pill);
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .btn-primary { background: var(--green-900); color: var(--paper-2); }
+    .btn-secondary { background: transparent; border: 1px solid var(--line); }
+    .hero-note {
+      padding: 28px;
+    }
+    .hero-note h2 {
+      margin: 14px 0 10px;
+      font-size: 36px;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+    }
+    .hero-note p {
+      font-size: 16px;
+      line-height: 1.58;
+      max-width: none;
+    }
+
+    .signal {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .signal-item {
+      padding: 24px;
+      min-height: 190px;
+    }
+    .signal-item h3 {
+      margin: 14px 0 10px;
+      font-size: 28px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .signal-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .intro-box,
+    .content-box,
+    .about-box,
+    .formats-box,
+    .faq-box,
+    .cta-box {
+      padding: 28px;
+    }
+    .intro-box h2,
+    .content-box h2,
+    .about-box h2,
+    .formats-box h2,
+    .faq-box h2,
+    .cta-box h2 {
+      margin: 14px 0 0;
+      font-size: clamp(34px, 4.2vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+    .intro-box p,
+    .content-box p,
+    .about-box p,
+    .formats-box p,
+    .faq-box p,
+    .cta-box p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.58;
+    }
+
+    .timeline {
+      padding: 28px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 68px;
+      top: 28px;
+      bottom: 28px;
+      width: 1px;
+      background: rgba(58,117,77,0.22);
+    }
+    .step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr);
+      gap: 22px;
+      padding: 14px 0 28px;
+    }
+    .step:last-child { padding-bottom: 0; }
+    .step-no {
+      position: relative;
+      color: var(--green-700);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+    .step-no::after {
+      content: '';
+      position: absolute;
+      right: 16px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      background: var(--green-900);
+      box-shadow: 0 0 0 6px rgba(58,117,77,0.1);
+    }
+    .step h3 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+    }
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.58;
+      max-width: 700px;
+    }
+
+    .quote-band {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .quote-box,
+    .proof-box { padding: 28px; }
+    .quote-body {
+      margin: 14px 0 0;
+      font-size: 32px;
+      line-height: 1.16;
+      letter-spacing: -0.03em;
+    }
+    .quote-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #e7efe8, #cad8ce);
+      border: 1px solid var(--line);
+      flex: 0 0 auto;
+      object-fit: cover;
+      display: block;
+    }
+    .proof-box {
+      background: var(--green-100);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(58,117,77,0.12);
+    }
+    .proof-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .proof-item {
+      padding-top: 12px;
+      border-top: 1px solid rgba(58,117,77,0.16);
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .proof-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .artifact {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .doc-preview,
+    .artifact-copy { padding: 28px; }
+    .doc-window {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+    }
+    .doc-top {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(16,16,15,0.03);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .doc-body { padding: 18px; display: grid; gap: 14px; }
+    .doc-section {
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .doc-section:last-child { border-bottom: 0; padding-bottom: 0; }
+    .doc-section strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+      line-height: 1.3;
+    }
+    .doc-section span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .about-photo {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.62);
+      box-shadow: var(--shadow);
+    }
+    .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+    .formats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .format {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.42);
+    }
+    .format h3 {
+      margin: 14px 0 10px;
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+    .price {
+      margin-bottom: 12px;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+    }
+    .format p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    .corp-note {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.56;
+    }
+
+    details.faq-item {
+      padding: 0 22px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.48);
+    }
+    details + details { margin-top: 12px; }
+    summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 0;
+      font-size: 19px;
+      line-height: 1.22;
+      font-weight: 700;
+    }
+    summary::-webkit-details-marker { display: none; }
+    .answer {
+      padding: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.58;
+    }
+
+    .cta-box {
+      background: var(--green-900);
+      color: var(--paper-2);
+    }
+    .cta-box p { color: var(--green-100); max-width: 720px; }
+    .cta-box .btn-secondary { color: var(--paper-2); border-color: rgba(255,255,255,0.14); }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .signal,
+      .split,
+      .quote-band,
+      .artifact,
+      .about-layout,
+      .formats-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(var(--max), calc(100vw - 24px)); }
+      .nav-inner { flex-direction: column; align-items: start; }
+      .hero { padding-top: 34px; }
+      .hero h1 { font-size: 54px; }
+      .hero p { font-size: 18px; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .step,
+      .proof-row { grid-template-columns: 1fr; }
+      .timeline::before,
+      .step-no::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">Долгов, Эй Ай и партнеры</div>
+      <div class="nav-links">
+        <a href="#problem">Зачем это</a>
+        <a href="#process">Процесс</a>
+        <a href="#about">Обо мне</a>
+        <a href="#formats">Форматы</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="hero section">
+      <div class="hero-grid">
+        <div>
+          <div class="label">AI для реальной работы</div>
+          <h1>AI не должен быть <span>разовым экспериментом.</span></h1>
+          <p>Я помогаю founders, CEO и руководителям функций разобрать конкретную рабочую задачу, понять, где AI реально экономит время, и собрать под неё рабочий контур: сценарии, правила, контекст и следующий шаг, который можно проверить сразу.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#process">Как это работает</a>
+            <a class="btn btn-secondary" href="#about">Обо мне</a>
+          </div>
+        </div>
+        <div class="card hero-note">
+          <div class="label">После первой работы</div>
+          <h2>После первой работы понятно, что делать дальше.</h2>
+          <p>На выходе не общие идеи про AI, а рабочая рамка: где он уместен, как встроить его в ваш процесс, что фиксировать и какой следующий шаг проверять первым.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem" class="section">
+      <div class="signal">
+        <article class="card signal-item">
+          <div class="label">Сейчас</div>
+          <h3>Уже много проб и мало опоры.</h3>
+          <p>Команда тестирует ботов, сервисы и промпты, но каждый удачный заход живёт отдельно и редко превращается в понятный процесс.</p>
+        </article>
+        <article class="card signal-item">
+          <div class="label">Проблема</div>
+          <h3>Не хватает памяти, правил и среды.</h3>
+          <p>Без хранения данных, накопления контекста и нормальной среды работы AI всё снова сводится к ручному старту и разрозненным решениям.</p>
+        </article>
+        <article class="card signal-item">
+          <div class="label">Результат</div>
+          <h3>Появляется рабочий слой.</h3>
+          <p>AI перестаёт быть игрушкой для отдельных задач и становится частью повторяемой рабочей логики команды или руководителя.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="process" class="section">
+      <div class="split">
+        <div class="card intro-box">
+          <div class="label">Процесс</div>
+          <h2>Короткий цикл, у которого на каждом шаге есть понятный выход.</h2>
+          <p>Не поток советов “вообще про AI”, а короткий цикл вокруг одной задачи: разобрать процесс, собрать рабочую схему и проверить её в реальной практике.</p>
+        </div>
+        <div class="card timeline">
+          <div class="step">
+            <div class="step-no">01</div>
+            <div>
+              <h3>Разбираем задачу</h3>
+              <p>Смотрим, где вы уже пробовали AI, где уходит время, какие решения повторяются и что действительно стоит усиливать, а не автоматизировать ради эффекта.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-no">02</div>
+            <div>
+              <h3>Собираем рабочий контур</h3>
+              <p>Фиксируем сценарии, правила, контекст, хранение данных и логику работы так, чтобы это можно было использовать не один раз, а регулярно и предсказуемо.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-no">03</div>
+            <div>
+              <h3>Проверяем в практике</h3>
+              <p>Определяем, что запускать первым, как смотреть эффект в работе и когда уже есть смысл переходить к более глубокой системе.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="quote-band">
+        <div class="card quote-box">
+          <div class="label">Клиентский сигнал</div>
+          <div class="quote-body">“Я вайбкодил себе ботов, но у меня не было системы хранения данных, автономности и полноценной агентной среды. После трёх сессий с Сашей я полностью пересобрал AI-стек и сейчас получаю максимальный эффект от своей системы агентов и контекста.”</div>
+          <div class="quote-meta">
+            <img class="avatar" src="assets/anton-besschetnikov.jpeg" alt="Антон Бесщетников">
+            <div><strong>Антон Бесщетников</strong><br>CEO Suvvy AI</div>
+          </div>
+        </div>
+        <div class="proof-box">
+          <div class="label">Что меняется</div>
+          <div class="proof-list">
+            <div class="proof-item"><strong>Контекст и решения не рассыпаются</strong><span>Следующая задача не стартует с нуля: у вас уже есть память, правила, материалы и опорный слой для работы.</span></div>
+            <div class="proof-item"><strong>AI-стек собирается в систему</strong><span>Боты, сценарии, хранение данных и агентная среда перестают жить отдельно друг от друга и начинают работать как единый контур.</span></div>
+            <div class="proof-item"><strong>Эффект виден в практике, а не в демо</strong><span>Понятно, что запускать первым, как смотреть результат и где уже есть смысл усиливать систему дальше.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="artifact">
+        <div class="card artifact-copy">
+          <div class="label">Что остаётся после работы</div>
+          <h2>Не просто разговор, а документ, к которому можно возвращаться.</h2>
+          <p>После первой работы у вас остаётся не “файл ради файла”, а понятный рабочий материал: где AI уместен именно в вашей задаче, как им пользоваться, что фиксировать и какой следующий шаг делать дальше.</p>
+        </div>
+        <div class="card doc-preview">
+          <div class="doc-window">
+            <div class="doc-top">Рабочий документ / первая сессия</div>
+            <div class="doc-body">
+              <div class="doc-section">
+                <strong>1. Где AI уместен в вашей задаче</strong>
+                <span>Разбор повторяющихся операций, где он реально экономит время или повышает качество результата.</span>
+              </div>
+              <div class="doc-section">
+                <strong>2. Сценарии и правила</strong>
+                <span>Какие формулировки, контекст и последовательность действий использовать в повседневной работе.</span>
+              </div>
+              <div class="doc-section">
+                <strong>3. Следующий шаг</strong>
+                <span>Что внедрять первым, чтобы быстро проверить эффект и не уйти в хаотичное “пробование всего подряд”.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="about-layout">
+        <div class="about-photo">
+          <img src="assets/alex-dolgov.jpg" alt="Александр Долгов">
+        </div>
+        <div class="card about-box">
+          <div class="label">Обо мне</div>
+          <h2>Я делаю это, потому что сам прошёл путь от разрозненных AI-инструментов к рабочей системе.</h2>
+          <p>Я собираю такие контуры внутри собственной компании VEYRA: для материалов, встреч, CRM, контекста, публикаций и повторяющихся решений. Поэтому я не рассказываю про AI со стороны, а помогаю построить рабочий слой там, где он действительно экономит время и держит качество.</p>
+          <p>Моя задача не “вдохновить на AI”, а помочь вам перейти от хаотичных попыток к системе, которая даёт эффект в реальной ежедневной работе.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="formats" class="section">
+      <div class="card formats-box">
+        <div class="label">Форматы работы</div>
+        <h2>Начать можно с одной задачи. Дальше идти только если это уже помогает на практике.</h2>
+        <p>Я не начинаю с большого внедрения под ключ. Сначала мы на одной задаче собираем рабочую схему и смотрим, даёт ли она эффект в реальной работе. Только потом имеет смысл идти глубже.</p>
+        <div class="formats-grid">
+          <div class="format">
+            <div class="label">Старт</div>
+            <h3>1 сессия</h3>
+            <div class="price">20 000 ₽</div>
+            <p>Чтобы разобрать одну задачу, понять где AI уместен и собрать первый рабочий контур под реальный процесс.</p>
+          </div>
+          <div class="format">
+            <div class="label">Закрепление</div>
+            <h3>4 сессии / 1 месяц</h3>
+            <div class="price">75 000 ₽</div>
+            <p>Чтобы закрепить несколько сценариев, собрать правила, контекст и превратить первые удачные заходы в устойчивую практику.</p>
+          </div>
+          <div class="format">
+            <div class="label">Система</div>
+            <h3>12 сессий / 3 месяца</h3>
+            <div class="price">210 000 ₽</div>
+            <p>Чтобы перейти от локальной пользы к полноценной персональной или командной системе с контекстом, памятью и повторяемым результатом.</p>
+          </div>
+        </div>
+        <div class="corp-note">Для компаний и команд со сложными процессами, несколькими ролями и более глубоким внедрением — отдельный формат по запросу.</div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="card faq-box">
+        <div class="label">FAQ</div>
+        <h2>Нормальные вопросы перед первой работой.</h2>
+        <p>Если коротко: это не курс и не “внедрение под ключ” с первого дня. Всё начинается с конкретной задачи и реального рабочего эффекта.</p>
+        <details class="faq-item">
+          <summary>Чем это отличается от обычной консультации по AI?<span>+</span></summary>
+          <div class="answer">Тем, что мы не обсуждаем AI в общем виде. Мы разбираем конкретную задачу, собираем рабочую схему под неё и фиксируем, что именно внедрять дальше.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Что будет после первой сессии?<span>+</span></summary>
+          <div class="answer">Разбор одной задачи, карта где AI уместен именно у вас, рабочий документ с контекстом и сценариями, а также следующий шаг, который можно проверить в ближайшие дни.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Можно ли потом перейти в более глубокий формат?<span>+</span></summary>
+          <div class="answer">Да. Если первая работа показывает эффект, можно идти в месячный или трёхмесячный формат и закреплять практику глубже.</div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" style="padding-bottom: 56px;">
+      <div class="card cta-box">
+        <div class="label" style="color: var(--green-100);">Следующий шаг</div>
+        <h2>Если хотите понять, где AI реально даст эффект в вашей работе, начать можно с одной задачи.</h2>
+        <p>Сначала разберём процесс и соберём первый рабочий контур. Если это помогает на практике, тогда уже имеет смысл идти дальше.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://t.me/">Написать в Telegram</a>
+          <a class="btn btn-secondary" href="#about">Сначала почитать обо мне</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

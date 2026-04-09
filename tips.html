@@ -30,7 +30,6 @@
       --radius-xl: 28px;
       --radius-lg: 20px;
       --pill: 999px;
-      --max: 860px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +42,6 @@
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    .wrap { width: min(var(--max), calc(100vw - 40px)); margin: 0 auto; }
 
     /* Nav */
     .nav {
@@ -53,267 +51,360 @@
       border-bottom: 1px solid var(--line);
     }
     .nav-inner {
+      max-width: 1320px; margin: 0 auto;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 0;
+      padding: 20px 40px;
     }
     .brand { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
     .back { font-size: 14px; color: var(--muted); }
     .back:hover { color: var(--ink); }
 
-    /* Hero */
-    .tips-hero {
-      padding: 60px 0 20px;
+    /* Three-column layout */
+    .page-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr 260px;
+      gap: 0;
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: calc(100vh - 65px);
     }
-    .tips-hero h1 {
-      font-size: clamp(38px, 5vw, 56px);
-      line-height: 0.95;
-      letter-spacing: -0.05em;
-      font-weight: 800;
+
+    /* Left sidebar */
+    .sidebar-left {
+      padding: 40px 28px 40px 40px;
+      border-right: 1px solid var(--line);
+      position: sticky; top: 65px;
+      height: fit-content;
+      max-height: calc(100vh - 65px);
+      overflow-y: auto;
+    }
+    .sidebar-title {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--muted-light);
       margin-bottom: 16px;
     }
-    .tips-hero p {
-      font-size: 18px;
-      line-height: 1.6;
-      color: var(--muted);
-      max-width: 600px;
+    .cat-list { list-style: none; }
+    .cat-list li { margin-bottom: 2px; }
+    .cat-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 12px; border-radius: 10px;
+      font-size: 14px; color: var(--muted);
+      transition: all 0.12s;
+    }
+    .cat-link:hover { background: rgba(0,0,0,0.03); color: var(--ink); }
+    .cat-link.active { background: var(--green-100); color: var(--green-900); font-weight: 600; }
+    .cat-count {
+      font-size: 12px; color: var(--muted-light);
+      min-width: 20px; text-align: right;
+    }
+    .cat-link.active .cat-count { color: var(--green-700); }
+
+    /* Center content */
+    .content {
+      padding: 40px 48px 60px;
+      min-width: 0;
+    }
+    .content-header {
+      margin-bottom: 32px;
+    }
+    .content-header h1 {
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .content-header p {
+      font-size: 16px; line-height: 1.55;
+      color: var(--muted); max-width: 520px;
     }
 
-    /* Tags filter */
-    .tags {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      padding: 24px 0; border-bottom: 1px solid var(--line);
-    }
-    .tag {
-      padding: 6px 16px; border-radius: var(--pill);
-      font-size: 13px; font-weight: 600;
-      border: 1px solid var(--line); background: transparent;
-      color: var(--muted); cursor: pointer;
-      transition: all 0.15s;
-    }
-    .tag:hover, .tag.active {
-      background: var(--green-100); color: var(--green-900);
-      border-color: rgba(58,117,77,0.2);
-    }
-
-    /* Tips list */
-    .tips-list {
-      padding: 8px 0 60px;
-    }
+    /* Tip cards */
     .tip-card {
       display: block;
-      padding: 28px 0;
+      padding: 24px 0;
       border-bottom: 1px solid var(--line);
-      transition: opacity 0.15s;
+      transition: opacity 0.12s;
     }
-    .tip-card:hover { opacity: 0.8; }
+    .tip-card:first-child { padding-top: 0; }
+    .tip-card:hover { opacity: 0.75; }
     .tip-meta {
-      display: flex; align-items: center; gap: 12px;
-      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 8px;
     }
     .tip-tag {
       padding: 3px 10px; border-radius: var(--pill);
       font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       background: var(--green-100); color: var(--green-900);
     }
-    .tip-date { font-size: 13px; color: var(--muted-light); }
+    .tip-date { font-size: 12px; color: var(--muted-light); }
     .tip-card h2 {
-      font-size: 22px; line-height: 1.2;
-      letter-spacing: -0.02em; margin-bottom: 8px;
+      font-size: 19px; line-height: 1.25;
+      letter-spacing: -0.02em; margin-bottom: 6px;
     }
     .tip-card p {
-      color: var(--muted); font-size: 16px; line-height: 1.55;
-      max-width: 700px;
+      color: var(--muted); font-size: 15px; line-height: 1.5;
     }
     .tip-read {
-      display: inline-block; margin-top: 12px;
-      font-size: 14px; font-weight: 700; color: var(--green-700);
+      display: inline-block; margin-top: 10px;
+      font-size: 13px; font-weight: 700; color: var(--green-700);
     }
 
-    /* Single tip view (for individual tip pages) */
-    .tip-full {
-      padding: 40px 0 60px;
+    /* Right sidebar */
+    .sidebar-right {
+      padding: 40px 40px 40px 28px;
+      border-left: 1px solid var(--line);
+      position: sticky; top: 65px;
+      height: fit-content;
+      max-height: calc(100vh - 65px);
+      overflow-y: auto;
     }
-    .tip-full .tip-meta { margin-bottom: 16px; }
-    .tip-full h1 {
-      font-size: clamp(28px, 4vw, 40px);
-      line-height: 1.1; letter-spacing: -0.03em;
-      margin-bottom: 24px;
+
+    .sidebar-block {
+      margin-bottom: 32px;
     }
-    .tip-body h2 {
-      font-size: 22px; line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 32px 0 12px;
+    .sidebar-block:last-child { margin-bottom: 0; }
+
+    .about-mini {
+      padding: 20px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
     }
-    .tip-body h3 {
-      font-size: 18px; line-height: 1.3;
-      margin: 24px 0 10px;
+    .about-mini img {
+      width: 48px; height: 48px; border-radius: 999px;
+      object-fit: cover; border: 1px solid var(--line);
+      margin-bottom: 12px;
     }
-    .tip-body p {
-      color: var(--muted); font-size: 17px; line-height: 1.7;
-      margin-bottom: 16px;
-    }
-    .tip-body ul, .tip-body ol {
-      color: var(--muted); font-size: 17px; line-height: 1.7;
-      margin: 0 0 16px 24px;
-    }
-    .tip-body li { margin-bottom: 6px; }
-    .tip-body code {
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 14px; padding: 2px 8px;
-      background: rgba(0,0,0,0.04); border-radius: 6px;
-    }
-    .tip-body pre {
-      background: var(--green-950); color: var(--green-100);
-      padding: 20px 24px; border-radius: var(--radius-lg);
-      overflow-x: auto; margin: 16px 0 24px;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 14px; line-height: 1.6;
-    }
-    .tip-body blockquote {
-      border-left: 3px solid var(--green-700);
-      padding: 16px 20px; margin: 16px 0 24px;
-      background: var(--green-100); border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-    }
-    .tip-body blockquote p { color: var(--green-900); margin: 0; }
-    .tip-cta {
-      margin-top: 40px; padding: 28px;
+    .about-mini h3 { font-size: 15px; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .about-mini p { font-size: 13px; line-height: 1.5; color: var(--muted); margin-bottom: 12px; }
+    .about-mini-link { font-size: 13px; font-weight: 700; color: var(--green-700); }
+
+    .cta-mini {
+      padding: 20px;
       background: var(--green-100);
       border: 1px solid rgba(58,117,77,0.12);
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-lg);
     }
-    .tip-cta p { color: var(--muted); font-size: 16px; line-height: 1.55; margin-bottom: 14px; }
-    .tip-cta p:last-child { margin: 0; }
-    .tip-cta strong { color: var(--ink); }
-    .btn {
+    .cta-mini h3 { font-size: 15px; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .cta-mini p { font-size: 13px; line-height: 1.5; color: var(--muted); margin-bottom: 14px; }
+    .btn-sm {
       display: inline-flex; align-items: center; justify-content: center;
-      min-height: 48px; padding: 0 24px; border-radius: var(--pill);
-      font-size: 14px; font-weight: 700; font-family: inherit;
-      border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      height: 40px; padding: 0 20px; border-radius: var(--pill);
+      font-size: 13px; font-weight: 700; font-family: inherit;
+      border: none; cursor: pointer;
       background: var(--green-900); color: var(--paper-2);
-      margin-top: 12px;
+      transition: transform 0.15s;
     }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .btn-sm:hover { transform: translateY(-1px); }
+
+    .popular-list { list-style: none; }
+    .popular-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .popular-list li:last-child { border-bottom: none; }
+    .popular-list a {
+      font-size: 14px; line-height: 1.35;
+      color: var(--ink); font-weight: 500;
+      transition: color 0.12s;
+    }
+    .popular-list a:hover { color: var(--green-700); }
+    .popular-list .pop-tag {
+      display: block; margin-top: 3px;
+      font-size: 11px; color: var(--muted-light); font-weight: 400;
+    }
 
     /* Footer */
+    .footer-wrap {
+      max-width: 1320px; margin: 0 auto; padding: 0 40px;
+    }
     .footer {
-      padding: 28px 0; border-top: 1px solid var(--line);
+      padding: 24px 0; border-top: 1px solid var(--line);
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted);
     }
     .footer-links { display: flex; gap: 20px; }
     .footer a:hover { color: var(--ink); }
 
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .page-grid { grid-template-columns: 200px 1fr; }
+      .sidebar-right { display: none; }
+      .content { padding: 40px 36px 60px; }
+    }
     @media (max-width: 760px) {
-      .wrap { width: min(var(--max), calc(100vw - 24px)); }
-      .tips-hero { padding-top: 40px; }
-      .tips-hero h1 { font-size: 34px; }
-      .tip-card h2 { font-size: 19px; }
+      .page-grid { grid-template-columns: 1fr; }
+      .sidebar-left {
+        position: static; border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding: 20px 20px 16px;
+        max-height: none;
+      }
+      .cat-list { display: flex; flex-wrap: wrap; gap: 4px; }
+      .cat-list li { margin: 0; }
+      .cat-link { padding: 6px 12px; font-size: 13px; }
+      .cat-count { display: none; }
+      .content { padding: 24px 20px 48px; }
+      .content-header h1 { font-size: 26px; }
+      .tip-card h2 { font-size: 17px; }
+      .footer-wrap { padding: 0 20px; }
     }
   </style>
 </head>
 <body>
 
   <nav class="nav">
-    <div class="wrap nav-inner">
+    <div class="nav-inner">
       <a href="index.html" class="brand">Долгов, Эй Ай и партнеры</a>
       <a href="index.html" class="back">&larr; Главная</a>
     </div>
   </nav>
 
-  <main class="wrap">
+  <div class="page-grid">
 
-    <section class="tips-hero">
-      <h1>Хаки и типсы</h1>
-      <p>Практические приёмы из персональных сессий. То, что реально работает в ежедневной работе с AI &mdash; без воды и хайпа</p>
-    </section>
+    <!-- Left sidebar: categories -->
+    <aside class="sidebar-left">
+      <div class="sidebar-title">Категории</div>
+      <ul class="cat-list">
+        <li><a href="#" class="cat-link active">Все заметки <span class="cat-count">6</span></a></li>
+        <li><a href="#" class="cat-link">Контекст <span class="cat-count">2</span></a></li>
+        <li><a href="#" class="cat-link">Промптинг <span class="cat-count">1</span></a></li>
+        <li><a href="#" class="cat-link">Автоматизации <span class="cat-count">1</span></a></li>
+        <li><a href="#" class="cat-link">Процессы <span class="cat-count">1</span></a></li>
+        <li><a href="#" class="cat-link">Инструменты <span class="cat-count">1</span></a></li>
+      </ul>
+    </aside>
 
-    <div class="tags">
-      <button class="tag active">Все</button>
-      <button class="tag">Контекст</button>
-      <button class="tag">Промптинг</button>
-      <button class="tag">Автоматизации</button>
-      <button class="tag">Процессы</button>
-      <button class="tag">Инструменты</button>
-    </div>
-
-    <div class="tips-list">
+    <!-- Center: content -->
+    <main class="content">
+      <div class="content-header">
+        <h1>Хаки и типсы</h1>
+        <p>Практические приёмы из персональных сессий. То, что реально работает в ежедневной работе с AI</p>
+      </div>
 
       <a href="#" class="tip-card">
         <div class="tip-meta">
           <span class="tip-tag">Контекст</span>
-          <span class="tip-date">9 апреля 2026</span>
+          <span class="tip-date">9 апр 2026</span>
         </div>
         <h2>Как сделать так, чтобы контекст постоянно копился</h2>
-        <p>Главная проблема работы с AI &mdash; каждый раз начинаешь с чистого листа. Три конкретных приёма, чтобы AI помнил ваш контекст между сессиями, проектами и задачами</p>
+        <p>Главная проблема работы с AI — каждый раз начинаешь с чистого листа. Три конкретных приёма, чтобы AI помнил ваш контекст между сессиями, проектами и задачами</p>
         <span class="tip-read">Читать &rarr;</span>
       </a>
 
       <a href="#" class="tip-card">
         <div class="tip-meta">
           <span class="tip-tag">Процессы</span>
-          <span class="tip-date">7 апреля 2026</span>
+          <span class="tip-date">7 апр 2026</span>
         </div>
-        <h2>Почему &laquo;ускоритель&raquo; &mdash; ловушка, и как перейти в режим оркестратора</h2>
-        <p>AI как ускоритель &mdash; тот же процесс, просто быстрее. Но настоящий эффект начинается, когда перестаёшь делать задачу и начинаешь улучшать систему, которая делает задачи</p>
+        <h2>Почему &laquo;ускоритель&raquo; — ловушка, и как перейти в режим оркестратора</h2>
+        <p>AI как ускоритель — тот же процесс, просто быстрее. Настоящий эффект начинается, когда перестаёшь делать задачу и начинаешь улучшать систему, которая делает задачи</p>
         <span class="tip-read">Читать &rarr;</span>
       </a>
 
       <a href="#" class="tip-card">
         <div class="tip-meta">
           <span class="tip-tag">Промптинг</span>
-          <span class="tip-date">4 апреля 2026</span>
+          <span class="tip-date">4 апр 2026</span>
         </div>
         <h2>Правила вместо промптов: как получать стабильный результат</h2>
-        <p>Промпт &mdash; это разовый запрос. Правило &mdash; это инструкция, которая работает всегда. Как перейти от &laquo;подбери слова получше&raquo; к системе, которая даёт предсказуемый результат</p>
+        <p>Промпт — это разовый запрос. Правило — инструкция, которая работает всегда. Как перейти от &laquo;подбери слова получше&raquo; к предсказуемому результату</p>
         <span class="tip-read">Читать &rarr;</span>
       </a>
 
       <a href="#" class="tip-card">
         <div class="tip-meta">
           <span class="tip-tag">Автоматизации</span>
-          <span class="tip-date">1 апреля 2026</span>
+          <span class="tip-date">1 апр 2026</span>
         </div>
-        <h2>Рекап встречи за 30 секунд: как собрать пайплайн из записи в задачи</h2>
-        <p>Запись звонка &rarr; транскрипт &rarr; структурированный рекап &rarr; задачи в трекере &rarr; follow-up клиенту. Весь пайплайн &mdash; одна команда</p>
+        <h2>Рекап встречи за 30 секунд: от записи до задач в трекере</h2>
+        <p>Запись звонка &rarr; транскрипт &rarr; структурированный рекап &rarr; задачи &rarr; follow-up клиенту. Весь пайплайн — одна команда</p>
         <span class="tip-read">Читать &rarr;</span>
       </a>
 
       <a href="#" class="tip-card">
         <div class="tip-meta">
           <span class="tip-tag">Инструменты</span>
-          <span class="tip-date">28 марта 2026</span>
+          <span class="tip-date">28 мар 2026</span>
         </div>
-        <h2>Claude Code, Cursor, ChatGPT &mdash; когда что использовать</h2>
-        <p>Каждый инструмент хорош в своём. Как я распределяю задачи между ними в ежедневной работе и почему &laquo;один инструмент для всего&raquo; не работает</p>
+        <h2>Claude Code, Cursor, ChatGPT — когда что использовать</h2>
+        <p>Каждый инструмент хорош в своём. Как распределять задачи между ними и почему &laquo;один для всего&raquo; не работает</p>
         <span class="tip-read">Читать &rarr;</span>
       </a>
 
       <a href="#" class="tip-card">
         <div class="tip-meta">
           <span class="tip-tag">Контекст</span>
-          <span class="tip-date">25 марта 2026</span>
+          <span class="tip-date">25 мар 2026</span>
         </div>
         <h2>Second brain на файлах: почему .md лучше Notion для AI</h2>
-        <p>Notion удобен для людей, но непрозрачен для AI. Простые markdown-файлы с правильной структурой &mdash; идеальный формат для AI-системы, которая работает с вашим контекстом</p>
+        <p>Notion удобен для людей, но непрозрачен для AI. Markdown с правильной структурой — идеальный формат для AI-системы</p>
         <span class="tip-read">Читать &rarr;</span>
       </a>
 
-    </div>
+    </main>
 
-  </main>
+    <!-- Right sidebar -->
+    <aside class="sidebar-right">
+
+      <div class="sidebar-block">
+        <div class="about-mini">
+          <img src="assets/alex-dolgov.jpg" alt="Александр Долгов">
+          <h3>Александр Долгов</h3>
+          <p>Пишу о том, что каждый день использую сам. AI-first founder, строю VEYRA и помогаю руководителям встроить AI в работу</p>
+          <a href="about.html" class="about-mini-link">Подробнее &rarr;</a>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-title">Популярное</div>
+        <ul class="popular-list">
+          <li>
+            <a href="#">Как сделать так, чтобы контекст постоянно копился
+              <span class="pop-tag">Контекст</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">Правила вместо промптов
+              <span class="pop-tag">Промптинг</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">Second brain на файлах
+              <span class="pop-tag">Контекст</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="cta-mini">
+          <h3>Хотите разобрать свою задачу?</h3>
+          <p>На сессии разбираем конкретно вашу ситуацию и собираем рабочий AI-контур</p>
+          <a class="btn-sm" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20AI-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8">Написать</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
 
   <footer>
-    <div class="wrap footer">
-      <div>
-        <div style="font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 4px;">Долгов, Эй Ай и партнеры</div>
-        <div>&copy; 2026</div>
-      </div>
-      <div class="footer-links">
-        <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
-        <a href="mailto:dolgovalex@skipp.dev">dolgovalex@skipp.dev</a>
-        <a href="index.html">Главная</a>
-        <a href="about.html">Обо мне</a>
+    <div class="footer-wrap">
+      <div class="footer">
+        <div>
+          <div style="font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 4px;">Долгов, Эй Ай и партнеры</div>
+          <div>&copy; 2026</div>
+        </div>
+        <div class="footer-links">
+          <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
+          <a href="mailto:dolgovalex@skipp.dev">dolgovalex@skipp.dev</a>
+          <a href="index.html">Главная</a>
+          <a href="about.html">Обо мне</a>
+        </div>
       </div>
     </div>
   </footer>

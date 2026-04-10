@@ -261,11 +261,23 @@
     .about-link { font-size: 15px; font-weight: 700; color: var(--green-700); }
 
     /* Formats */
-    .formats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
-    .format { padding: 28px; }
+    .formats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; align-items: start; }
+    .format { padding: 28px; position: relative; }
     .format h3 { margin: 14px 0 10px; font-size: 26px; line-height: 1.05; letter-spacing: -0.03em; }
-    .price { margin-bottom: 12px; font-size: 32px; line-height: 1; letter-spacing: -0.04em; font-weight: 800; }
     .format p { color: var(--muted); font-size: 15px; line-height: 1.55; }
+    .format-note { margin-top: 14px; font-size: 13px; color: var(--muted-light); line-height: 1.5; }
+    .format-featured {
+      border: 2px solid var(--green-700);
+      background: rgba(231,239,232,0.38);
+      padding-top: 40px;
+    }
+    .format-featured .format-note { color: var(--green-900); font-weight: 500; }
+    .format-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--green-900); color: var(--paper-2);
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+      padding: 5px 16px; border-radius: var(--pill); white-space: nowrap;
+    }
     .guarantee {
       margin-top: 18px; padding: 20px 24px;
       background: var(--green-100); border: 1px solid rgba(58,117,77,0.12);
@@ -363,13 +375,9 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="nav-links">
-        <a href="#scenarios">Сценарии</a>
-        <a href="#process">Процесс</a>
-        <a href="#cases">Кейс</a>
-        <a href="#about">Обо мне</a>
-        <a href="#formats">Форматы</a>
-        <a href="#faq">FAQ</a>
-        <a href="tips.html">Типсы</a>
+        <a href="about.html">Обо мне</a>
+        <a href="manifest.html">Манифест</a>
+        <a href="tips.html">Хаки и типсы</a>
       </div>
     </div>
   </nav>
@@ -383,13 +391,17 @@
       <p class="hero-sub">Помогаю основателям и руководителям компаний перейти от разрозненных AI-экспериментов к рабочей системе. Не&nbsp;курс, не&nbsp;промптинг&nbsp;&mdash; персональные сессии на&nbsp;ваших задачах с&nbsp;гарантией результата</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20AI-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8">Записаться на сессию</a>
-        <a class="btn btn-secondary" href="#process">Как это работает</a>
+        <a class="btn btn-secondary" href="#formats">Форматы работы</a>
       </div>
       <div class="hero-micro">Первая сессия с гарантией &mdash; не видите ценности, не платите</div>
     </section>
 
     <!-- Two Modes -->
     <section class="section">
+      <div class="section-head">
+        <div class="label">Ключевая разница</div>
+        <h2>Два режима работы с AI</h2>
+      </div>
       <div class="card modes-card">
         <div class="modes-inner">
           <div class="mode-col mode-col-dim">
@@ -407,6 +419,9 @@
         </div>
         <div class="modes-bottom">
           <strong>Помогаю перейти из первого режима во второй.</strong> Не через теорию &mdash; через разбор ваших реальных задач и построение рабочей системы на практике
+          <div style="margin-top: 20px;">
+            <a class="btn btn-primary" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20AI-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8">Записаться на сессию</a>
+          </div>
         </div>
       </div>
     </section>
@@ -512,6 +527,10 @@
 
     <!-- Testimonial -->
     <section class="section">
+      <div class="section-head">
+        <div class="label">Клиенты</div>
+        <h2>Что говорят после работы</h2>
+      </div>
       <div class="testimonial">
         <div class="testimonial-inner">
           <div>
@@ -560,79 +579,49 @@
       </div>
     </section>
 
-    <!-- Cases: VEYRA system overview -->
+    <!-- Cases: VEYRA compact -->
     <section id="cases" class="section">
       <div class="section-head">
         <div class="label">Кейс: VEYRA</div>
-        <h2>Как выглядит AI-first компания изнутри</h2>
-        <p>Я строю VEYRA &mdash; голосовые AI-агенты для бизнеса &mdash; в режиме, который предлагаю клиентам. Один человек с AI-системой закрывает работу, для которой обычно нужна команда из 5+</p>
+        <h2>Один человек. AI-система. Работа команды из 5+</h2>
+        <p>Я строю VEYRA &mdash; голосовые AI-агенты для бизнеса &mdash; в том самом режиме оркестратора, который предлагаю клиентам</p>
       </div>
-      <div class="card system-card">
-        <div class="system-nums">
-          <div class="sys-num">
-            <div class="sys-num-val">5</div>
-            <div class="sys-num-label">MCP-серверов<br>для связи AI с внешними системами</div>
+      <div class="card" style="padding: 32px;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;">
+          <div>
+            <div style="font-size: 36px; font-weight: 800; letter-spacing: -0.04em; color: var(--green-900); margin-bottom: 8px;">1 = 5</div>
+            <h3 style="font-size: 17px; margin-bottom: 6px;">Полный продуктовый цикл</h3>
+            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">Разработка, продажи, контент, legal, операции &mdash; всё через AI-контуры. Без найма команды</p>
           </div>
-          <div class="sys-num">
-            <div class="sys-num-val">12+</div>
-            <div class="sys-num-label">автоматизированных скиллов<br>от рекапов до генерации договоров</div>
+          <div>
+            <div style="font-size: 36px; font-weight: 800; letter-spacing: -0.04em; color: var(--green-900); margin-bottom: 8px;">12+</div>
+            <h3 style="font-size: 17px; margin-bottom: 6px;">Автоматизированных скиллов</h3>
+            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">От рекапов встреч до генерации договоров. Каждый &mdash; одна команда вместо часа работы</p>
           </div>
-          <div class="sys-num">
-            <div class="sys-num-val">9</div>
-            <div class="sys-num-label">ролей AI-агентов<br>в системе разработки</div>
-          </div>
-          <div class="sys-num">
-            <div class="sys-num-val">1&thinsp;=&thinsp;5</div>
-            <div class="sys-num-label">один человек закрывает<br>работу команды</div>
-          </div>
-        </div>
-
-        <div class="system-layers">
-          <div class="sys-layer">
-            <h3>Разработка</h3>
-            <ul>
-              <li>9 ролей агентов: архитектор, фронтенд, бэкенд, QA, безопасность</li>
-              <li>Sprint process с автоматическими review gates</li>
-              <li>Полный CI/CD без ручной координации</li>
-              <li>Terraform, Kubernetes, мониторинг</li>
-            </ul>
-          </div>
-          <div class="sys-layer">
-            <h3>Операции и продажи</h3>
-            <ul>
-              <li>CRM-синхронизация: vault &#8596; AmoCRM через MCP</li>
-              <li>Автоматические рекапы встреч, задачи, follow-up</li>
-              <li>Генерация КП, outreach-цепочки, квалификация</li>
-              <li>Second brain: session logs, backlog, decisions</li>
-            </ul>
-          </div>
-          <div class="sys-layer">
-            <h3>Контент и документы</h3>
-            <ul>
-              <li>Платформа материалов: 5+ рендереров, PDF-экспорт</li>
-              <li>CMS + скилл публикации статей и кейсов</li>
-              <li>Генерация и версионирование юридических договоров</li>
-              <li>Клиентские воркспейсы с персонализацией</li>
-            </ul>
+          <div>
+            <div style="font-size: 36px; font-weight: 800; letter-spacing: -0.04em; color: var(--green-900); margin-bottom: 8px;">200+</div>
+            <h3 style="font-size: 17px; margin-bottom: 6px;">Файлов в second brain</h3>
+            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">Полный контекст компании: клиенты, решения, процессы. AI знает всё и ничего не забывает</p>
           </div>
         </div>
-
-        <div class="system-bottom">
-          <span style="font-size: 14px; color: var(--muted); margin-right: 8px;">Процессы на AI-рельсах:</span>
+        <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+          <span style="font-size: 14px; color: var(--muted); margin-right: 4px;">На AI-рельсах:</span>
           <span class="process-tag">Разработка</span>
           <span class="process-tag">Продажи</span>
-          <span class="process-tag">Юридические документы</span>
+          <span class="process-tag">Legal</span>
           <span class="process-tag">Контент</span>
           <span class="process-tag">Встречи</span>
-          <span class="process-tag">Материалы</span>
-          <span class="process-tag">Финансы</span>
-          <span class="process-tag">Мониторинг</span>
+          <span class="process-tag">Операции</span>
         </div>
       </div>
     </section>
 
     <!-- About -->
     <section id="about" class="section">
+      <div class="section-head">
+        <div class="label">Эксперт практики</div>
+        <h2>Кто проводит сессии</h2>
+      </div>
       <div class="card about-card">
         <div class="about-photo">
           <img src="assets/alex-dolgov.jpg" alt="Александр Долгов">
@@ -655,29 +644,30 @@
       </div>
       <div class="formats-grid">
         <div class="card format">
-          <div class="label">Старт</div>
+          <div class="label">Разведка</div>
           <h3>1 сессия</h3>
-          <div class="price">20 000 &#8381;</div>
-          <p>1 час. Разбор одной задачи, подбор инструментов, демо, рабочий артефакт с планом действий</p>
+          <p>Разбор одной задачи, подбор инструментов, демо. Рабочий артефакт с планом &mdash; что внедрять первым</p>
+          <div class="format-note">Чтобы понять, где AI реально даст эффект</div>
         </div>
-        <div class="card format">
-          <div class="label">Закрепление</div>
+        <div class="card format format-featured">
+          <div class="format-badge">Большинство выбирает</div>
+          <div class="label">Внедрение</div>
           <h3>4 сессии / 2&ndash;4 недели</h3>
-          <div class="price">75 000 &#8381;</div>
-          <p>Несколько рабочих сценариев, собранные правила и контекст. На выходе &mdash; устойчивая AI-практика, встроенная в ежедневную работу</p>
+          <p>Несколько рабочих сценариев с правилами и контекстом. Разбор конкурентов, подготовка трендвотчинга в вашем рынке. Часы подготовки между сессиями &mdash; вы получаете не только время на звонке</p>
+          <div class="format-note">На выходе &mdash; устойчивая AI-практика, встроенная в ежедневную работу</div>
         </div>
         <div class="card format">
           <div class="label">Система</div>
           <h3>12 сессий / 2&ndash;3 месяца</h3>
-          <div class="price">210 000 &#8381;</div>
           <p>Полноценная персональная или командная AI-система: контекст, память, правила, автоматизации. Режим оркестратора закреплён</p>
+          <div class="format-note">Для тех, кто строит AI-first процессы всерьёз</div>
         </div>
       </div>
       <div class="guarantee">
         <strong>Гарантия:</strong> не видите ценности после первой сессии &mdash; не платите. Каждая следующая &mdash; по предоплате
       </div>
       <div class="formats-note">
-        Для команд и компаний &mdash; отдельный формат по запросу. Очные сессии и сессии более 1 часа &mdash; стоимость &times;2
+        Для команд и компаний &mdash; отдельный формат. Напишите &mdash; обсудим условия
       </div>
     </section>
 
@@ -725,8 +715,8 @@
         </details>
 
         <details class="faq-item">
-          <summary>20 000 за час &mdash; не много?<span class="plus">+</span></summary>
-          <div class="answer">Честная стоимость часа человека, который строит AI-first компанию каждый день и видел 100+ проектов изнутри. Один неудачный месяц с подрядчиком обходится в десятки раз дороже</div>
+          <summary>Сколько стоит?<span class="plus">+</span></summary>
+          <div class="answer">Стоимость зависит от формата и задачи. Напишите &mdash; обсудим условия. Первая сессия с гарантией: не видите ценности &mdash; не платите</div>
         </details>
       </div>
     </section>

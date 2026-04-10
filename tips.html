@@ -153,6 +153,34 @@
       box-shadow: var(--shadow);
       transform: translateY(-2px);
     }
+    .tip-card.expanded {
+      grid-column: 1 / -1;
+      background: rgba(255,255,255,0.8);
+      box-shadow: var(--shadow);
+      cursor: default;
+    }
+    .tip-card.expanded:hover { transform: none; }
+    .tip-body {
+      display: none;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+    .tip-body p { color: var(--muted); font-size: 15px; line-height: 1.65; margin-bottom: 12px; }
+    .tip-body p:last-child { margin-bottom: 0; }
+    .tip-body strong { color: var(--ink); }
+    .tip-body ul { margin: 8px 0 12px 20px; color: var(--muted); font-size: 15px; line-height: 1.65; }
+    .tip-card.expanded .tip-body { display: block; }
+    .tip-card.expanded .tip-read { display: none; }
+    .tip-collapse {
+      display: none; margin-top: 14px;
+      font-size: 13px; font-weight: 700; color: var(--muted-light);
+      cursor: pointer;
+    }
+    .tip-card.expanded .tip-collapse { display: inline-block; }
     .tip-meta {
       display: flex; align-items: center; gap: 10px;
       margin-bottom: 10px;
@@ -280,7 +308,8 @@
     <aside class="sidebar-left">
       <div class="sidebar-title">Темы</div>
       <ul class="cat-list">
-        <li><button class="cat-link active" data-cat="all">Все <span class="cat-count">6</span></button></li>
+        <li><button class="cat-link active" data-cat="all">Все <span class="cat-count">11</span></button></li>
+        <li><button class="cat-link" data-cat="glossary">Словарь <span class="cat-count">5</span></button></li>
         <li><button class="cat-link" data-cat="context">Контекст и память <span class="cat-count">2</span></button></li>
         <li><button class="cat-link" data-cat="processes">Процессы <span class="cat-count">1</span></button></li>
         <li><button class="cat-link" data-cat="prompting">Промптинг <span class="cat-count">1</span></button></li>
@@ -312,12 +341,15 @@
       <div class="cat-desc" data-cat-desc="tools" hidden>
         <strong>Инструменты</strong> — что использовать, когда и зачем. Без привязки к одному продукту
       </div>
+      <div class="cat-desc" data-cat-desc="glossary" hidden>
+        <strong>Словарь</strong> &mdash; термины, которые я использую на сайте и в работе. Не общепринятые определения &mdash; а то, что я вкладываю в эти слова на практике
+      </div>
       <div class="cat-desc" data-cat-desc="all" hidden></div>
 
       <!-- Tip cards -->
       <div class="tips-grid">
 
-        <a href="#" class="tip-card" data-tag="context">
+        <div class="tip-card" data-tag="context" onclick="toggleTip(this)">
           <div class="tip-meta">
             <span class="tip-tag">Контекст</span>
             <span class="tip-date">9 апр 2026</span>
@@ -325,39 +357,83 @@
           <h2>Как сделать так, чтобы контекст постоянно копился</h2>
           <p>Три приёма, чтобы AI помнил ваш контекст между сессиями, проектами и задачами. Без сложных настроек</p>
           <span class="tip-read">Читать &rarr;</span>
-        </a>
+          <div class="tip-body">
+            <p>Главная проблема работы с AI &mdash; потеря контекста. Каждый новый чат начинается с нуля. Вот три приёма, которые это решают:</p>
+            <p><strong>1. Файл-инструкция в корне проекта.</strong> CLAUDE.md, .cursorrules или system prompt &mdash; файл, который AI читает при каждом запуске. Туда идут: кто вы, какой проект, какие правила, что уже решено. Это &laquo;память по умолчанию&raquo;.</p>
+            <p><strong>2. Session logs.</strong> После каждой рабочей сессии фиксируйте: что сделали, какие решения приняли, что осталось. AI при следующем запуске читает последний лог и продолжает с того же места.</p>
+            <p><strong>3. Структурированные заметки в markdown.</strong> Не в Notion, не в Google Docs &mdash; в .md файлах рядом с проектом. AI видит их напрямую, без API и интеграций. Контекст копится автоматически.</p>
+            <p>Результат: через неделю AI знает ваш проект лучше, чем новый сотрудник через месяц.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
 
-        <a href="#" class="tip-card" data-tag="context">
+        <div class="tip-card" data-tag="context" onclick="toggleTip(this)">
           <div class="tip-meta">
             <span class="tip-tag">Контекст</span>
             <span class="tip-date">25 мар 2026</span>
           </div>
           <h2>Second brain на файлах: почему .md лучше Notion для AI</h2>
-          <p>Notion удобен для людей, но непрозрачен для AI. Markdown с правильной структурой — идеальный формат</p>
+          <p>Notion удобен для людей, но непрозрачен для AI. Markdown с правильной структурой &mdash; идеальный формат</p>
           <span class="tip-read">Читать &rarr;</span>
-        </a>
+          <div class="tip-body">
+            <p>Notion &mdash; отличный инструмент для команд. Но для AI он непрозрачен: данные за API, структура нечитаемая, контекст теряется при экспорте.</p>
+            <p><strong>Markdown решает это:</strong></p>
+            <ul>
+              <li>AI читает .md напрямую &mdash; никаких прослоек</li>
+              <li>Файлы лежат рядом с кодом и проектом</li>
+              <li>Git-версионирование из коробки &mdash; видно, что менялось и когда</li>
+              <li>Работает с любым AI-инструментом: Claude, ChatGPT, Cursor</li>
+            </ul>
+            <p><strong>Структура, которая работает:</strong> одна папка на проект, внутри &mdash; тематические файлы. Клиенты, решения, встречи, backlog. Каждый файл &mdash; один контекст. AI находит нужное за секунды.</p>
+            <p>Я веду так всю VEYRA: 200+ файлов, полный second brain. AI знает всё &mdash; от истории переговоров до архитектурных решений.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
 
-        <a href="#" class="tip-card" data-tag="processes">
+        <div class="tip-card" data-tag="processes" onclick="toggleTip(this)">
           <div class="tip-meta">
             <span class="tip-tag">Процессы</span>
             <span class="tip-date">7 апр 2026</span>
           </div>
-          <h2>Почему &laquo;ускоритель&raquo; — ловушка, и как стать оркестратором</h2>
+          <h2>Почему &laquo;ускоритель&raquo; &mdash; ловушка, и как стать оркестратором</h2>
           <p>Настоящий эффект начинается, когда перестаёшь делать задачу и начинаешь улучшать систему, которая делает задачи</p>
           <span class="tip-read">Читать &rarr;</span>
-        </a>
+          <div class="tip-body">
+            <p>Большинство людей используют AI как ускоритель: та же задача, тот же процесс, просто быстрее. Написать текст быстрее, код быстрее, письмо быстрее. Это полезно, но это потолок.</p>
+            <p><strong>Режим оркестратора &mdash; принципиально другой подход.</strong> Вы не делаете задачу с помощью AI. Вы строите систему: сценарии, правила, контекст, память. И дальше эта система работает &mdash; а вы её улучшаете.</p>
+            <p><strong>Разница на примере:</strong></p>
+            <ul>
+              <li>Ускоритель: &laquo;AI, напиши follow-up клиенту&raquo; &mdash; каждый раз заново</li>
+              <li>Оркестратор: одна команда &rarr; рекап встречи + задачи + follow-up + обновление CRM. Всё по правилам, с накоплением контекста</li>
+            </ul>
+            <p>Переход не требует технических навыков. Он требует смены фокуса: с &laquo;как сделать задачу&raquo; на &laquo;как описать процесс&raquo;.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
 
-        <a href="#" class="tip-card" data-tag="prompting">
+        <div class="tip-card" data-tag="prompting" onclick="toggleTip(this)">
           <div class="tip-meta">
             <span class="tip-tag">Промптинг</span>
             <span class="tip-date">4 апр 2026</span>
           </div>
           <h2>Правила вместо промптов: стабильный результат каждый раз</h2>
-          <p>Промпт — разовый запрос. Правило — инструкция, которая работает всегда. Как перейти от случайного к предсказуемому</p>
+          <p>Промпт &mdash; разовый запрос. Правило &mdash; инструкция, которая работает всегда. Как перейти от случайного к предсказуемому</p>
           <span class="tip-read">Читать &rarr;</span>
-        </a>
+          <div class="tip-body">
+            <p>Промпт &mdash; это одноразовый запрос. Вы каждый раз формулируете заново, результат каждый раз разный. Правило &mdash; это инструкция, зашитая в систему. Она работает всегда одинаково.</p>
+            <p><strong>Как перейти от промптов к правилам:</strong></p>
+            <ul>
+              <li>Заметили, что формулируете одно и то же &mdash; выносите в файл-инструкцию</li>
+              <li>Результат не тот &mdash; добавляете ограничение (&laquo;не используй маркетинговый язык&raquo;, &laquo;всегда указывай источник&raquo;)</li>
+              <li>Нужен определённый формат &mdash; даёте пример-эталон</li>
+            </ul>
+            <p><strong>Структура правила:</strong> [РОЛЬ] кто ты + [ЗАДАЧА] что делать + [ОГРАНИЧЕНИЯ] чего не делать + [ФОРМАТ] как выдать результат.</p>
+            <p>За 2-3 итерации правило стабилизируется. Дальше вы его не трогаете &mdash; оно работает. Фокус смещается с &laquo;как спросить&raquo; на &laquo;как улучшить систему&raquo;.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
 
-        <a href="#" class="tip-card" data-tag="automations">
+        <div class="tip-card" data-tag="automations" onclick="toggleTip(this)">
           <div class="tip-meta">
             <span class="tip-tag">Автоматизации</span>
             <span class="tip-date">1 апр 2026</span>
@@ -365,17 +441,134 @@
           <h2>Рекап встречи за 30 секунд: от записи до задач</h2>
           <p>Запись &rarr; транскрипт &rarr; рекап &rarr; задачи &rarr; follow-up клиенту. Весь пайплайн одной командой</p>
           <span class="tip-read">Читать &rarr;</span>
-        </a>
+          <div class="tip-body">
+            <p>После каждой встречи нужно: записать итоги, выделить задачи, отправить клиенту follow-up. Обычно это 20-30 минут. С AI-пайплайном &mdash; 30 секунд.</p>
+            <p><strong>Как работает:</strong></p>
+            <ul>
+              <li>Запись встречи автоматически транскрибируется</li>
+              <li>AI разбирает транскрипт: ключевые решения, открытые вопросы, задачи со сроками</li>
+              <li>Генерирует рекап в структурированном формате</li>
+              <li>Создаёт follow-up сообщение клиенту</li>
+              <li>Обновляет CRM и ставит задачи</li>
+            </ul>
+            <p>Одна команда &mdash; и весь post-meeting процесс закрыт. Контекст встречи сохраняется навсегда, ничего не теряется. На следующей встрече AI уже знает, о чём договорились.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
 
-        <a href="#" class="tip-card" data-tag="tools">
+        <div class="tip-card" data-tag="tools" onclick="toggleTip(this)">
           <div class="tip-meta">
             <span class="tip-tag">Инструменты</span>
             <span class="tip-date">28 мар 2026</span>
           </div>
-          <h2>Claude Code, Cursor, ChatGPT — когда что использовать</h2>
+          <h2>Claude Code, Cursor, ChatGPT &mdash; когда что использовать</h2>
           <p>Каждый инструмент хорош в своём. Как распределять задачи и почему &laquo;один для всего&raquo; не работает</p>
           <span class="tip-read">Читать &rarr;</span>
-        </a>
+          <div class="tip-body">
+            <p>Частая ошибка &mdash; пытаться делать всё в одном инструменте. У каждого своя сильная сторона:</p>
+            <p><strong>ChatGPT</strong> &mdash; быстрые вопросы, брейншторм, черновики текстов. Хорош для разговорного формата и когда нужно &laquo;подумать вслух&raquo;.</p>
+            <p><strong>Claude</strong> &mdash; длинные документы, анализ, работа с контекстом. Лучший выбор, когда нужно переработать большой объём информации или написать что-то структурированное.</p>
+            <p><strong>Claude Code / Cursor</strong> &mdash; работа с кодом и файлами. Видят ваш проект целиком, могут редактировать файлы, запускать команды. Для любой работы, где нужен доступ к файловой системе.</p>
+            <p><strong>Принцип:</strong> не ищите &laquo;лучший AI&raquo;. Распределяйте задачи по инструментам так же, как распределяете между людьми &mdash; по компетенциям.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
+
+        <!-- Glossary -->
+        <div class="tip-card" data-tag="glossary" onclick="toggleTip(this)">
+          <div class="tip-meta">
+            <span class="tip-tag" style="background: var(--green-900); color: var(--paper-2);">Словарь</span>
+          </div>
+          <h2>Режим оркестратора</h2>
+          <p>Подход к работе, при котором человек не делает задачи с помощью AI, а управляет системой, которая делает задачи</p>
+          <span class="tip-read">Подробнее &rarr;</span>
+          <div class="tip-body">
+            <p>Оркестратор &mdash; это не про инструменты. Это про то, откуда вы смотрите на работу.</p>
+            <p><strong>Обычный режим:</strong> у вас задача &rarr; вы открываете AI &rarr; просите помочь &rarr; получаете результат. Каждый раз заново, с нуля, вручную.</p>
+            <p><strong>Режим оркестратора:</strong> у вас система &mdash; правила, сценарии, контекст, память. Вы не делаете задачу. Вы запускаете процесс и улучшаете систему, которая делает задачи.</p>
+            <p>Аналогия: дирижёр не играет на каждом инструменте. Он управляет оркестром &mdash; задаёт темп, контролирует качество, координирует. Музыканты (AI-агенты) играют сами.</p>
+            <p>Таких людей на рынке &mdash; единицы. Я помогаю перейти в этот режим.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
+
+        <div class="tip-card" data-tag="glossary" onclick="toggleTip(this)">
+          <div class="tip-meta">
+            <span class="tip-tag" style="background: var(--green-900); color: var(--paper-2);">Словарь</span>
+          </div>
+          <h2>Рабочий контур</h2>
+          <p>Связка инструментов, правил и контекста, которая закрывает конкретный рабочий процесс целиком</p>
+          <span class="tip-read">Подробнее &rarr;</span>
+          <div class="tip-body">
+            <p>Контур &mdash; это не один инструмент. Это замкнутый цикл: вход &rarr; обработка &rarr; результат &rarr; обратная связь.</p>
+            <p><strong>Пример:</strong> контур обработки встреч. Запись &rarr; транскрипт &rarr; рекап &rarr; задачи &rarr; follow-up &rarr; обновление CRM. Всё одной командой, по правилам, с накоплением контекста.</p>
+            <p>Контур отличается от &laquo;набора ботов&raquo; тем, что элементы связаны между собой. Результат одного шага автоматически становится входом для следующего. Контекст не теряется на стыках.</p>
+            <p>У зрелого оркестратора 5-10 рабочих контуров, каждый закрывает свою область: продажи, контент, разработка, документы, операции.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
+
+        <div class="tip-card" data-tag="glossary" onclick="toggleTip(this)">
+          <div class="tip-meta">
+            <span class="tip-tag" style="background: var(--green-900); color: var(--paper-2);">Словарь</span>
+          </div>
+          <h2>Контекст</h2>
+          <p>Всё, что AI знает о вас, вашем проекте и ваших решениях. Без контекста AI &mdash; просто умный незнакомец</p>
+          <span class="tip-read">Подробнее &rarr;</span>
+          <div class="tip-body">
+            <p>Контекст &mdash; это главный актив при работе с AI. Чем больше AI знает о вашей ситуации, тем точнее результат.</p>
+            <p><strong>Три уровня контекста:</strong></p>
+            <ul>
+              <li><strong>Сессионный</strong> &mdash; то, что вы рассказали в текущем разговоре. Исчезает при закрытии чата</li>
+              <li><strong>Проектный</strong> &mdash; файлы-инструкции, правила, эталоны. Загружаются автоматически при старте</li>
+              <li><strong>Накопленный</strong> &mdash; session logs, memory, история решений. Растёт со временем</li>
+            </ul>
+            <p>Без проектного и накопленного контекста вы каждый раз тратите время на объяснения. С ними &mdash; AI работает как член команды, который знает проект изнутри.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
+
+        <div class="tip-card" data-tag="glossary" onclick="toggleTip(this)">
+          <div class="tip-meta">
+            <span class="tip-tag" style="background: var(--green-900); color: var(--paper-2);">Словарь</span>
+          </div>
+          <h2>AI-стек</h2>
+          <p>Архитектура ваших AI-инструментов: что используете, как они связаны, где хранится контекст</p>
+          <span class="tip-read">Подробнее &rarr;</span>
+          <div class="tip-body">
+            <p>AI-стек &mdash; это не &laquo;какой чатбот вы используете&raquo;. Это архитектура: набор инструментов + связи между ними + хранение контекста + правила работы.</p>
+            <p><strong>Типичный AI-стек оркестратора:</strong></p>
+            <ul>
+              <li>Claude Code или Cursor &mdash; для работы с файлами и проектами</li>
+              <li>ChatGPT &mdash; для быстрых задач и брейншторма</li>
+              <li>Markdown-хранилище &mdash; second brain, source of truth</li>
+              <li>MCP-серверы &mdash; связь AI с внешними системами (CRM, CMS, календарь)</li>
+              <li>Скиллы и автоматизации &mdash; повторяемые операции одной командой</li>
+            </ul>
+            <p>Разница между стеком и &laquo;набором ботов&raquo;: в стеке элементы работают вместе. Бот &mdash; изолированный инструмент. Стек &mdash; система с общим контекстом.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
+
+        <div class="tip-card" data-tag="glossary" onclick="toggleTip(this)">
+          <div class="tip-meta">
+            <span class="tip-tag" style="background: var(--green-900); color: var(--paper-2);">Словарь</span>
+          </div>
+          <h2>Память</h2>
+          <p>Способность AI помнить ваши решения, предпочтения и контекст между сессиями</p>
+          <span class="tip-read">Подробнее &rarr;</span>
+          <div class="tip-body">
+            <p>По умолчанию AI ничего не помнит. Каждый новый чат &mdash; чистый лист. Память &mdash; это механизмы, которые это исправляют.</p>
+            <p><strong>Как работает память на практике:</strong></p>
+            <ul>
+              <li><strong>CLAUDE.md / .cursorrules</strong> &mdash; файл-инструкция, который AI читает автоматически. Ваши правила, предпочтения, контекст проекта</li>
+              <li><strong>Memory-файлы</strong> &mdash; AI сам записывает важное из разговоров. При следующем запуске &mdash; читает и учитывает</li>
+              <li><strong>Session logs</strong> &mdash; журнал: что сделали, что решили, что осталось. Мост между сессиями</li>
+            </ul>
+            <p>С памятью AI через неделю знает ваш проект глубже, чем новый сотрудник через месяц. Без памяти &mdash; вы каждый раз начинаете с нуля.</p>
+          </div>
+          <span class="tip-collapse" onclick="event.stopPropagation()">Свернуть &uarr;</span>
+        </div>
 
       </div>
     </main>
@@ -430,11 +623,9 @@
       btn.addEventListener('click', () => {
         const cat = btn.dataset.cat;
 
-        // Update active tab
         cats.forEach(c => c.classList.remove('active'));
         btn.classList.add('active');
 
-        // Show/hide category descriptions
         descs.forEach(d => {
           if (cat === 'all') {
             d.hidden = true;
@@ -443,8 +634,8 @@
           }
         });
 
-        // Filter cards
         cards.forEach(card => {
+          card.classList.remove('expanded');
           if (cat === 'all') {
             card.hidden = false;
           } else {
@@ -453,6 +644,16 @@
         });
       });
     });
+
+    function toggleTip(card) {
+      if (card.classList.contains('expanded')) {
+        card.classList.remove('expanded');
+      } else {
+        cards.forEach(c => c.classList.remove('expanded'));
+        card.classList.add('expanded');
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+      }
+    }
   </script>
 
 </body>

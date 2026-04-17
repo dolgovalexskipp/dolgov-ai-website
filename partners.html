@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Партнёры — Долгов, Эй Ай и партнеры</title>
+  <meta name="description" content="Сеть senior-практиков, у которых AI встроен в ежедневную работу. Маркетинг, операции, продуктовый менеджмент. Не аутстафф и не агентство.">
+  <meta property="og:title" content="Партнёры — Долгов, Эй Ай и партнеры">
+  <meta property="og:description" content="Не аутстафф и не агентство. Senior-специалисты с собственным стеком агентов, которые приходят перестраивать функцию, а не закрывать таски.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#9679;</text></svg>">
+  <style>
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Regular.ttf') format('truetype'); font-weight: 400; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Medium.ttf') format('truetype'); font-weight: 500; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-SemiBold.ttf') format('truetype'); font-weight: 600; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-ExtraBold.ttf') format('truetype'); font-weight: 800; }
+
+    :root {
+      --paper: #f6f0e6;
+      --paper-2: #fdfbf7;
+      --ink: #10100f;
+      --muted: #67635d;
+      --muted-light: #8a857e;
+      --line: rgba(16,16,15,0.09);
+      --green-950: #11281d;
+      --green-900: #173a28;
+      --green-700: #3a754d;
+      --green-100: #e7efe8;
+      --shadow: 0 20px 60px rgba(16,16,15,0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --pill: 999px;
+      --max: 1320px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lufga', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(var(--max), calc(100vw - 40px)); margin: 0 auto; }
+    .section { padding: 34px 0; }
+
+    .label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; line-height: 1; text-transform: uppercase;
+      letter-spacing: 0.16em; font-weight: 700; color: var(--green-700);
+    }
+    .label::before { content: ''; width: 22px; height: 1px; background: currentColor; }
+
+    .card {
+      background: rgba(255,255,255,0.62);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 52px; padding: 0 28px; border-radius: var(--pill);
+      font-size: 15px; font-weight: 700; font-family: inherit;
+      border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .btn-primary { background: var(--green-900); color: var(--paper-2); }
+    .btn-secondary { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(246,240,230,0.88);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 20px; padding: 20px 0;
+    }
+    .brand { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 22px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 700; }
+    .burger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .burger svg { width: 24px; height: 24px; }
+
+    /* Hero */
+    .hero { padding: 72px 0 40px; max-width: 860px; }
+    .hero h1 {
+      margin: 18px 0 22px;
+      font-size: clamp(46px, 6.4vw, 88px);
+      line-height: 0.92; letter-spacing: -0.05em; font-weight: 800;
+    }
+    .hero h1 .dim { color: #b0aa9f; }
+    .hero-sub { max-width: 680px; color: var(--muted); font-size: 20px; line-height: 1.6; }
+    .hero-sub strong { color: var(--ink); font-weight: 600; }
+
+    /* Why-not block */
+    .whynot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .whynot { padding: 26px; }
+    .whynot h3 { font-size: 19px; line-height: 1.15; letter-spacing: -0.02em; margin: 12px 0 10px; }
+    .whynot p { color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+    /* Section head */
+    .section-head { margin-bottom: 22px; }
+    .section-head h2 {
+      font-size: clamp(30px, 3.8vw, 46px);
+      line-height: 1.06; letter-spacing: -0.04em; margin: 14px 0 10px;
+    }
+    .section-head p { color: var(--muted); font-size: 17px; line-height: 1.58; max-width: 720px; }
+
+    /* Functions grid */
+    .fn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .fn { padding: 28px; display: flex; flex-direction: column; }
+    .fn h3 { font-size: 22px; line-height: 1.1; letter-spacing: -0.02em; margin: 12px 0 10px; }
+    .fn p { color: var(--muted); font-size: 15px; line-height: 1.55; }
+    .fn-artifact {
+      margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line);
+      font-size: 13px; color: var(--green-700); font-weight: 600; line-height: 1.45;
+    }
+
+    /* Formats */
+    .formats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .format { padding: 32px; }
+    .format h3 { font-size: 26px; line-height: 1.05; letter-spacing: -0.03em; margin: 14px 0 12px; }
+    .format p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+    /* CTA */
+    .cta-section {
+      background: var(--green-950); border-radius: var(--radius-xl);
+      padding: 56px 40px; text-align: center; color: var(--paper-2);
+    }
+    .cta-section h2 {
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.04; letter-spacing: -0.04em; max-width: 680px; margin: 0 auto;
+    }
+    .cta-section p { margin: 16px auto 0; color: rgba(231,239,232,0.7); font-size: 17px; line-height: 1.58; max-width: 560px; }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+    .cta-section .btn-cta { background: var(--paper-2); color: var(--green-950); }
+    .cta-section .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.14); color: var(--paper-2); }
+
+    /* Footer */
+    .footer {
+      padding: 28px 0; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 20px; }
+    .footer a:hover { color: var(--ink); }
+
+    /* Responsive */
+    @media (max-width: 1120px) {
+      .whynot-grid, .fn-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 760px) {
+      .wrap { width: min(var(--max), calc(100vw - 24px)); }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(246,240,230,0.96); backdrop-filter: blur(18px);
+        padding: 16px 20px; border-bottom: 1px solid var(--line);
+        gap: 14px; font-size: 16px;
+      }
+      .burger { display: block; }
+      .hero { padding-top: 40px; }
+      .hero h1 { font-size: 40px; }
+      .hero-sub { font-size: 18px; }
+      .whynot-grid, .fn-grid, .formats-grid { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
+      .cta-section { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="brand">Долгов, Эй Ай и партнеры</a>
+      <button class="burger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="nav-links">
+        <a href="about.html">Обо мне</a>
+        <a href="partners.html" class="active">Партнёры</a>
+        <a href="manifest.html">Манифест</a>
+        <a href="tips.html">Хаки и типсы</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- Hero -->
+    <section class="hero section">
+      <div class="label">Сеть партнёров</div>
+      <h1>Не один человек.<br><span class="dim">Сеть senior-практиков</span></h1>
+      <p class="hero-sub">Рядом со&nbsp;мной&nbsp;&mdash; сеть senior-практиков, у&nbsp;которых <strong>AI уже встроен в&nbsp;ежедневную работу</strong>, а&nbsp;не&nbsp;добавлен сверху как инструмент. Это не&nbsp;ассистенты-исполнители, а&nbsp;профессионалы, которые сами прошли путь превращения личной функции в&nbsp;агентский контур. Когда вашей роли нужна не&nbsp;ещё одна пара рук, а&nbsp;пересборка&nbsp;&mdash; я&nbsp;помогаю найти такого человека и&nbsp;подключить его к&nbsp;вам.</p>
+    </section>
+
+    <!-- Why not outstaff -->
+    <section class="section">
+      <div class="section-head">
+        <div class="label">Чем это не является</div>
+        <h2>Не аутстафф и&nbsp;не&nbsp;классическое агентство</h2>
+        <p>Если вам нужны руки&nbsp;&mdash; это не&nbsp;сюда. Партнёры приходят перестраивать функцию, а&nbsp;не&nbsp;закрывать таски</p>
+      </div>
+      <div class="whynot-grid">
+        <div class="card whynot">
+          <div class="label">Senior + домен</div>
+          <h3>10+ лет в&nbsp;своей функции</h3>
+          <p>Каждый партнёр&nbsp;&mdash; практик с&nbsp;боевым опытом на&nbsp;стороне клиента: CMO, COO, CFO, Head of&nbsp;Sales, Head of&nbsp;Product. Не&nbsp;junior с&nbsp;ChatGPT, а&nbsp;человек, который уже построил функцию руками</p>
+        </div>
+        <div class="card whynot">
+          <div class="label">AI встроен в&nbsp;работу</div>
+          <h3>Своя операционка, не&nbsp;только резюме</h3>
+          <p>Партнёры сами прошли путь, который я&nbsp;помогаю проходить клиентам: собрали вокруг своей роли процессы, правила и&nbsp;агентов. Они приходят не&nbsp;с&nbsp;CV, а&nbsp;с&nbsp;рабочим контуром</p>
+        </div>
+        <div class="card whynot">
+          <div class="label">Передача внутрь</div>
+          <h3>Цель&nbsp;&mdash; оставить систему у&nbsp;вас</h3>
+          <p>Это не&nbsp;&laquo;мы подумаем за&nbsp;вас&raquo; и&nbsp;не&nbsp;вечный ретейнер ради часов. Партнёр перестраивает функцию так, чтобы её&nbsp;можно было дальше вести вашей командой или одним человеком с&nbsp;агентами</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Functions -->
+    <section class="section">
+      <div class="section-head">
+        <div class="label">Направления</div>
+        <h2>Где сейчас есть партнёры</h2>
+        <p>Каждое направление&nbsp;&mdash; senior-практик, который переводит функцию на&nbsp;AI-рельсы. Список растёт&nbsp;&mdash; напишите, если нужна роль не&nbsp;из&nbsp;этого списка</p>
+      </div>
+      <div class="fn-grid">
+        <div class="card fn">
+          <div class="label">Маркетинг</div>
+          <h3>CMO с&nbsp;AI-конвейером</h3>
+          <p>Позиционирование, контент-пайплайны, performance, исследования рынка&nbsp;&mdash; всё через систему агентов. Один человек закрывает работу отдела</p>
+          <div class="fn-artifact">AI-стек маркетинга + процессы исследований, контента, аналитики</div>
+        </div>
+
+        <div class="card fn">
+          <div class="label">Операционное управление</div>
+          <h3>COO с&nbsp;AI-операционкой</h3>
+          <p>Процессы, регламенты, адаптация, координация команд. Операционный слой компании, построенный как система агентов, а&nbsp;не&nbsp;как набор Notion-страниц</p>
+          <div class="fn-artifact">Карта процессов + AI-агенты для координации, отчётности и&nbsp;рутин</div>
+        </div>
+
+        <div class="card fn">
+          <div class="label">Продуктовый менеджмент</div>
+          <h3>Head of&nbsp;Product с&nbsp;AI-контуром</h3>
+          <p>Discovery, спецификации, приоритизация, работа с&nbsp;разработкой и&nbsp;исследования пользователей. Продуктовая функция, где рутина передана агентам, а&nbsp;человек занят решениями</p>
+          <div class="fn-artifact">Product workflow + AI-агенты для спек, ресёрча и&nbsp;работы с&nbsp;командой</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formats -->
+    <section class="section">
+      <div class="section-head">
+        <div class="label">Как работаем</div>
+        <h2>Два формата подключения</h2>
+      </div>
+      <div class="formats-grid">
+        <div class="card format">
+          <div class="label">Разовый подбор</div>
+          <h3>Помощь с&nbsp;наймом</h3>
+          <p>Когда у&nbsp;вас уже есть роль в&nbsp;компании и&nbsp;нужен senior-практик с&nbsp;готовым AI-стеком. Я&nbsp;подбираю из&nbsp;сети кандидата под вашу задачу, контекст и&nbsp;культуру, подключаю к&nbsp;вам, помогаю пройти первые пару месяцев. Дальше человек работает внутри компании&nbsp;&mdash; как обычный найм, только с&nbsp;собственной операционкой</p>
+        </div>
+        <div class="card format">
+          <div class="label">Ежемесячный ретейнер</div>
+          <h3>Партнёр-в-ретейнере</h3>
+          <p>Когда полноценный найм пока не&nbsp;нужен или невозможен&nbsp;&mdash; подключаем партнёра на&nbsp;ежемесячный ретейнер. Функция перестраивается чужими руками, а&nbsp;выходной результат&nbsp;&mdash; работающая система, которую дальше можно вести силами существующей команды</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="padding-bottom: 40px;">
+      <div class="cta-section">
+        <h2>Нужен партнёр под функцию?</h2>
+        <p>Расскажите, какую функцию хотите перестроить&nbsp;&mdash; подберу человека из&nbsp;сети и&nbsp;обсудим формат</p>
+        <div class="cta-actions">
+          <a class="btn btn-cta" href="https://t.me/dolgovalex?text=%D0%98%D1%89%D1%83%20%D0%BF%D0%B0%D1%80%D1%82%D0%BD%D1%91%D1%80%D0%B0%20%D0%BF%D0%BE%D0%B4%20%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8E">Написать в Telegram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer">
+      <div>
+        <div style="font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 4px;">Долгов, Эй Ай и партнеры</div>
+        <div>&copy; 2026</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Главная</a>
+        <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
+        <a href="mailto:dolgovalex@skipp.dev">dolgovalex@skipp.dev</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

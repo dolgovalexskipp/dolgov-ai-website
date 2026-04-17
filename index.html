@@ -87,8 +87,35 @@
     .burger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
     .burger svg { width: 24px; height: 24px; }
 
+    /* Illustration art — geometric placeholders before illustrator delivers */
+    .illus-art {
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+      position: relative;
+    }
+    .illus-art svg { width: 100%; height: auto; max-width: 480px; }
+    .illus-hero-art { min-height: 440px; }
+    .illus-cta-art { min-height: 220px; margin-bottom: 20px; max-width: 540px; margin-left: auto; margin-right: auto; }
+    .illus-cta-art svg { max-width: 360px; }
+
+    /* gentle rotation on hero orbit groups */
+    @keyframes orbitSpin { to { transform: rotate(360deg); } }
+    @keyframes orbitSpinReverse { to { transform: rotate(-360deg); } }
+    .orbit-inner { transform-origin: 240px 220px; animation: orbitSpin 80s linear infinite; }
+    .orbit-outer { transform-origin: 240px 220px; animation: orbitSpinReverse 140s linear infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .orbit-inner, .orbit-outer { animation: none; }
+    }
+
     /* Hero */
-    .hero { padding: 72px 0 48px; max-width: 880px; }
+    .hero { padding: 72px 0 48px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 56px; align-items: center;
+    }
+    .hero-copy { max-width: 680px; }
+    .illus-hero { min-height: 440px; }
     .hero h1 {
       margin: 18px 0 22px;
       font-size: clamp(52px, 7vw, 108px);
@@ -146,6 +173,58 @@
     }
     .scenario-sm h3 { font-size: 16px; margin-bottom: 6px; }
     .scenario-sm p { color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    /* Scenarios — deep rows */
+    .scenario-stack { display: grid; gap: 18px; }
+    .scenario-row {
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .sr-left h3 {
+      font-size: 26px; line-height: 1.12; letter-spacing: -0.025em;
+      margin: 14px 0 14px;
+    }
+    .sr-lead { color: var(--muted); font-size: 16px; line-height: 1.62; margin-bottom: 18px; }
+    .sr-how-title {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--green-700); margin-bottom: 12px;
+    }
+    .sr-how ol { list-style: none; counter-reset: sstep; display: grid; gap: 10px; }
+    .sr-how li {
+      counter-increment: sstep;
+      font-size: 14.5px; line-height: 1.55; color: var(--muted);
+      padding-left: 32px; position: relative;
+    }
+    .sr-how li strong { color: var(--ink); font-weight: 600; }
+    .sr-how li::before {
+      content: counter(sstep);
+      position: absolute; left: 0; top: 1px;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--green-100); color: var(--green-900);
+      font-size: 11px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sr-right { display: grid; gap: 14px; }
+    .ba-block {
+      padding: 18px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.018);
+    }
+    .ba-block.ba-after {
+      background: rgba(58,117,77,0.08);
+      border-color: rgba(58,117,77,0.22);
+    }
+    .ba-label {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted-light); margin-bottom: 8px;
+    }
+    .ba-block.ba-after .ba-label { color: var(--green-700); }
+    .ba-text { font-size: 15px; line-height: 1.55; color: var(--ink); }
+    .ba-text strong { color: var(--green-900); font-weight: 700; }
 
     /* Process */
     .process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -248,28 +327,41 @@
 
     /* About */
     .about-card {
-      display: grid; grid-template-columns: 160px 1fr;
-      gap: 28px; align-items: center; padding: 28px;
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 36px; align-items: start; padding: 36px;
     }
     .about-photo {
-      width: 160px; height: 180px; border-radius: var(--radius-lg);
+      width: 200px; height: 240px; border-radius: var(--radius-lg);
       overflow: hidden; border: 1px solid var(--line);
     }
     .about-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .about-text h2 { font-size: 24px; letter-spacing: -0.03em; margin-bottom: 10px; }
+    .about-text h2 { font-size: clamp(22px, 2.6vw, 32px); line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 14px; }
     .about-text p { color: var(--muted); font-size: 15px; line-height: 1.6; margin-bottom: 8px; }
     .about-link { font-size: 15px; font-weight: 700; color: var(--green-700); }
 
     /* Formats */
-    .formats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; align-items: start; }
-    .format { padding: 28px; position: relative; }
-    .format h3 { margin: 14px 0 10px; font-size: 26px; line-height: 1.05; letter-spacing: -0.03em; }
-    .format p { color: var(--muted); font-size: 15px; line-height: 1.55; }
+    .formats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; align-items: stretch; }
+    .format {
+      padding: 36px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 340px;
+    }
+    .format h3 { margin: 16px 0 14px; font-size: clamp(28px, 3vw, 36px); line-height: 1.0; letter-spacing: -0.035em; font-weight: 800; }
+    .format > p { color: var(--muted); font-size: 15px; line-height: 1.6; }
     .format-note { margin-top: 14px; font-size: 13px; color: var(--muted-light); line-height: 1.5; }
+    .format-cta {
+      margin-top: auto; padding-top: 22px;
+      border-top: 1px solid var(--line);
+      font-size: 15px; font-weight: 700; color: var(--green-900);
+      transition: color 0.2s;
+    }
+    .format-cta:hover { color: var(--green-700); }
     .format-featured {
       border: 2px solid var(--green-700);
       background: rgba(231,239,232,0.38);
-      padding-top: 40px;
+      padding-top: 48px;
     }
     .format-featured .format-note { color: var(--green-900); font-weight: 500; }
     .format-badge {
@@ -326,9 +418,26 @@
     .footer-links { display: flex; gap: 20px; }
     .footer a:hover { color: var(--ink); }
 
+    /* Longview — Learning + Long-term merged */
+    .longview-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    }
+    .longview-col { padding: 32px; }
+    .longview-col h3 {
+      font-size: clamp(22px, 2.4vw, 28px);
+      line-height: 1.15; letter-spacing: -0.025em;
+      margin: 14px 0 14px;
+    }
+    .longview-col p { color: var(--muted); font-size: 16px; line-height: 1.62; margin-bottom: 12px; }
+    .longview-col p:last-child { margin-bottom: 0; }
+    .longview-col p strong { color: var(--ink); }
+
     /* Mobile */
     @media (max-width: 1120px) {
-      .modes-inner, .process-grid, .learning, .testimonial-inner { grid-template-columns: 1fr; }
+      .modes-inner, .process-grid, .learning, .testimonial-inner,
+      .hero-grid, .longterm, .scenario-row, .longview-grid { grid-template-columns: 1fr; }
+      .scenario-row { gap: 24px; padding: 28px; }
+      .illus-hero { min-height: 260px; }
       .mode-col-dim { border-right: none; border-bottom: 1px solid var(--line); }
       .scenarios-top, .formats-grid, .system-layers { grid-template-columns: 1fr 1fr; }
       .system-nums { grid-template-columns: repeat(2, 1fr); }
@@ -376,6 +485,7 @@
       </button>
       <div class="nav-links">
         <a href="about.html">Обо мне</a>
+        <a href="partners.html">Партнёры</a>
         <a href="manifest.html">Манифест</a>
         <a href="tips.html">Хаки и типсы</a>
       </div>
@@ -386,14 +496,56 @@
 
     <!-- Hero -->
     <section class="hero section">
-      <div class="label">Персональные AI-сессии</div>
-      <h1>AI уже есть у&nbsp;всех<br><span class="dim">Система&nbsp;&mdash; у&nbsp;единиц</span></h1>
-      <p class="hero-sub">Помогаю основателям и руководителям компаний перейти от разрозненных AI-экспериментов к рабочей системе. Не&nbsp;курс, не&nbsp;промптинг&nbsp;&mdash; персональные сессии на&nbsp;ваших задачах с&nbsp;гарантией результата</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20AI-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8">Записаться на сессию</a>
-        <a class="btn btn-secondary" href="#formats">Форматы работы</a>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="label">Персональные AI-сессии</div>
+          <h1>AI уже есть у&nbsp;всех<br><span class="dim">Система&nbsp;&mdash; у&nbsp;единиц</span></h1>
+          <p class="hero-sub">Я помогаю основателям и&nbsp;C-level собрать вокруг себя <strong style="color: var(--ink); font-weight: 600;">команду AI-агентов</strong>&nbsp;&mdash; так&nbsp;же, как команда собирается вокруг пилота Формулы-1. Вы остаётесь за&nbsp;рулём. Агенты берут на&nbsp;себя всё остальное: контекст, подготовку, операционку, рутины</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20AI-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8">Записаться на сессию</a>
+            <a class="btn btn-secondary" href="#formats">Форматы работы</a>
+          </div>
+          <div class="hero-micro">Первая сессия с гарантией &mdash; не видите ценности, не платите</div>
+        </div>
+        <div class="illus-art illus-hero-art" aria-hidden="true">
+          <svg viewBox="0 0 480 440" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(58,117,77,0.12)"/>
+                <stop offset="60%" stop-color="rgba(58,117,77,0.03)"/>
+                <stop offset="100%" stop-color="rgba(58,117,77,0)"/>
+              </radialGradient>
+            </defs>
+            <rect width="480" height="440" fill="url(#heroGlow)"/>
+
+            <!-- orbit lines -->
+            <circle cx="240" cy="220" r="100" fill="none" stroke="rgba(58,117,77,0.22)" stroke-width="1" stroke-dasharray="2 5"/>
+            <circle cx="240" cy="220" r="170" fill="none" stroke="rgba(58,117,77,0.16)" stroke-width="1" stroke-dasharray="2 5"/>
+
+            <!-- inner orbit agents (rotate slowly) -->
+            <g class="orbit-inner">
+              <circle cx="340" cy="220" r="9" fill="#3a754d"/>
+              <circle cx="190" cy="306" r="9" fill="#3a754d"/>
+              <circle cx="190" cy="134" r="9" fill="#3a754d"/>
+            </g>
+
+            <!-- outer orbit agents (counter-rotate) -->
+            <g class="orbit-outer">
+              <circle cx="240" cy="50" r="11" fill="#173a28"/>
+              <circle cx="410" cy="220" r="11" fill="#173a28"/>
+              <circle cx="240" cy="390" r="11" fill="#173a28"/>
+              <circle cx="70" cy="220" r="11" fill="#173a28"/>
+              <circle cx="120" cy="100" r="11" fill="#173a28"/>
+              <circle cx="360" cy="340" r="11" fill="#173a28"/>
+            </g>
+
+            <!-- center: pilot -->
+            <circle cx="240" cy="220" r="36" fill="none" stroke="rgba(17,40,29,0.18)" stroke-width="1.5"/>
+            <circle cx="240" cy="220" r="22" fill="#11281d"/>
+            <circle cx="240" cy="220" r="6" fill="#f6f0e6"/>
+          </svg>
+        </div>
       </div>
-      <div class="hero-micro">Первая сессия с гарантией &mdash; не видите ценности, не платите</div>
     </section>
 
     <!-- Two Modes -->
@@ -407,18 +559,18 @@
           <div class="mode-col mode-col-dim">
             <div class="label" style="color: var(--muted-light);">Режим большинства</div>
             <h3>AI как ускоритель</h3>
-            <p>Тот же процесс, просто быстрее. Задача &rarr; человек работает &rarr; AI подсказывает &rarr; результат. AI встроен поверх старого конвейера. Удобнее, но принципиально ничего не меняется</p>
+            <p>Тот же процесс, просто быстрее. Человек делает работу руками, AI подсказывает по&nbsp;ходу. Конвейер старый, инструменты новые. Удобнее, но&nbsp;принципиально ничего не&nbsp;меняется</p>
             <div class="mode-tag mode-tag-dim">Таких &mdash; десятки тысяч</div>
           </div>
           <div class="mode-col">
             <div class="label">Режим оркестратора</div>
             <h3>AI как рабочая среда</h3>
-            <p>Человек не &laquo;делает с помощью AI&raquo;&nbsp;&mdash; он оркестрирует систему. Сценарии, правила, контекст, память, автоматизации. Садится не&nbsp;делать задачу, а&nbsp;улучшать систему, которая делает задачи</p>
+            <p>Человек не&nbsp;&laquo;делает с&nbsp;помощью AI&raquo;&nbsp;&mdash; он&nbsp;собирает вокруг себя команду агентов и&nbsp;руководит ей. Та&nbsp;же роль, что у&nbsp;пилота из&nbsp;первого экрана: вы&nbsp;остаётесь за&nbsp;рулём, агенты держат контекст, готовят, выполняют. Садитесь не&nbsp;делать задачу, а&nbsp;улучшать систему, которая её&nbsp;делает</p>
             <div class="mode-tag mode-tag-bright">Таких &mdash; единицы</div>
           </div>
         </div>
         <div class="modes-bottom">
-          <strong>Помогаю перейти из первого режима во второй.</strong> Не через теорию &mdash; через разбор ваших реальных задач и построение рабочей системы на практике
+          <strong>Помогаю перейти во второй режим.</strong> Я не&nbsp;учу промптингу и&nbsp;не&nbsp;&laquo;ставлю AI, как Windows&raquo;. Мы собираем вашу личную систему&nbsp;&mdash; из&nbsp;агентов, процессов и&nbsp;правил, которая работает под вас одного, а&nbsp;не&nbsp;в&nbsp;среднем по&nbsp;больнице
           <div style="margin-top: 20px;">
             <a class="btn btn-primary" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20AI-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8">Записаться на сессию</a>
           </div>
@@ -431,41 +583,92 @@
       <div class="section-head">
         <div class="label">Типовые сценарии</div>
         <h2>Что основатели и C-level уже переводят на AI</h2>
-        <p>Любой повторяющийся процесс можно описать, снабдить правилами &mdash; и превратить в системную операцию</p>
+        <p>Ниже&nbsp;&mdash; три реальных сценария. С&nbsp;тем, как это выглядит сегодня, как выглядит после сборки системы, и&nbsp;что именно делают агенты за&nbsp;кулисами</p>
       </div>
-      <div class="scenarios-top">
-        <div class="card scenario-big">
-          <div class="label">CEO / Основатель</div>
-          <h3>Персональный workflow</h3>
-          <p>Разбор входящих, подготовка к встречам, follow-up, генерация материалов. AI-экзоскелет для ежедневной рутины руководителя</p>
-          <div class="scenario-example">CEO тратил ~4 часа в неделю на follow-up. С AI-контуром &mdash; 30 минут</div>
+
+      <div class="scenario-stack">
+
+        <!-- Scenario 1: CEO workflow -->
+        <div class="card scenario-row">
+          <div class="sr-left">
+            <div class="label">CEO / Основатель</div>
+            <h3>Встречи, контекст, follow-up&nbsp;&mdash; не в&nbsp;голове и&nbsp;не в&nbsp;заметках</h3>
+            <p class="sr-lead">День руководителя&nbsp;&mdash; встречи. После каждой: заметки в&nbsp;почту, задачи в&nbsp;голове, follow-up откладывается на&nbsp;вечер. К&nbsp;утру часть контекста потеряна, половина писем не&nbsp;ушла.</p>
+            <div class="sr-how">
+              <div class="sr-how-title">Как это устроено внутри</div>
+              <ol>
+                <li><strong>Транскрибатор встреч</strong> пишет все созвоны и&nbsp;кладёт их&nbsp;в&nbsp;second brain рядом с&nbsp;контекстом о&nbsp;клиенте или проекте</li>
+                <li><strong>Агент-аналитик</strong> на&nbsp;каждом транскрипте делает рекап, вытаскивает задачи, решения, красные флаги и&nbsp;договорённости</li>
+                <li><strong>Агент-секретарь</strong> собирает follow-up в&nbsp;вашем тоне и&nbsp;кидает черновик в&nbsp;CRM&nbsp;/ Telegram&nbsp;&mdash; вам остаётся нажать &laquo;отправить&raquo;</li>
+              </ol>
+            </div>
+          </div>
+          <div class="sr-right">
+            <div class="ba-block">
+              <div class="ba-label">Как сейчас</div>
+              <div class="ba-text">Заметки себе в&nbsp;почту, задачи в&nbsp;таск-менеджер, follow-up вечером. <strong style="color: var(--muted); font-weight: 600;">~4 часа в&nbsp;неделю только на&nbsp;обработку встреч.</strong></div>
+            </div>
+            <div class="ba-block ba-after">
+              <div class="ba-label">С личной системой</div>
+              <div class="ba-text">К&nbsp;утру на&nbsp;столе: рекап, задачи в&nbsp;CRM, черновики follow-up в&nbsp;вашем тоне. <strong>~30 минут в&nbsp;неделю,</strong> остальное делает система.</div>
+            </div>
+          </div>
         </div>
-        <div class="card scenario-big">
-          <div class="label">Продажи</div>
-          <h3>Коммерческие предложения и CRM</h3>
-          <p>КП, follow-up цепочки, квалификация лидов, заметки после звонков. Всё по правилам, с накоплением контекста</p>
-          <div class="scenario-example">Рекап встречи + задачи + сообщение клиенту &mdash; за один вызов</div>
+
+        <!-- Scenario 2: КП за 30 секунд -->
+        <div class="card scenario-row">
+          <div class="sr-left">
+            <div class="label">Продажи</div>
+            <h3>Коммерческое предложение под клиента&nbsp;&mdash; за&nbsp;30&nbsp;секунд, не&nbsp;за&nbsp;полдня</h3>
+            <p class="sr-lead">КП собирается руками в&nbsp;Google Docs: шаблоны, копипаст цен, попытка вспомнить важное со&nbsp;встречи. У&nbsp;каждого менеджера&nbsp;&mdash; свой стиль и&nbsp;набор оговорок. Ключевая фраза вчерашнего клиента всё равно не&nbsp;попадает в&nbsp;документ.</p>
+            <div class="sr-how">
+              <div class="sr-how-title">Как это устроено внутри</div>
+              <ol>
+                <li>В&nbsp;second brain&nbsp;&mdash; <strong>база кейсов, цен, формулировок и&nbsp;ответов на&nbsp;возражения.</strong> Не&nbsp;один шаблон, а&nbsp;живая библиотека</li>
+                <li><strong>Агент-маркетолог</strong> забирает контекст клиента с&nbsp;встречи и&nbsp;подбирает релевантные блоки под его индустрию, размер, боль</li>
+                <li><strong>Агент-верстальщик</strong> выдаёт PDF в&nbsp;вашем визуале + черновик follow-up к&nbsp;нему</li>
+              </ol>
+            </div>
+          </div>
+          <div class="sr-right">
+            <div class="ba-block">
+              <div class="ba-label">Как сейчас</div>
+              <div class="ba-text">Google Docs, шаблон, руки. Каждое КП&nbsp;&mdash; <strong style="color: var(--muted); font-weight: 600;">2&ndash;4 часа работы.</strong> Точность и&nbsp;стиль зависят от&nbsp;менеджера.</div>
+            </div>
+            <div class="ba-block ba-after">
+              <div class="ba-label">С личной системой</div>
+              <div class="ba-text">Одна команда агенту&nbsp;&mdash; и&nbsp;через <strong>30 секунд</strong> готовое КП в&nbsp;PDF, под конкретного клиента, с&nbsp;контекстом вчерашней встречи.</div>
+            </div>
+          </div>
         </div>
-        <div class="card scenario-big">
-          <div class="label">Контент</div>
-          <h3>Публикации и материалы</h3>
-          <p>Статьи, кейсы, презентации. Не &laquo;напиши текст&raquo;, а пайплайн от идеи до публикации с вашим тоном и стандартами</p>
-          <div class="scenario-example">Статья от драфта до продакшна &mdash; один AI-воркфлоу</div>
+
+        <!-- Scenario 3: Non-tech founder → dev -->
+        <div class="card scenario-row">
+          <div class="sr-left">
+            <div class="label">Своя практика</div>
+            <h3>Non-tech фаундер ведёт разработку платформы&nbsp;&mdash; без CTO и&nbsp;команды</h3>
+            <p class="sr-lead">Этот сценарий я&nbsp;веду сам. У&nbsp;меня нет инженерного бэкграунда, но&nbsp;продуктовая разработка платформы VEYRA идёт через систему агентов. Я&nbsp;&mdash; первый клиент собственной методологии. Ниже&nbsp;&mdash; как устроен контур.</p>
+            <div class="sr-how">
+              <div class="sr-how-title">Как это устроено внутри</div>
+              <ol>
+                <li><strong>Агенты-архитекторы</strong> на&nbsp;уровне продукта проектируют решения, пишут ТЗ&nbsp;и&nbsp;разбивают задачу на&nbsp;этапы</li>
+                <li><strong>Агенты-разработчики</strong> пишут код в&nbsp;изолированных ветках&nbsp;&mdash; несколько задач параллельно, без блокировок</li>
+                <li><strong>Агент-ревьюер</strong> прогоняет изменения через качественный гейт: тесты, стиль, архитектурные инварианты&nbsp;&mdash; и&nbsp;только потом мерж</li>
+              </ol>
+            </div>
+          </div>
+          <div class="sr-right">
+            <div class="ba-block">
+              <div class="ba-label">Как сейчас</div>
+              <div class="ba-text">Классическая команда разработки: наём, спринты, синки, ожидание. <strong style="color: var(--muted); font-weight: 600;">Фичи уезжают в&nbsp;следующий релиз.</strong></div>
+            </div>
+            <div class="ba-block ba-after">
+              <div class="ba-label">С личной системой</div>
+              <div class="ba-text">Без CTO и&nbsp;инженерной команды. <strong>PR и&nbsp;новых фич выходит в&nbsp;три раза больше, чем у&nbsp;меня было&nbsp;бы с&nbsp;классическим штатом того&nbsp;же бюджета.</strong></div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="scenarios-bottom">
-        <div class="scenario-sm">
-          <h3>Рутина руководителя</h3>
-          <p>Отчёты, регламенты, адаптация новых сотрудников &mdash; всё, на что вечно не хватает рук</p>
-        </div>
-        <div class="scenario-sm">
-          <h3>Постановка задач команде</h3>
-          <p>ТЗ, спецификации, приоритизация &mdash; чтобы разработка и подрядчики не буксовали</p>
-        </div>
-        <div class="scenario-sm">
-          <h3>Договоры и отчёты</h3>
-          <p>Генерация документов, финансовые сводки, контроль дедлайнов</p>
-        </div>
+
       </div>
     </section>
 
@@ -545,7 +748,7 @@
             <div class="label" style="color: var(--green-900);">Что меняется</div>
             <div class="proof-list" style="margin-top: 14px;">
               <div class="proof-item"><strong>Контекст перестаёт теряться</strong>Память, правила, материалы &mdash; всё на месте</div>
-              <div class="proof-item"><strong>Разрозненные инструменты &rarr; система</strong>Боты и скрипты работают как единый контур</div>
+              <div class="proof-item"><strong>Из набора инструментов&nbsp;— контур</strong>Боты и&nbsp;скрипты начинают работать как одна система</div>
               <div class="proof-item"><strong>Эффект в практике, не в демо</strong>Понятно, что запускать и как измерить результат</div>
             </div>
           </div>
@@ -553,65 +756,63 @@
       </div>
     </section>
 
-    <!-- Learning -->
+    <!-- Learning + Long-term — как это устроено в долгую -->
     <section class="section">
-      <div class="learning">
-        <div class="learning-text">
-          <div class="label">Формат обучения нового типа</div>
-          <h2>Как изучение языка, но с дофамином от результата</h2>
-          <p>Курсы и YouTube дают базу. Но вайбкодинг &mdash; это вершина айсберга. Под ней &mdash; архитектура процессов: как хранить контекст, строить правила, делать результат повторяемым</p>
-          <p>Персональные сессии работают как занятия с носителем языка. Не лекции &mdash; практика на вашем материале. Я показываю подходы, вы становитесь оркестратором</p>
+      <div class="section-head">
+        <div class="label">Как это устроено в&nbsp;долгую</div>
+        <h2>Не разовая настройка и&nbsp;не&nbsp;курс</h2>
+        <p>Сессии&nbsp;&mdash; это формат, который ближе к&nbsp;занятиям с&nbsp;носителем языка, чем к&nbsp;онлайн-обучению. И&nbsp;это надолго: AI и&nbsp;модели меняются, ваша система&nbsp;&mdash; вместе с&nbsp;ними</p>
+      </div>
+      <div class="longview-grid">
+        <div class="card longview-col">
+          <div class="label">Формат</div>
+          <h3>Практика на&nbsp;ваших задачах, не&nbsp;лекции</h3>
+          <p>Курсы и&nbsp;YouTube дают базу и&nbsp;вдохновение. Но&nbsp;то, что показывают на&nbsp;ютубе&nbsp;&mdash; это вершина айсберга. Под ней&nbsp;&mdash; архитектура процессов: где хранится контекст, какие правила работают именно у&nbsp;вас, что делает результат повторяемым завтра. Это не&nbsp;собирается из&nbsp;чужих шаблонов.</p>
+          <p>Я&nbsp;рядом, пока вы&nbsp;первый раз собираете собственный рабочий контур. На&nbsp;вашем материале, в&nbsp;вашем темпе. Подстраиваюсь под уровень: технический бэкграунд не&nbsp;нужен, нужна задача.</p>
         </div>
-        <div class="learning-points">
-          <div class="lp">
-            <h3>От нуля до продвинутого</h3>
-            <p>Подстраиваюсь под каждый уровень. Не нужно быть техническим &mdash; нужна задача или цель</p>
-          </div>
-          <div class="lp">
-            <h3>Только ваши задачи</h3>
-            <p>Никаких абстрактных примеров &mdash; разбираем то, что вы реально делаете каждый день</p>
-          </div>
-          <div class="lp">
-            <h3>Результат за один час</h3>
-            <p>Не &laquo;через 8 модулей поймёте&raquo; &mdash; конкретная схема, которую можно проверить завтра</p>
-          </div>
+        <div class="card longview-col">
+          <div class="label">В долгую</div>
+          <h3>Каждый квартал&nbsp;&mdash; передаёте агенту то, что освоили</h3>
+          <p>AI и&nbsp;модели меняются каждые несколько месяцев. Вчерашний рабочий контур через квартал уже догоняет вас&nbsp;&mdash; появляются новые инструменты, новые сценарии, новые уровни автоматизации.</p>
+          <p>Я&nbsp;возвращаюсь в&nbsp;систему вместе с&nbsp;вами. То, что вы&nbsp;научились делать руками, переходит внутрь агентов. Ваш опыт, минус один шаг&nbsp;&mdash; становится частью системы.</p>
         </div>
       </div>
     </section>
 
-    <!-- Cases: VEYRA compact -->
+    <!-- Cases: Компания AI-агентов -->
     <section id="cases" class="section">
       <div class="section-head">
-        <div class="label">Кейс: VEYRA</div>
-        <h2>Один человек. AI-система. Работа команды из 5+</h2>
-        <p>Я строю VEYRA &mdash; голосовые AI-агенты для бизнеса &mdash; в том самом режиме оркестратора, который предлагаю клиентам</p>
+        <div class="label">Кейс: моя собственная компания</div>
+        <h2>Компания AI-агентов&nbsp;&mdash; как устроено внутри</h2>
+        <p>VEYRA&nbsp;&mdash; компания, которую я&nbsp;строю. Голосовые AI-ассистенты для бизнеса. Все внутренние процессы (продукт, разработка, продажи, контент, юристы, операционка) идут через те&nbsp;же агентные контуры, которые потом собираются с&nbsp;клиентами на&nbsp;сессиях. Ниже&nbsp;&mdash; три уровня устройства</p>
       </div>
       <div class="card" style="padding: 32px;">
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;">
           <div>
-            <div style="font-size: 36px; font-weight: 800; letter-spacing: -0.04em; color: var(--green-900); margin-bottom: 8px;">1 = 5</div>
-            <h3 style="font-size: 17px; margin-bottom: 6px;">Полный продуктовый цикл</h3>
-            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">Разработка, продажи, контент, legal, операции &mdash; всё через AI-контуры. Без найма команды</p>
+            <div style="font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-700); margin-bottom: 12px;">Контуры функций</div>
+            <h3 style="font-size: 18px; margin-bottom: 8px; line-height: 1.2;">Полный цикл компании в&nbsp;агентах</h3>
+            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">Продукт, разработка, продажи, контент, legal, операции&nbsp;&mdash; через специализированные агентные команды. Без штата, но&nbsp;с&nbsp;пропускной способностью компании из&nbsp;5+ человек</p>
           </div>
           <div>
-            <div style="font-size: 36px; font-weight: 800; letter-spacing: -0.04em; color: var(--green-900); margin-bottom: 8px;">12+</div>
-            <h3 style="font-size: 17px; margin-bottom: 6px;">Автоматизированных скиллов</h3>
-            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">От рекапов встреч до генерации договоров. Каждый &mdash; одна команда вместо часа работы</p>
+            <div style="font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-700); margin-bottom: 12px;">MCP-инфраструктура</div>
+            <h3 style="font-size: 18px; margin-bottom: 8px; line-height: 1.2;">Нервная система агентов</h3>
+            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">Vault, Linear, Strapi, Recordings, Legal&nbsp;&mdash; агенты ходят к&nbsp;данным и&nbsp;инструментам напрямую через MCP-серверы, а&nbsp;не&nbsp;через чужие интерфейсы и&nbsp;кнопки</p>
           </div>
           <div>
-            <div style="font-size: 36px; font-weight: 800; letter-spacing: -0.04em; color: var(--green-900); margin-bottom: 8px;">200+</div>
-            <h3 style="font-size: 17px; margin-bottom: 6px;">Файлов в second brain</h3>
-            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">Полный контекст компании: клиенты, решения, процессы. AI знает всё и ничего не забывает</p>
+            <div style="font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green-700); margin-bottom: 12px;">Dev-team</div>
+            <h3 style="font-size: 18px; margin-bottom: 8px; line-height: 1.2;">Команда агентов-разработчиков</h3>
+            <p style="font-size: 15px; color: var(--muted); line-height: 1.55;">Продуктовые задачи проходят через четыре роли: разведка, архитектор, гейткипер, исполнители. Не&nbsp;один &laquo;помощник&raquo;, а&nbsp;команда со&nbsp;специализациями и&nbsp;ревью</p>
           </div>
         </div>
         <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
           <span style="font-size: 14px; color: var(--muted); margin-right: 4px;">На AI-рельсах:</span>
+          <span class="process-tag">Voice AI</span>
           <span class="process-tag">Разработка</span>
           <span class="process-tag">Продажи</span>
           <span class="process-tag">Legal</span>
           <span class="process-tag">Контент</span>
-          <span class="process-tag">Встречи</span>
           <span class="process-tag">Операции</span>
+          <span class="process-tag">Встречи</span>
         </div>
       </div>
     </section>
@@ -627,10 +828,11 @@
           <img src="assets/alex-dolgov.jpg" alt="Александр Долгов">
         </div>
         <div class="about-text">
-          <h2>Александр Долгов</h2>
-          <p>Стратегический консалтинг &rarr; Skyeng (управляющий директор, 120 млн/год) &rarr; Skipp.dev ($1.6M инвестиций, ТОП-5 стартапов России, 100+ проектов изнутри) &rarr; VEYRA</p>
-          <p>Каждый день я работаю в том самом режиме оркестратора, который предлагаю клиентам. Вся VEYRA &mdash; от продукта до продаж &mdash; работает через AI-систему, которую я спроектировал и продолжаю развивать</p>
-          <a href="about.html" class="about-link">Подробная история &rarr;</a>
+          <div class="label" style="color: var(--muted-light);">Александр Долгов</div>
+          <h2 style="margin-top: 8px;">Каждый день я&nbsp;сам собираю ту&nbsp;же систему, которую предлагаю вам</h2>
+          <p>Это не&nbsp;теория из&nbsp;курса и&nbsp;не&nbsp;слайды с&nbsp;конференций. Сессии&nbsp;&mdash; это то, что я&nbsp;прямо сейчас живу каждый день, как фаундер VEYRA и&nbsp;как первый клиент собственной методологии.</p>
+          <p style="color: var(--muted-light); font-size: 14px; margin-top: 14px;">До этого: стратегический консалтинг, управляющий директор Skyeng (P&amp;L 120&nbsp;млн/год), founder Skipp.dev ($1.6M raised, ТОП-5&nbsp;стартапов России, 100+ AI-проектов изнутри).</p>
+          <a href="about.html" class="about-link">Подробная история</a>
         </div>
       </div>
     </section>
@@ -646,21 +848,21 @@
         <div class="card format">
           <div class="label">Разведка</div>
           <h3>1 сессия</h3>
-          <p>Разбор одной задачи, подбор инструментов, демо. Рабочий артефакт с планом &mdash; что внедрять первым</p>
-          <div class="format-note">Чтобы понять, где AI реально даст эффект</div>
+          <p>Разбор одной задачи, подбор инструментов, рабочий артефакт с&nbsp;планом&nbsp;&mdash; чтобы понять, где AI реально даст эффект</p>
+          <a class="format-cta" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D0%B4%D0%BA%D1%83">Обсудить формат&nbsp;&rarr;</a>
         </div>
         <div class="card format format-featured">
           <div class="format-badge">Большинство выбирает</div>
           <div class="label">Внедрение</div>
-          <h3>4 сессии / 2&ndash;4 недели</h3>
-          <p>Несколько рабочих сценариев с правилами и контекстом. Разбор конкурентов, подготовка трендвотчинга в вашем рынке. Часы подготовки между сессиями &mdash; вы получаете не только время на звонке</p>
-          <div class="format-note">На выходе &mdash; устойчивая AI-практика, встроенная в ежедневную работу</div>
+          <h3>4 сессии</h3>
+          <p>2&ndash;4 недели. Несколько рабочих сценариев с&nbsp;правилами и&nbsp;контекстом, встроенных в&nbsp;ежедневную работу. Часы подготовки между сессиями</p>
+          <a class="format-cta" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B2%D0%BD%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%B8%D0%B5">Обсудить формат&nbsp;&rarr;</a>
         </div>
         <div class="card format">
           <div class="label">Система</div>
-          <h3>12 сессий / 2&ndash;3 месяца</h3>
-          <p>Полноценная персональная или командная AI-система: контекст, память, правила, автоматизации. Режим оркестратора закреплён</p>
-          <div class="format-note">Для тех, кто строит AI-first процессы всерьёз</div>
+          <h3>12 сессий</h3>
+          <p>2&ndash;3 месяца. Полноценная персональная или командная AI-система: контекст, память, правила, автоматизации</p>
+          <a class="format-cta" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%83">Обсудить формат&nbsp;&rarr;</a>
         </div>
       </div>
       <div class="guarantee">
@@ -680,55 +882,74 @@
         </div>
 
         <details class="faq-item">
-          <summary>Мне нужно быть техническим?<span class="plus">+</span></summary>
-          <div class="answer">Нет, подстраиваюсь под любой уровень. При этом я не учу писать запросы в ChatGPT &mdash; мы работаем на уровне процессов и реальных задач, а не интерфейсов</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Как проходит сессия?<span class="plus">+</span></summary>
-          <div class="answer">Час, онлайн. Обсуждаем задачу, подбираем инструменты, показываю демо на ваших примерах, в конце &mdash; рабочий артефакт с рекомендациями и планом. Всё транскрибируется, чтобы контекст накапливался между сессиями</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Уже пользуюсь ChatGPT и Claude каждый день &mdash; что нового?<span class="plus">+</span></summary>
-          <div class="answer">Если AI у вас &mdash; ускоритель привычной работы, это нормально. Сессии помогают перейти в режим оркестратора: правила, контекст, память, автоматизации. Разница &mdash; как между блокнотом и операционной системой</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>А чем это отличается от курса или YouTube?<span class="plus">+</span></summary>
-          <div class="answer">Курсы дают вдохновение и базу. Но вайбкодинг &mdash; вершина айсберга. Под ней &mdash; архитектура процессов: хранение контекста, правила, повторяемость. У каждого свои задачи, и в записанном курсе это не разобрать. Здесь работаем только на вашем материале</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>У меня CTO и команда, которая уже пишет с AI &mdash; зачем нам?<span class="plus">+</span></summary>
-          <div class="answer">Вижу это часто: зрелая команда, все в Cursor, формально &laquo;работают с AI&raquo;. Но AI встроен поверх старого конвейера. Сессии помогают перестроить сам процесс, а не просто ускорить существующий</div>
-        </details>
-
-        <details class="faq-item">
           <summary>А если нет конкретной задачи?<span class="plus">+</span></summary>
-          <div class="answer">С задачей эффект максимальный. Но если её нет &mdash; на первой сессии помогу найти, где AI даст наибольший результат именно в вашей роли, и сформулировать цель</div>
+          <div class="answer">С задачей эффект максимальный. Но если её нет &mdash; на&nbsp;первой сессии помогу найти, где AI даст наибольший результат именно в&nbsp;вашей роли, и&nbsp;сформулировать цель</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Работаем 1-на-1 или можно привести команду?<span class="plus">+</span></summary>
+          <div class="answer">База&nbsp;&mdash; индивидуальный формат: больше пропускной способности на&nbsp;ваш контекст и&nbsp;ваши сценарии. Но&nbsp;для команд есть отдельный трек: 2&ndash;5&nbsp;человек одновременно, разбираем функцию целиком (продажи, продукт, операции) и&nbsp;собираем общий контур. Если интересно&nbsp;&mdash; напишите, обсудим</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Вы только консультируете или внедряете?<span class="plus">+</span></summary>
+          <div class="answer">Сессии&nbsp;&mdash; это сборка системы вместе с&nbsp;вами: я&nbsp;показываю, как устроено, мы&nbsp;собираем рабочий контур на&nbsp;ваших задачах. Это не&nbsp;консультация &laquo;вот вам слайды&raquo; и&nbsp;не&nbsp;аутсорс &laquo;мы&nbsp;всё сделаем за&nbsp;вас&raquo;. Если нужна полная передача функции под ключ&nbsp;&mdash; для этого есть <a href="partners.html" style="color: var(--green-700); text-decoration: underline;">сеть партнёров</a></div>
         </details>
 
         <details class="faq-item">
           <summary>С какими инструментами работаете?<span class="plus">+</span></summary>
-          <div class="answer">С любыми. Claude, ChatGPT, Cursor, Copilot, Midjourney, внутренние API &mdash; не привязан к конкретному стеку. Работаю как с теми, кто начинает с нуля, так и с теми, у кого уже есть действующие AI-процессы. Подбираем инструменты под задачу, а не наоборот</div>
+          <div class="answer">С любыми. Claude, ChatGPT, Cursor, Copilot, Midjourney, внутренние API&nbsp;&mdash; не&nbsp;привязан к&nbsp;конкретному стеку. Работаю как с&nbsp;теми, кто начинает с&nbsp;нуля, так и&nbsp;с&nbsp;теми, у&nbsp;кого уже есть действующие AI-процессы. Подбираем инструменты под задачу, а&nbsp;не&nbsp;наоборот</div>
         </details>
 
         <details class="faq-item">
           <summary>Сколько стоит?<span class="plus">+</span></summary>
-          <div class="answer">Стоимость зависит от формата и задачи. Напишите &mdash; обсудим условия. Первая сессия с гарантией: не видите ценности &mdash; не платите</div>
+          <div class="answer">Стоимость зависит от&nbsp;формата и&nbsp;задачи. Напишите&nbsp;&mdash; обсудим условия. Первая сессия с&nbsp;гарантией: не&nbsp;видите ценности&nbsp;&mdash; не&nbsp;платите</div>
         </details>
       </div>
     </section>
 
     <!-- CTA -->
     <section class="section" style="padding-bottom: 40px;">
+      <div class="illus-art illus-cta-art" aria-hidden="true">
+        <svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ctaLight" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="rgba(231,239,232,0.9)"/>
+              <stop offset="100%" stop-color="rgba(231,239,232,0)"/>
+            </linearGradient>
+          </defs>
+
+          <!-- ground line -->
+          <line x1="40" y1="180" x2="320" y2="180" stroke="rgba(17,40,29,0.16)" stroke-width="1"/>
+
+          <!-- arch frame -->
+          <path d="M 130 180 L 130 70 Q 130 30 180 30 Q 230 30 230 70 L 230 180"
+                fill="none" stroke="#11281d" stroke-width="2" stroke-linejoin="round"/>
+
+          <!-- inner light -->
+          <path d="M 142 180 L 142 75 Q 142 42 180 42 Q 218 42 218 75 L 218 180 Z"
+                fill="url(#ctaLight)"/>
+
+          <!-- step / threshold -->
+          <rect x="120" y="180" width="120" height="6" fill="#11281d" rx="2"/>
+
+          <!-- arrow into the doorway -->
+          <g stroke="#3a754d" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="60" y1="150" x2="115" y2="150"/>
+            <polyline points="105,142 115,150 105,158"/>
+          </g>
+
+          <!-- subtle dots inside (suggesting the system already running behind the door) -->
+          <circle cx="170" cy="100" r="3" fill="rgba(58,117,77,0.55)"/>
+          <circle cx="190" cy="115" r="3" fill="rgba(58,117,77,0.4)"/>
+          <circle cx="178" cy="135" r="3" fill="rgba(58,117,77,0.3)"/>
+        </svg>
+      </div>
       <div class="cta-section">
         <h2>Начать можно с одной задачи</h2>
         <p>Разберём, где AI реально даст эффект в вашей работе</p>
         <div class="cta-actions">
           <a class="btn btn-cta" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20AI-%D1%81%D0%B5%D1%81%D1%81%D0%B8%D0%B8">Написать в Telegram</a>
-          <a class="btn btn-ghost" href="mailto:dolgovalex@skipp.dev">dolgovalex@skipp.dev</a>
         </div>
       </div>
     </section>
@@ -744,6 +965,7 @@
         <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
         <a href="mailto:dolgovalex@skipp.dev">dolgovalex@skipp.dev</a>
         <a href="about.html">Обо мне</a>
+        <a href="partners.html">Партнёры</a>
       </div>
     </div>
   </footer>

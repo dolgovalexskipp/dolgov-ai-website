@@ -7,25 +7,25 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://dolgovalex.com/about.html</loc>
+    <loc>https://dolgovalex.com/about/</loc>
     <lastmod>2026-04-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dolgovalex.com/manifest.html</loc>
+    <loc>https://dolgovalex.com/manifest/</loc>
     <lastmod>2026-04-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dolgovalex.com/tips.html</loc>
+    <loc>https://dolgovalex.com/tips/</loc>
     <lastmod>2026-04-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dolgovalex.com/partners.html</loc>
+    <loc>https://dolgovalex.com/partners/</loc>
     <lastmod>2026-04-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

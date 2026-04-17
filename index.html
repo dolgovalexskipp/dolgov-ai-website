@@ -20,8 +20,10 @@
   <meta name="twitter:image" content="https://dolgovalex.com/assets/alex-dolgov.jpg">
   <!-- Добавить после регистрации: <meta name="yandex-verification" content=""> -->
   <!-- Добавить после регистрации: <meta name="google-site-verification" content=""> -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/><text x='50' y='72' font-size='62' font-family='Georgia,serif' font-weight='700' text-anchor='middle' fill='%23f6f0e6'>Д</text></svg>">
-  <script defer src="assets/analytics.js"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Bold.woff2" crossorigin>
+  <script defer src="/assets/analytics.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -73,11 +75,11 @@
   }
   </script>
   <style>
-    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Regular.ttf') format('truetype'); font-weight: 400; }
-    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Medium.ttf') format('truetype'); font-weight: 500; }
-    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-SemiBold.ttf') format('truetype'); font-weight: 600; }
-    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-Bold.ttf') format('truetype'); font-weight: 700; }
-    @font-face { font-family: 'Lufga'; src: url('fonts/Lufga-ExtraBold.ttf') format('truetype'); font-weight: 800; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
 
     :root {
       --paper: #f6f0e6;
@@ -670,10 +672,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
       <div class="nav-links">
-        <a href="about.html">Обо мне</a>
-        <a href="partners.html">Партнёры</a>
-        <a href="manifest.html">Манифест</a>
-        <a href="tips.html">Хаки и типсы</a>
+        <a href="/about/">Обо мне</a>
+        <a href="/partners/">Партнёры</a>
+        <a href="/manifest/">Манифест</a>
+        <a href="/tips/">Хаки и типсы</a>
       </div>
     </div>
   </nav>
@@ -1050,7 +1052,7 @@
             <div class="label" style="color: var(--green-900);">Антон Бесщетников, CEO Suvvy AI</div>
             <div class="quote-body">&laquo;Сначала был FOMO &mdash; все вокруг используют AI, а у меня бессистемный вайбкодинг. Боты, скрипты, промпты &mdash; но без памяти, без правил, без среды. После работы с Сашей пересобрал AI-стек в систему. Разница &mdash; как между блокнотом и операционной системой&raquo;</div>
             <div class="quote-meta">
-              <img class="avatar" src="assets/anton-besschetnikov.jpeg" alt="Антон Бесщетников">
+              <img class="avatar" src="/assets/anton-besschetnikov.jpeg" alt="Антон Бесщетников">
               <div><strong>Антон Бесщетников</strong><br>CEO Suvvy AI</div>
             </div>
           </div>
@@ -1225,7 +1227,7 @@
       </div>
       <div class="card about-card">
         <div class="about-photo">
-          <img src="assets/alex-dolgov.jpg" alt="Александр Долгов">
+          <img src="/assets/alex-dolgov.jpg" alt="Александр Долгов">
         </div>
         <div class="about-text">
           <div class="label" style="color: var(--muted-light);">Александр Долгов</div>
@@ -1233,7 +1235,7 @@
           <p>Это не&nbsp;теория из&nbsp;курса и&nbsp;не&nbsp;слайды с&nbsp;конференций. Сессии&nbsp;&mdash; это то, что я&nbsp;прямо сейчас живу каждый день, как фаундер VEYRA и&nbsp;как первый клиент собственной методологии.</p>
           <p style="color: var(--muted-light); font-size: 14px; margin-top: 14px;">До этого: стратегический консалтинг, управляющий директор Skyeng (P&amp;L 120&nbsp;млн/год), founder Skipp.dev ($1.6M raised, ТОП-5&nbsp;стартапов России, 100+ AI-проектов изнутри).</p>
           <div class="about-socials">
-            <a href="about.html" class="about-link">Подробная история</a>
+            <a href="/about/" class="about-link">Подробная история</a>
             <a href="https://t.me/sashaisjopa" target="_blank" rel="noopener" class="social-chip" aria-label="Telegram-канал @sashaisjopa">
               <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M21.7 3.3c-.3-.3-.8-.4-1.2-.2L2.8 10.3c-.5.2-.8.7-.8 1.2 0 .6.4 1 .9 1.2l4.3 1.4 2 6.3c.1.4.4.7.8.8.4.1.8 0 1.1-.3l2.5-2.3 4.4 3.2c.2.2.5.2.8.2.1 0 .3 0 .4-.1.4-.1.7-.5.8-.9l3-16.2c.1-.4 0-.8-.3-1.1zm-5.3 4.9l-7.8 6.9-.3 3.3-1.5-4.7 9.6-5.5z"/>
@@ -1314,7 +1316,7 @@
 
           <details class="faq-item">
             <summary>Вы только консультируете или внедряете?<span class="plus">+</span></summary>
-            <div class="answer">Сессии&nbsp;&mdash; это сборка системы вместе с&nbsp;вами: я&nbsp;показываю, как устроено, мы&nbsp;собираем рабочий контур на&nbsp;ваших задачах. Это не&nbsp;консультация &laquo;вот вам слайды&raquo; и&nbsp;не&nbsp;аутсорс &laquo;мы&nbsp;всё сделаем за&nbsp;вас&raquo;. Если нужна полная передача функции под ключ&nbsp;&mdash; для этого есть <a href="partners.html" style="color: var(--green-700); text-decoration: underline;">сеть партнёров</a></div>
+            <div class="answer">Сессии&nbsp;&mdash; это сборка системы вместе с&nbsp;вами: я&nbsp;показываю, как устроено, мы&nbsp;собираем рабочий контур на&nbsp;ваших задачах. Это не&nbsp;консультация &laquo;вот вам слайды&raquo; и&nbsp;не&nbsp;аутсорс &laquo;мы&nbsp;всё сделаем за&nbsp;вас&raquo;. Если нужна полная передача функции под ключ&nbsp;&mdash; для этого есть <a href="/partners/" style="color: var(--green-700); text-decoration: underline;">сеть партнёров</a></div>
           </details>
 
           <details class="faq-item">
@@ -1389,8 +1391,8 @@
       <div class="footer-links">
         <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
         <a href="mailto:bonjour@dolgovalex.com">bonjour@dolgovalex.com</a>
-        <a href="about.html">Обо мне</a>
-        <a href="partners.html">Партнёры</a>
+        <a href="/about/">Обо мне</a>
+        <a href="/partners/">Партнёры</a>
       </div>
     </div>
   </footer>

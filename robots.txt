@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /landing-clean-lab.html
+Disallow: /illustrations-brief.md
+Disallow: /style-guide.css
+
+Sitemap: https://dolgovalex.com/sitemap.xml

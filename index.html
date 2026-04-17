@@ -229,7 +229,7 @@
       display: block; margin-bottom: 2px; font-size: 14px;
     }
     .sr-flow-text span { color: var(--muted); font-size: 13.5px; }
-    .sr-right { display: grid; gap: 14px; }
+    .sr-right { display: flex; }
     .ba-block {
       padding: 18px 20px;
       border-radius: 16px;
@@ -248,7 +248,8 @@
     .ba-text { font-size: 15px; line-height: 1.55; color: var(--ink); }
     .ba-text strong { color: var(--green-900); font-weight: 700; }
     .sr-slot {
-      aspect-ratio: 5 / 3;
+      flex: 1;
+      min-height: 320px;
       border: 1.5px dashed rgba(58,117,77,0.35);
       background: rgba(231,239,232,0.22);
       border-radius: 16px;
@@ -441,18 +442,10 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      min-height: 340px;
     }
     .format h3 { margin: 16px 0 14px; font-size: clamp(28px, 3vw, 36px); line-height: 1.0; letter-spacing: -0.035em; font-weight: 800; }
     .format > p { color: var(--muted); font-size: 15px; line-height: 1.6; }
     .format-note { margin-top: 14px; font-size: 13px; color: var(--muted-light); line-height: 1.5; }
-    .format-cta {
-      margin-top: auto; padding-top: 22px;
-      border-top: 1px solid var(--line);
-      font-size: 15px; font-weight: 700; color: var(--green-900);
-      transition: color 0.2s;
-    }
-    .format-cta:hover { color: var(--green-700); }
     .format-featured {
       border: 2px solid var(--green-700);
       background: rgba(231,239,232,0.38);
@@ -476,9 +469,20 @@
     .guarantee-divider {
       width: 1px; height: 34px; background: rgba(58,117,77,0.2);
     }
+    .formats-cta {
+      margin-top: 18px; padding: 24px 28px;
+      border-radius: var(--radius-lg);
+      background: var(--green-950); color: var(--paper-2);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .formats-cta-text { font-size: 17px; font-weight: 600; line-height: 1.5; margin: 0; flex: 1; min-width: 240px; }
+    .formats-cta .btn { flex-shrink: 0; background: var(--paper-2); color: var(--green-950); }
     @media (max-width: 760px) {
       .guarantee { grid-template-columns: 1fr; gap: 14px; }
       .guarantee-divider { display: none; }
+      .formats-cta { text-align: center; flex-direction: column; padding: 24px; }
+      .formats-cta .btn { width: 100%; }
     }
 
     /* FAQ */
@@ -498,13 +502,18 @@
     details[open] summary .plus { transform: rotate(45deg); }
     .answer { padding: 0 0 14px; color: var(--muted); font-size: 15px; line-height: 1.55; max-width: 700px; }
 
-    /* Door illus — transitional block before CTA */
-    .door-section {
-      padding: 32px 0 24px;
-      display: flex; justify-content: center;
+    /* FAQ — 2-col with door illustration */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 48px;
+      align-items: start;
     }
-    .door-illus { display: flex; align-items: center; justify-content: center; }
-    .door-illus svg { width: 100%; height: auto; max-width: 300px; }
+    .faq-door {
+      position: sticky; top: 96px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .faq-door svg { width: 100%; height: auto; max-width: 280px; }
 
     /* CTA */
     .cta-section {
@@ -556,6 +565,8 @@
       .system-nums { grid-template-columns: repeat(2, 1fr); }
       .sys-num:nth-child(2) { border-right: none; }
       .sys-num:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .faq-grid { grid-template-columns: 1fr; gap: 24px; }
+      .faq-door { display: none; }
     }
     @media (max-width: 760px) {
       .wrap { width: min(var(--max), calc(100vw - 24px)); }
@@ -764,14 +775,6 @@
               </svg>
               <div class="sr-slot-caption">• Иллюстрация •</div>
             </div>
-            <div class="ba-block">
-              <div class="ba-label">Как сейчас</div>
-              <div class="ba-text">Заметки себе в&nbsp;почту, задачи в&nbsp;таск-менеджер, follow-up вечером. <strong style="color: var(--muted); font-weight: 600;">~4 часа в&nbsp;неделю только на&nbsp;обработку встреч.</strong></div>
-            </div>
-            <div class="ba-block ba-after">
-              <div class="ba-label">С личной системой</div>
-              <div class="ba-text">К&nbsp;утру на&nbsp;столе: рекап, задачи в&nbsp;CRM, черновики follow-up в&nbsp;вашем тоне. <strong>~30 минут в&nbsp;неделю,</strong> остальное делает система.</div>
-            </div>
           </div>
         </div>
 
@@ -837,14 +840,6 @@
                 <path d="M34 18l4-6 2 6-4 2 3 6-5 2-3-5-4 3 3-6z"/>
               </svg>
               <div class="sr-slot-caption">• Иллюстрация •</div>
-            </div>
-            <div class="ba-block">
-              <div class="ba-label">Как сейчас</div>
-              <div class="ba-text">Google Docs, шаблон, руки. Каждое КП&nbsp;&mdash; <strong style="color: var(--muted); font-weight: 600;">2&ndash;4 часа работы.</strong> Точность и&nbsp;стиль зависят от&nbsp;менеджера.</div>
-            </div>
-            <div class="ba-block ba-after">
-              <div class="ba-label">С личной системой</div>
-              <div class="ba-text">Одна команда агенту&nbsp;&mdash; и&nbsp;через <strong>30 секунд</strong> готовое КП в&nbsp;PDF, под конкретного клиента, с&nbsp;контекстом вчерашней встречи.</div>
             </div>
           </div>
         </div>
@@ -913,14 +908,6 @@
                 <line x1="21" y1="30" x2="28" y2="30"/>
               </svg>
               <div class="sr-slot-caption">• Иллюстрация •</div>
-            </div>
-            <div class="ba-block">
-              <div class="ba-label">Как сейчас</div>
-              <div class="ba-text">Классическая команда разработки: наём, спринты, синки, ожидание. <strong style="color: var(--muted); font-weight: 600;">Фичи уезжают в&nbsp;следующий релиз.</strong></div>
-            </div>
-            <div class="ba-block ba-after">
-              <div class="ba-label">С личной системой</div>
-              <div class="ba-text">Задача в&nbsp;Linear&nbsp;&mdash; билд на&nbsp;проде за&nbsp;час. <strong>В&nbsp;три раза больше PR и&nbsp;новых фич, чем с&nbsp;классическим штатом того&nbsp;же бюджета.</strong></div>
             </div>
           </div>
         </div>
@@ -1214,20 +1201,17 @@
           <div class="label">Разведка</div>
           <h3>1 сессия</h3>
           <p>Разбор одной задачи, подбор инструментов, рабочий артефакт с&nbsp;планом&nbsp;&mdash; чтобы понять, где AI реально даст эффект</p>
-          <a class="format-cta" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D0%B4%D0%BA%D1%83">Обсудить формат&nbsp;&rarr;</a>
         </div>
         <div class="card format format-featured">
           <div class="format-badge">Большинство выбирает</div>
           <div class="label">Внедрение</div>
           <h3>4 сессии</h3>
           <p>2&ndash;4 недели. Несколько рабочих сценариев с&nbsp;правилами и&nbsp;контекстом, встроенных в&nbsp;ежедневную работу. Часы подготовки между сессиями</p>
-          <a class="format-cta" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B2%D0%BD%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%B8%D0%B5">Обсудить формат&nbsp;&rarr;</a>
         </div>
         <div class="card format">
           <div class="label">Система</div>
           <h3>12 сессий</h3>
           <p>2&ndash;3 месяца. Полноценная персональная или командная AI-система: контекст, память, правила, автоматизации</p>
-          <a class="format-cta" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%83">Обсудить формат&nbsp;&rarr;</a>
         </div>
       </div>
       <div class="guarantee">
@@ -1238,82 +1222,85 @@
         <div class="guarantee-divider"></div>
         <div class="guarantee-col">
           <strong>Для команд и&nbsp;компаний</strong>
-          Отдельный формат: 2&ndash;5 человек, функция целиком. <a href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B" style="color: var(--green-700); font-weight: 700;">Обсудить&nbsp;&rarr;</a>
+          Отдельный формат: 2&ndash;5 человек, функция целиком
         </div>
+      </div>
+      <div class="formats-cta">
+        <p class="formats-cta-text">Не&nbsp;уверены, какой формат подходит? Разберёмся за&nbsp;короткий разговор и&nbsp;подберём под задачу</p>
+        <a class="btn" href="https://t.me/dolgovalex?text=%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BE%D0%B1%D1%81%D1%83%D0%B4%D0%B8%D1%82%D1%8C%20%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82">Написать в Telegram</a>
       </div>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="section">
-      <div class="faq-section">
-        <div class="section-head" style="margin-bottom: 16px;">
-          <div class="label">FAQ</div>
-          <h2>Частые вопросы</h2>
+      <div class="faq-grid">
+        <div class="faq-section">
+          <div class="section-head" style="margin-bottom: 16px;">
+            <div class="label">FAQ</div>
+            <h2>Частые вопросы</h2>
+          </div>
+
+          <details class="faq-item">
+            <summary>А если нет конкретной задачи?<span class="plus">+</span></summary>
+            <div class="answer">С задачей эффект максимальный. Но если её нет &mdash; на&nbsp;первой сессии помогу найти, где AI даст наибольший результат именно в&nbsp;вашей роли, и&nbsp;сформулировать цель</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Работаем 1-на-1 или можно привести команду?<span class="plus">+</span></summary>
+            <div class="answer">База&nbsp;&mdash; индивидуальный формат: больше пропускной способности на&nbsp;ваш контекст и&nbsp;ваши сценарии. Но&nbsp;для команд есть отдельный трек: 2&ndash;5&nbsp;человек одновременно, разбираем функцию целиком (продажи, продукт, операции) и&nbsp;собираем общий контур. Если интересно&nbsp;&mdash; напишите, обсудим</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Вы только консультируете или внедряете?<span class="plus">+</span></summary>
+            <div class="answer">Сессии&nbsp;&mdash; это сборка системы вместе с&nbsp;вами: я&nbsp;показываю, как устроено, мы&nbsp;собираем рабочий контур на&nbsp;ваших задачах. Это не&nbsp;консультация &laquo;вот вам слайды&raquo; и&nbsp;не&nbsp;аутсорс &laquo;мы&nbsp;всё сделаем за&nbsp;вас&raquo;. Если нужна полная передача функции под ключ&nbsp;&mdash; для этого есть <a href="partners.html" style="color: var(--green-700); text-decoration: underline;">сеть партнёров</a></div>
+          </details>
+
+          <details class="faq-item">
+            <summary>С какими инструментами работаете?<span class="plus">+</span></summary>
+            <div class="answer">С любыми. Claude, ChatGPT, Cursor, Copilot, Midjourney, внутренние API&nbsp;&mdash; не&nbsp;привязан к&nbsp;конкретному стеку. Работаю как с&nbsp;теми, кто начинает с&nbsp;нуля, так и&nbsp;с&nbsp;теми, у&nbsp;кого уже есть действующие AI-процессы. Подбираем инструменты под задачу, а&nbsp;не&nbsp;наоборот</div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Сколько стоит?<span class="plus">+</span></summary>
+            <div class="answer">Стоимость зависит от&nbsp;формата и&nbsp;задачи. Напишите&nbsp;&mdash; обсудим условия. Первая сессия с&nbsp;гарантией: не&nbsp;видите ценности&nbsp;&mdash; не&nbsp;платите</div>
+          </details>
         </div>
 
-        <details class="faq-item">
-          <summary>А если нет конкретной задачи?<span class="plus">+</span></summary>
-          <div class="answer">С задачей эффект максимальный. Но если её нет &mdash; на&nbsp;первой сессии помогу найти, где AI даст наибольший результат именно в&nbsp;вашей роли, и&nbsp;сформулировать цель</div>
-        </details>
+        <div class="faq-door" aria-hidden="true">
+          <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="doorLight" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="rgba(58,117,77,0.28)"/>
+                <stop offset="100%" stop-color="rgba(58,117,77,0.02)"/>
+              </linearGradient>
+            </defs>
 
-        <details class="faq-item">
-          <summary>Работаем 1-на-1 или можно привести команду?<span class="plus">+</span></summary>
-          <div class="answer">База&nbsp;&mdash; индивидуальный формат: больше пропускной способности на&nbsp;ваш контекст и&nbsp;ваши сценарии. Но&nbsp;для команд есть отдельный трек: 2&ndash;5&nbsp;человек одновременно, разбираем функцию целиком (продажи, продукт, операции) и&nbsp;собираем общий контур. Если интересно&nbsp;&mdash; напишите, обсудим</div>
-        </details>
+            <!-- ground line -->
+            <line x1="30" y1="230" x2="330" y2="230" stroke="rgba(23,40,29,0.2)" stroke-width="1"/>
 
-        <details class="faq-item">
-          <summary>Вы только консультируете или внедряете?<span class="plus">+</span></summary>
-          <div class="answer">Сессии&nbsp;&mdash; это сборка системы вместе с&nbsp;вами: я&nbsp;показываю, как устроено, мы&nbsp;собираем рабочий контур на&nbsp;ваших задачах. Это не&nbsp;консультация &laquo;вот вам слайды&raquo; и&nbsp;не&nbsp;аутсорс &laquo;мы&nbsp;всё сделаем за&nbsp;вас&raquo;. Если нужна полная передача функции под ключ&nbsp;&mdash; для этого есть <a href="partners.html" style="color: var(--green-700); text-decoration: underline;">сеть партнёров</a></div>
-        </details>
+            <!-- arch frame -->
+            <path d="M 120 230 L 120 90 Q 120 40 180 40 Q 240 40 240 90 L 240 230"
+                  fill="none" stroke="#11281d" stroke-width="2.2" stroke-linejoin="round"/>
 
-        <details class="faq-item">
-          <summary>С какими инструментами работаете?<span class="plus">+</span></summary>
-          <div class="answer">С любыми. Claude, ChatGPT, Cursor, Copilot, Midjourney, внутренние API&nbsp;&mdash; не&nbsp;привязан к&nbsp;конкретному стеку. Работаю как с&nbsp;теми, кто начинает с&nbsp;нуля, так и&nbsp;с&nbsp;теми, у&nbsp;кого уже есть действующие AI-процессы. Подбираем инструменты под задачу, а&nbsp;не&nbsp;наоборот</div>
-        </details>
+            <!-- inner light -->
+            <path d="M 134 230 L 134 96 Q 134 54 180 54 Q 226 54 226 96 L 226 230 Z"
+                  fill="url(#doorLight)"/>
 
-        <details class="faq-item">
-          <summary>Сколько стоит?<span class="plus">+</span></summary>
-          <div class="answer">Стоимость зависит от&nbsp;формата и&nbsp;задачи. Напишите&nbsp;&mdash; обсудим условия. Первая сессия с&nbsp;гарантией: не&nbsp;видите ценности&nbsp;&mdash; не&nbsp;платите</div>
-        </details>
-      </div>
-    </section>
+            <!-- step / threshold -->
+            <rect x="108" y="230" width="144" height="7" fill="#11281d" rx="2"/>
 
-    <!-- Door illustration — transitional moment before CTA -->
-    <section class="section door-section">
-      <div class="door-illus" aria-hidden="true">
-        <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="doorLight" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="rgba(58,117,77,0.28)"/>
-              <stop offset="100%" stop-color="rgba(58,117,77,0.02)"/>
-            </linearGradient>
-          </defs>
+            <!-- arrow into the doorway -->
+            <g stroke="#3a754d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="40" y1="180" x2="105" y2="180"/>
+              <polyline points="95,171 105,180 95,189"/>
+            </g>
 
-          <!-- ground line -->
-          <line x1="30" y1="230" x2="330" y2="230" stroke="rgba(23,40,29,0.2)" stroke-width="1"/>
-
-          <!-- arch frame -->
-          <path d="M 120 230 L 120 90 Q 120 40 180 40 Q 240 40 240 90 L 240 230"
-                fill="none" stroke="#11281d" stroke-width="2.2" stroke-linejoin="round"/>
-
-          <!-- inner light -->
-          <path d="M 134 230 L 134 96 Q 134 54 180 54 Q 226 54 226 96 L 226 230 Z"
-                fill="url(#doorLight)"/>
-
-          <!-- step / threshold -->
-          <rect x="108" y="230" width="144" height="7" fill="#11281d" rx="2"/>
-
-          <!-- arrow into the doorway -->
-          <g stroke="#3a754d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="40" y1="180" x2="105" y2="180"/>
-            <polyline points="95,171 105,180 95,189"/>
-          </g>
-
-          <!-- subtle dots inside (suggesting the system already running behind the door) -->
-          <circle cx="168" cy="120" r="3.5" fill="rgba(58,117,77,0.75)"/>
-          <circle cx="192" cy="138" r="3.5" fill="rgba(58,117,77,0.55)"/>
-          <circle cx="178" cy="162" r="3.5" fill="rgba(58,117,77,0.4)"/>
-        </svg>
+            <!-- subtle dots inside (suggesting the system already running behind the door) -->
+            <circle cx="168" cy="120" r="3.5" fill="rgba(58,117,77,0.75)"/>
+            <circle cx="192" cy="138" r="3.5" fill="rgba(58,117,77,0.55)"/>
+            <circle cx="178" cy="162" r="3.5" fill="rgba(58,117,77,0.4)"/>
+          </svg>
+        </div>
       </div>
     </section>
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 360" width="280" height="360" role="img" aria-labelledby="faq-title">
+  <title id="faq-title">Открытая дверь — приглашение внутрь системы</title>
+
+  <rect fill="#f6f0e6" x="0" y="0" width="280" height="360"/>
+
+  <!-- Speech bubble STEEPING… (top right) -->
+  <g transform="translate(145, 12)">
+    <rect x="0" y="0" width="125" height="30" rx="15" fill="#f6f0e6" stroke="#173a28" stroke-width="2.5"/>
+    <path d="M22 30 L30 42 L38 30 Z" fill="#f6f0e6" stroke="#173a28" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="62" y="20" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="12" fill="#173a28" letter-spacing="0.4">STEEPING…</text>
+  </g>
+
+  <!-- Door frame (outer) — medium green -->
+  <g transform="translate(70, 70)">
+    <!-- frame outer -->
+    <rect x="-10" y="-10" width="160" height="260" rx="4" fill="#3a754d" stroke="#173a28" stroke-width="2.5"/>
+    <!-- inner doorway (dark, shows what's inside) -->
+    <rect x="0" y="0" width="140" height="240" fill="#173a28"/>
+
+    <!-- Light rays through the opening (paper-colored beams from inside) -->
+    <g fill="#f6f0e6" opacity="0.95" stroke="#3a754d" stroke-width="1.5" stroke-linejoin="round">
+      <polygon points="80,120 125,0 105,0"/>
+      <polygon points="80,120 105,0 85,0"/>
+      <polygon points="80,120 130,60 135,90"/>
+      <polygon points="80,120 135,150 130,180"/>
+      <polygon points="80,120 125,240 105,240"/>
+      <polygon points="80,120 105,240 85,240"/>
+    </g>
+
+    <!-- Open door leaf (left, swung inward-slightly) -->
+    <g>
+      <!-- Door shape: slightly trapezoidal for "ajar" effect -->
+      <polygon points="0,0 58,16 58,224 0,240"
+               fill="#173a28" stroke="#173a28" stroke-width="2.5" stroke-linejoin="round"/>
+      <!-- panel inset top -->
+      <polygon points="8,20 50,30 50,110 8,108"
+               fill="none" stroke="#3a754d" stroke-width="2" stroke-linejoin="round"/>
+      <!-- panel inset bottom -->
+      <polygon points="8,130 50,128 50,210 8,218"
+               fill="none" stroke="#3a754d" stroke-width="2" stroke-linejoin="round"/>
+      <!-- door handle (brick accent) -->
+      <circle cx="48" cy="120" r="7" fill="#b85a3a" stroke="#173a28" stroke-width="2.5"/>
+    </g>
+  </g>
+
+  <!-- Floating question marks around the door -->
+  <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" fill="#67635d">
+    <text x="22" y="140" font-size="30">?</text>
+    <text x="242" y="180" font-size="24">?</text>
+    <text x="18" y="300" font-size="22">?</text>
+  </g>
+
+  <!-- Small geometric shapes floating -->
+  <g stroke="#173a28" stroke-width="2" stroke-linejoin="round">
+    <circle cx="252" cy="280" r="8" fill="#3a754d"/>
+    <rect x="40" y="335" width="14" height="14" fill="#173a28"/>
+    <polygon points="248,80 256,94 240,94" fill="#67635d" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Subtle halftone bottom-left -->
+  <g fill="#67635d" opacity="0.5">
+    <circle cx="10" cy="338" r="1.6"/>
+    <circle cx="18" cy="346" r="1.6"/>
+    <circle cx="26" cy="338" r="1.6"/>
+    <circle cx="18" cy="330" r="1.6"/>
+  </g>
+</svg>

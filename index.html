@@ -157,19 +157,10 @@
       padding: 16px;
       position: relative;
     }
-    .illus-art svg { width: 100%; height: auto; max-width: 480px; }
+    .illus-art svg, .illus-art img { width: 100%; height: auto; max-width: 480px; display: block; }
     .illus-hero-art { min-height: 440px; }
     .illus-cta-art { min-height: 220px; margin-bottom: 20px; max-width: 540px; margin-left: auto; margin-right: auto; }
     .illus-cta-art svg { max-width: 360px; }
-
-    /* gentle rotation on hero orbit groups */
-    @keyframes orbitSpin { to { transform: rotate(360deg); } }
-    @keyframes orbitSpinReverse { to { transform: rotate(-360deg); } }
-    .orbit-inner { transform-origin: 240px 220px; animation: orbitSpin 80s linear infinite; }
-    .orbit-outer { transform-origin: 240px 220px; animation: orbitSpinReverse 140s linear infinite; }
-    @media (prefers-reduced-motion: reduce) {
-      .orbit-inner, .orbit-outer { animation: none; }
-    }
 
     /* Hero */
     .hero { padding: 72px 0 48px; }
@@ -328,6 +319,15 @@
     .sr-slot-caption {
       font-size: 10px; font-weight: 800; letter-spacing: 0.18em;
       text-transform: uppercase;
+    }
+    .sr-slot.sr-slot-illus {
+      border: none;
+      background: transparent;
+      padding: 8px;
+    }
+    .sr-slot.sr-slot-illus img {
+      width: 100%; height: auto; max-width: 360px;
+      display: block;
     }
 
     /* Process */
@@ -577,7 +577,7 @@
       position: sticky; top: 96px;
       display: flex; align-items: center; justify-content: center;
     }
-    .faq-door svg { width: 100%; height: auto; max-width: 280px; }
+    .faq-door svg, .faq-door img { width: 100%; height: auto; max-width: 280px; display: block; }
 
     /* CTA */
     .cta-section {
@@ -696,42 +696,7 @@
           <div class="hero-micro">Первая сессия с гарантией &mdash; не видите ценности, не платите</div>
         </div>
         <div class="illus-art illus-hero-art" aria-hidden="true">
-          <svg viewBox="0 0 480 440" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="rgba(58,117,77,0.12)"/>
-                <stop offset="60%" stop-color="rgba(58,117,77,0.03)"/>
-                <stop offset="100%" stop-color="rgba(58,117,77,0)"/>
-              </radialGradient>
-            </defs>
-            <rect width="480" height="440" fill="url(#heroGlow)"/>
-
-            <!-- orbit lines -->
-            <circle cx="240" cy="220" r="100" fill="none" stroke="rgba(58,117,77,0.22)" stroke-width="1" stroke-dasharray="2 5"/>
-            <circle cx="240" cy="220" r="170" fill="none" stroke="rgba(58,117,77,0.16)" stroke-width="1" stroke-dasharray="2 5"/>
-
-            <!-- inner orbit agents (rotate slowly) -->
-            <g class="orbit-inner">
-              <circle cx="340" cy="220" r="9" fill="#3a754d"/>
-              <circle cx="190" cy="306" r="9" fill="#3a754d"/>
-              <circle cx="190" cy="134" r="9" fill="#3a754d"/>
-            </g>
-
-            <!-- outer orbit agents (counter-rotate) -->
-            <g class="orbit-outer">
-              <circle cx="240" cy="50" r="11" fill="#173a28"/>
-              <circle cx="410" cy="220" r="11" fill="#173a28"/>
-              <circle cx="240" cy="390" r="11" fill="#173a28"/>
-              <circle cx="70" cy="220" r="11" fill="#173a28"/>
-              <circle cx="120" cy="100" r="11" fill="#173a28"/>
-              <circle cx="360" cy="340" r="11" fill="#173a28"/>
-            </g>
-
-            <!-- center: pilot -->
-            <circle cx="240" cy="220" r="36" fill="none" stroke="rgba(17,40,29,0.18)" stroke-width="1.5"/>
-            <circle cx="240" cy="220" r="22" fill="#11281d"/>
-            <circle cx="240" cy="220" r="6" fill="#f6f0e6"/>
-          </svg>
+          <img src="/assets/illus/hero.svg" alt="" loading="eager" width="480" height="440">
         </div>
       </div>
     </section>
@@ -829,15 +794,8 @@
             </div>
           </div>
           <div class="sr-right">
-            <div class="sr-slot" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M8 14a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4h-4l-6 5v-5h-6a4 4 0 0 1-4-4z"/>
-                <line x1="14" y1="17" x2="26" y2="17"/>
-                <line x1="14" y1="21" x2="22" y2="21"/>
-                <circle cx="36" cy="34" r="6"/>
-                <path d="M36 31v3l2 2"/>
-              </svg>
-              <div class="sr-slot-caption">• Иллюстрация •</div>
+            <div class="sr-slot sr-slot-illus" aria-hidden="true">
+              <img src="/assets/illus/scenario-secretary.svg" alt="" loading="lazy" width="360" height="300">
             </div>
           </div>
         </div>
@@ -895,15 +853,8 @@
             </div>
           </div>
           <div class="sr-right">
-            <div class="sr-slot" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="10" y="8" width="22" height="30" rx="2"/>
-                <line x1="15" y1="16" x2="27" y2="16"/>
-                <line x1="15" y1="22" x2="27" y2="22"/>
-                <line x1="15" y1="28" x2="22" y2="28"/>
-                <path d="M34 18l4-6 2 6-4 2 3 6-5 2-3-5-4 3 3-6z"/>
-              </svg>
-              <div class="sr-slot-caption">• Иллюстрация •</div>
+            <div class="sr-slot sr-slot-illus" aria-hidden="true">
+              <img src="/assets/illus/scenario-commercial.svg" alt="" loading="lazy" width="360" height="300">
             </div>
           </div>
         </div>
@@ -962,16 +913,8 @@
             </div>
           </div>
           <div class="sr-right">
-            <div class="sr-slot" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="6" y="10" width="36" height="24" rx="3"/>
-                <line x1="6" y1="16" x2="42" y2="16"/>
-                <circle cx="10" cy="13" r="0.8" fill="currentColor" stroke="none"/>
-                <circle cx="13" cy="13" r="0.8" fill="currentColor" stroke="none"/>
-                <polyline points="14,22 18,26 14,30"/>
-                <line x1="21" y1="30" x2="28" y2="30"/>
-              </svg>
-              <div class="sr-slot-caption">• Иллюстрация •</div>
+            <div class="sr-slot sr-slot-illus" aria-hidden="true">
+              <img src="/assets/illus/scenario-dev.svg" alt="" loading="lazy" width="360" height="300">
             </div>
           </div>
         </div>
@@ -1331,39 +1274,7 @@
         </div>
 
         <div class="faq-door" aria-hidden="true">
-          <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="doorLight" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="rgba(58,117,77,0.28)"/>
-                <stop offset="100%" stop-color="rgba(58,117,77,0.02)"/>
-              </linearGradient>
-            </defs>
-
-            <!-- ground line -->
-            <line x1="30" y1="230" x2="330" y2="230" stroke="rgba(23,40,29,0.2)" stroke-width="1"/>
-
-            <!-- arch frame -->
-            <path d="M 120 230 L 120 90 Q 120 40 180 40 Q 240 40 240 90 L 240 230"
-                  fill="none" stroke="#11281d" stroke-width="2.2" stroke-linejoin="round"/>
-
-            <!-- inner light -->
-            <path d="M 134 230 L 134 96 Q 134 54 180 54 Q 226 54 226 96 L 226 230 Z"
-                  fill="url(#doorLight)"/>
-
-            <!-- step / threshold -->
-            <rect x="108" y="230" width="144" height="7" fill="#11281d" rx="2"/>
-
-            <!-- arrow into the doorway -->
-            <g stroke="#3a754d" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="40" y1="180" x2="105" y2="180"/>
-              <polyline points="95,171 105,180 95,189"/>
-            </g>
-
-            <!-- subtle dots inside (suggesting the system already running behind the door) -->
-            <circle cx="168" cy="120" r="3.5" fill="rgba(58,117,77,0.75)"/>
-            <circle cx="192" cy="138" r="3.5" fill="rgba(58,117,77,0.55)"/>
-            <circle cx="178" cy="162" r="3.5" fill="rgba(58,117,77,0.4)"/>
-          </svg>
+          <img src="/assets/illus/faq-door.svg" alt="" loading="lazy" width="280" height="360">
         </div>
       </div>
     </section>

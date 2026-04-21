@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" width="360" height="300" role="img" aria-labelledby="sc2-title">
+  <title id="sc2-title">Коммерческое предложение: хаос превращается в документ</title>
+
+  <rect fill="#f6f0e6" x="0" y="0" width="360" height="300"/>
+
+  <!-- Speech bubble: CARAMELISING… -->
+  <g>
+    <rect x="100" y="16" width="160" height="32" rx="16" fill="#f6f0e6" stroke="#173a28" stroke-width="2.5"/>
+    <path d="M175 48 L183 60 L191 48 Z" fill="#f6f0e6" stroke="#173a28" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="180" y="37" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="13" fill="#173a28" letter-spacing="0.4">CARAMELISING…</text>
+  </g>
+
+  <!-- LEFT: 3 chaotic shapes -->
+  <!-- square with text lines (represents text doc) -->
+  <g transform="translate(28, 95) rotate(-8)">
+    <rect x="0" y="0" width="50" height="50" fill="#173a28" stroke="#173a28" stroke-width="2.5"/>
+    <line x1="8"  y1="14" x2="42" y2="14" stroke="#f6f0e6" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="8"  y1="25" x2="38" y2="25" stroke="#f6f0e6" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="8"  y1="36" x2="42" y2="36" stroke="#f6f0e6" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- circle (logo) -->
+  <g transform="translate(30, 175) rotate(5)">
+    <circle cx="25" cy="25" r="24" fill="#3a754d" stroke="#173a28" stroke-width="2.5"/>
+    <circle cx="25" cy="25" r="10" fill="#f6f0e6" stroke="none"/>
+  </g>
+
+  <!-- triangle (price tag) -->
+  <g transform="translate(105, 180) rotate(12)">
+    <polygon points="25,0 50,43 0,43" fill="#67635d" stroke="#173a28" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="25" y="32" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="13" fill="#f6f0e6">₽</text>
+  </g>
+
+  <!-- CENTER: brick starburst (lightning moment) -->
+  <g transform="translate(180, 150)">
+    <polygon points="0,-30 8,-10 30,-6 12,6 18,28 0,16 -18,28 -12,6 -30,-6 -8,-10"
+             fill="#b85a3a" stroke="#173a28" stroke-width="2.5" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Arrow from starburst to document -->
+  <g stroke="#173a28" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="215" y1="150" x2="240" y2="150"/>
+    <polyline points="233,143 243,150 233,157"/>
+  </g>
+
+  <!-- RIGHT: organized document -->
+  <g transform="translate(250, 75)">
+    <!-- paper -->
+    <rect x="0" y="0" width="95" height="150" rx="3" fill="#f6f0e6" stroke="#173a28" stroke-width="2.5"/>
+    <!-- header block (dark green) -->
+    <rect x="0" y="0" width="95" height="26" fill="#173a28"/>
+    <rect x="10" y="10" width="40" height="6" rx="2" fill="#f6f0e6"/>
+    <!-- body lines -->
+    <line x1="10" y1="40" x2="80" y2="40" stroke="#67635d" stroke-width="2" stroke-linecap="round"/>
+    <line x1="10" y1="52" x2="85" y2="52" stroke="#67635d" stroke-width="2" stroke-linecap="round"/>
+    <line x1="10" y1="64" x2="70" y2="64" stroke="#67635d" stroke-width="2" stroke-linecap="round"/>
+    <!-- mini blocks (sections) -->
+    <rect x="10" y="80" width="35" height="20" rx="2" fill="#3a754d" stroke="#173a28" stroke-width="2"/>
+    <rect x="50" y="80" width="35" height="20" rx="2" fill="none" stroke="#173a28" stroke-width="2"/>
+    <!-- more lines -->
+    <line x1="10" y1="115" x2="85" y2="115" stroke="#67635d" stroke-width="2" stroke-linecap="round"/>
+    <line x1="10" y1="127" x2="75" y2="127" stroke="#67635d" stroke-width="2" stroke-linecap="round"/>
+    <!-- signature row -->
+    <line x1="10" y1="140" x2="55" y2="140" stroke="#173a28" stroke-width="2.5"/>
+  </g>
+
+  <!-- subtle halftone -->
+  <g fill="#67635d" opacity="0.4">
+    <circle cx="14"  cy="262" r="1.5"/>
+    <circle cx="22"  cy="270" r="1.5"/>
+    <circle cx="30"  cy="262" r="1.5"/>
+    <circle cx="22"  cy="254" r="1.5"/>
+  </g>
+</svg>

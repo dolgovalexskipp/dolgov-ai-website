@@ -50,14 +50,18 @@ function renderGate(payload, title) {
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
   <style>
     @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
     @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
     @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
     :root {
       --paper: #f6f0e6;
       --paper-2: #fdfbf7;
       --ink: #10100f;
       --muted: #67635d;
+      --muted-light: #8a857e;
       --line: rgba(16,16,15,0.09);
+      --green-950: #11281d;
       --green-900: #173a28;
       --green-700: #3a754d;
       --green-100: #e7efe8;
@@ -68,76 +72,124 @@ function renderGate(payload, title) {
       color: var(--ink); background: var(--paper);
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      border-bottom: 1px solid var(--line);
+      background: rgba(246,240,230,0.9);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 880px; margin: 0 auto;
+      padding: 20px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 20px;
+    }
+    .brand {
+      font-size: 13px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink);
+    }
+    .nav-back {
+      font-size: 13px; color: var(--muted);
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--ink); }
+
+    main {
+      flex: 1;
       display: flex; align-items: center; justify-content: center;
-      padding: 24px;
+      padding: 40px 24px;
     }
     .card {
-      max-width: 420px; width: 100%;
+      max-width: 460px; width: 100%;
       background: var(--paper-2);
       border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 40px 36px;
-      box-shadow: 0 20px 60px rgba(16,16,15,0.05);
+      border-radius: 24px;
+      padding: 36px 36px 32px;
+      box-shadow: 0 30px 80px rgba(16,16,15,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .visual {
+      height: 120px;
+      margin: -16px -16px 24px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 22% 55%, rgba(58,117,77,0.18) 0%, rgba(58,117,77,0) 42%),
+        radial-gradient(circle at 58% 45%, rgba(23,58,40,0.3) 0%, rgba(23,58,40,0) 48%),
+        radial-gradient(circle at 82% 60%, rgba(58,117,77,0.14) 0%, rgba(58,117,77,0) 40%),
+        linear-gradient(135deg, var(--green-100) 0%, var(--paper) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .visual svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
     }
     .kicker {
       display: inline-block;
-      font-size: 11px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.18em;
-      color: var(--green-900);
-      background: var(--green-100);
-      padding: 5px 12px;
-      border-radius: 999px;
-      margin-bottom: 18px;
+      font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.2em;
+      color: var(--green-700);
+      margin-bottom: 12px;
     }
     h1 {
-      font-size: 22px; line-height: 1.25;
-      letter-spacing: -0.015em;
-      font-weight: 700;
+      font-size: 26px; line-height: 1.1;
+      letter-spacing: -0.025em;
+      font-weight: 800;
       margin-bottom: 10px;
     }
     p.hint {
       font-size: 14.5px; color: var(--muted);
       line-height: 1.55;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
     label {
       display: block;
-      font-size: 12px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.14em;
-      color: var(--green-900);
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--green-700);
       margin-bottom: 8px;
     }
     input[type="password"] {
       width: 100%;
-      padding: 13px 16px;
+      padding: 14px 16px;
       border: 1px solid var(--line);
       border-radius: 12px;
       background: var(--paper);
       font-family: inherit;
       font-size: 16px;
       color: var(--ink);
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
     }
     input[type="password"]:focus {
       outline: none;
       border-color: var(--green-700);
       background: #fff;
+      box-shadow: 0 0 0 3px rgba(58,117,77,0.12);
     }
     button {
       width: 100%;
       margin-top: 14px;
-      padding: 14px;
+      padding: 15px;
       background: var(--green-900);
       color: var(--paper-2);
       border: none;
       border-radius: 999px;
       font-family: inherit;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.02em;
       cursor: pointer;
       transition: background 0.15s, transform 0.15s;
     }
-    button:hover { background: #0d2318; }
+    button:hover { background: var(--green-950); }
     button:active { transform: translateY(1px); }
     .err {
       margin-top: 14px;
@@ -151,30 +203,67 @@ function renderGate(payload, title) {
     }
     .err.show { display: block; }
     .foot {
-      margin-top: 24px;
-      padding-top: 20px;
+      margin-top: 22px;
+      padding-top: 18px;
       border-top: 1px solid var(--line);
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--muted);
+      letter-spacing: 0.16em;
+      color: var(--muted-light);
       text-align: center;
+      font-weight: 600;
+    }
+
+    footer.page-foot {
+      padding: 24px 28px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted-light);
+      text-align: center;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 560px) {
+      .nav-inner { padding: 16px 20px; }
+      .brand { font-size: 11px; letter-spacing: 0.12em; }
+      .nav-back { font-size: 12px; }
+      .card { padding: 28px 26px 26px; }
+      .visual { height: 100px; margin: -12px -12px 20px; }
+      h1 { font-size: 22px; }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <span class="kicker">Личный документ</span>
-    <h1>Персональная сессия</h1>
-    <p class="hint">Страница закрыта паролем. Введите пароль, который пришёл вам в сообщении.</p>
-    <form onsubmit="event.preventDefault(); unlock();" autocomplete="off">
-      <label for="pwd">Пароль</label>
-      <input type="password" id="pwd" autofocus autocomplete="off" spellcheck="false">
-      <button type="submit">Открыть</button>
-      <div class="err" id="err">Пароль не подошёл. Попробуйте ещё раз.</div>
-    </form>
-    <div class="foot">Долгов, Эй Ай и партнёры</div>
-  </div>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="https://dolgovalex.com/" class="brand">Долгов, Эй Ай и партнёры</a>
+      <a href="https://dolgovalex.com/" class="nav-back">← на главную</a>
+    </div>
+  </nav>
+  <main>
+    <div class="card">
+      <div class="visual" aria-hidden="true">
+        <svg viewBox="0 0 460 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <circle cx="96" cy="60" r="44" fill="#173a28" fill-opacity="0.12"/>
+          <circle cx="180" cy="60" r="58" fill="#3a754d" fill-opacity="0.16"/>
+          <circle cx="274" cy="60" r="50" fill="#173a28" fill-opacity="0.2"/>
+          <circle cx="360" cy="60" r="34" fill="#3a754d" fill-opacity="0.14"/>
+          <line x1="40" y1="60" x2="420" y2="60" stroke="#173a28" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 6"/>
+        </svg>
+      </div>
+      <span class="kicker">Личный документ</span>
+      <h1>Персональный R&amp;D</h1>
+      <p class="hint">Страница закрыта паролем. Введите пароль из сообщения — откроется рабочий документ под вашу сессию.</p>
+      <form onsubmit="event.preventDefault(); unlock();" autocomplete="off">
+        <label for="pwd">Пароль</label>
+        <input type="password" id="pwd" autofocus autocomplete="off" spellcheck="false">
+        <button type="submit">Открыть документ</button>
+        <div class="err" id="err">Пароль не подошёл. Попробуйте ещё раз.</div>
+      </form>
+      <div class="foot">Долгов, Эй Ай и партнёры</div>
+    </div>
+  </main>
+  <footer class="page-foot">Документ виден только вам · не индексируется</footer>
 
 <script>
 const PAYLOAD = ${payloadJson};

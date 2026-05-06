@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop · Бизнес-клуб Команда — Долгов, Эй Ай и партнеры</title>
+  <meta name="description" content="Двухдневный workshop «Проектирование AI-сотрудников» на 13-й Выездной Школе Бизнес-клуба Команда. Документ для согласования с организаторами.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="canonical" href="https://dolgovalex.com/workshop-komanda/">
+  <meta name="author" content="Александр Долгов">
+  <meta name="yandex-verification" content="bb7a490cf3aa0c54">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Bold.woff2" crossorigin>
+  <style>
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+
+    :root {
+      --paper: #f6f0e6;
+      --paper-2: #fdfbf7;
+      --ink: #10100f;
+      --muted: #67635d;
+      --muted-light: #8a857e;
+      --line: rgba(16,16,15,0.09);
+      --green-950: #11281d;
+      --green-900: #173a28;
+      --green-700: #3a754d;
+      --green-100: #e7efe8;
+      --brick: #b85a3a;
+      --shadow: 0 20px 60px rgba(16,16,15,0.05);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --pill: 999px;
+      --max: 820px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lufga', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    a.link { color: var(--green-700); border-bottom: 1px solid rgba(58,117,77,0.3); }
+    a.link:hover { color: var(--green-900); border-bottom-color: var(--green-900); }
+    .wrap { width: min(var(--max), calc(100vw - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(246,240,230,0.88);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: 820px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px;
+    }
+    .brand { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+    .back { font-size: 14px; color: var(--muted); }
+    .back:hover { color: var(--ink); }
+
+    .hero { padding: 64px 0 32px; }
+    .hero .label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; line-height: 1; text-transform: uppercase;
+      letter-spacing: 0.16em; font-weight: 700; color: var(--green-700);
+    }
+    .hero .label::before { content: ''; width: 22px; height: 1px; background: currentColor; }
+    .hero h1 {
+      margin: 18px 0 20px;
+      font-size: clamp(34px, 4.6vw, 50px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+    }
+    .hero-meta {
+      font-size: 15px; line-height: 1.7; color: var(--muted);
+      max-width: 640px;
+    }
+    .hero-meta strong { color: var(--ink); font-weight: 600; }
+
+    .doc-note {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: rgba(184,90,58,0.08);
+      border-left: 3px solid var(--brick);
+      border-radius: 4px;
+      font-size: 14px; line-height: 1.55; color: var(--ink);
+    }
+
+    .section { padding: 0 0 56px; }
+    .divider { height: 1px; background: var(--line); margin: 56px 0; }
+
+    h2.section-title {
+      font-size: 13px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--green-700);
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    h3.block-title {
+      font-size: 24px; line-height: 1.2;
+      letter-spacing: -0.02em; font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .block { margin-bottom: 36px; }
+    .block p, .block li {
+      font-size: 16px; line-height: 1.65; color: var(--muted);
+    }
+    .block p { margin-bottom: 12px; }
+    .block p:last-child { margin-bottom: 0; }
+    .block strong { color: var(--ink); font-weight: 600; }
+
+    ul.tight, ol.tight { padding-left: 22px; }
+    ul.tight li, ol.tight li { margin-bottom: 8px; }
+    ul.tight li:last-child, ol.tight li:last-child { margin-bottom: 0; }
+
+    .pillars {
+      display: grid; gap: 12px; margin: 18px 0 8px;
+    }
+    .pillar {
+      padding: 18px 22px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .pillar-title {
+      font-size: 15px; font-weight: 700; color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .pillar-text { font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+    .day {
+      padding: 26px 28px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      margin-bottom: 16px;
+    }
+    .day-head {
+      display: flex; flex-wrap: wrap; gap: 8px 16px;
+      align-items: baseline;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .day-name {
+      font-size: 18px; font-weight: 800; color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .day-arc {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green-700);
+    }
+    .slot { margin-bottom: 14px; }
+    .slot:last-child { margin-bottom: 0; }
+    .slot-time {
+      font-size: 13px; font-weight: 700; color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+      letter-spacing: 0.02em;
+    }
+    .slot-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .slot-desc { font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+
+    table.spec {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    table.spec th, table.spec td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    table.spec th {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted-light);
+      width: 38%;
+    }
+    table.spec td { color: var(--ink); }
+    table.spec td.muted { color: var(--muted); }
+    table.spec tr:last-child th, table.spec tr:last-child td { border-bottom: none; }
+
+    .checklist {
+      padding: 24px 28px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      margin-bottom: 16px;
+    }
+    .checklist h4 {
+      font-size: 14px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--green-700);
+      margin-bottom: 12px;
+    }
+    .checklist ul { list-style: none; padding: 0; }
+    .checklist li {
+      position: relative;
+      padding-left: 24px;
+      font-size: 15px; line-height: 1.6; color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .checklist li::before {
+      content: ''; position: absolute;
+      left: 0; top: 8px;
+      width: 14px; height: 14px;
+      border: 1.5px solid var(--green-700);
+      border-radius: 3px;
+    }
+    .checklist li strong { font-weight: 700; }
+    .checklist li .note { color: var(--muted); font-weight: 400; }
+
+    .skills-grid {
+      display: grid; gap: 10px;
+      margin-top: 12px;
+    }
+    .skill-row {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+    }
+    .skill-row:last-child { border-bottom: none; }
+    .skill-name {
+      font-weight: 700; color: var(--ink);
+      font-family: 'SF Mono', 'Menlo', monospace;
+      font-size: 14px;
+    }
+    .skill-what { color: var(--muted); line-height: 1.55; }
+
+    .qbox {
+      padding: 22px 26px;
+      background: var(--green-100);
+      border: 1px solid rgba(58,117,77,0.18);
+      border-radius: var(--radius-lg);
+      margin-bottom: 12px;
+    }
+    .qbox p {
+      font-size: 15px; line-height: 1.6; color: var(--ink);
+      margin-bottom: 0;
+    }
+    .qbox .qlabel {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green-700);
+      margin-bottom: 6px;
+    }
+
+    .contact-box {
+      padding: 32px 28px;
+      background: var(--green-900);
+      color: var(--paper-2);
+      border-radius: var(--radius-xl);
+      text-align: left;
+      margin-bottom: 56px;
+    }
+    .contact-box h3 {
+      font-size: 22px; line-height: 1.2;
+      letter-spacing: -0.02em; margin-bottom: 12px;
+      color: var(--paper-2);
+    }
+    .contact-box p {
+      color: var(--green-100); font-size: 16px; line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .contact-box a {
+      color: var(--paper-2);
+      border-bottom: 1px solid rgba(253,251,247,0.4);
+    }
+    .contact-box a:hover { border-bottom-color: var(--paper-2); }
+
+    .footer {
+      padding: 28px 0; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 20px; }
+    .footer a:hover { color: var(--ink); }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(var(--max), calc(100vw - 24px)); }
+      .nav-inner { padding: 20px 12px; }
+      .hero h1 { font-size: 32px; }
+      .day { padding: 22px 20px; }
+      .checklist { padding: 22px 20px; }
+      .skill-row { grid-template-columns: 1fr; gap: 4px; }
+      table.spec th { width: auto; display: block; padding-bottom: 4px; }
+      table.spec td { display: block; padding-top: 4px; padding-bottom: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="brand">Долгов, Эй Ай и партнеры</a>
+      <a href="/" class="back">&larr; На главную</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <section class="hero">
+      <div class="label">Workshop · Бизнес-клуб Команда</div>
+      <h1>Проектирование AI-сотрудников</h1>
+      <p class="hero-meta">
+        13-я Выездная Школа Бизнес-клуба &laquo;Команда&raquo;. Красная&nbsp;Поляна, июнь&nbsp;2026. Двухдневный hands-on workshop для&nbsp;CEO и&nbsp;собственников. До&nbsp;15&nbsp;участников.<br>
+        Спикер: <strong>Александр Долгов</strong>&nbsp;&mdash; основатель и&nbsp;управляющий директор VEYRA, основатель Долгов&nbsp;AI и&nbsp;партнёры.
+      </p>
+      <div class="doc-note">
+        Это рабочий документ для&nbsp;согласования с&nbsp;организаторами Школы. Не&nbsp;публичная страница для&nbsp;участников. Финальная версия материалов для&nbsp;участников будет подготовлена отдельно после согласования программы.
+      </div>
+    </section>
+
+    <div class="divider" style="margin-top: 8px;"></div>
+
+    <section class="section">
+      <h2 class="section-title">Цель школы</h2>
+      <div class="block">
+        <p>За&nbsp;два дня каждый участник проходит путь от&nbsp;карты собственного бизнеса до&nbsp;рабочего прототипа AI-сотрудника, встроенного в&nbsp;конкретный процесс. Не&nbsp;знакомство с&nbsp;технологией&nbsp;&mdash; собственный артефакт на&nbsp;выходе.</p>
+        <p>На&nbsp;выходе у&nbsp;участника:</p>
+        <ul class="tight">
+          <li><strong>Карта бизнеса с&nbsp;найденным узким местом</strong>&nbsp;&mdash; отвечает на&nbsp;вопрос &laquo;где первый AI-сотрудник даст реальный сдвиг&raquo;</li>
+          <li><strong>Рабочий прототип AI-сотрудника</strong> под этот процесс, проверенный на&nbsp;собственных данных</li>
+          <li><strong>Roadmap следующих 2&ndash;3 сотрудников</strong>&nbsp;&mdash; куда расширять контур после школы</li>
+          <li><strong>Шаблоны и&nbsp;стартовый набор</strong>&nbsp;&mdash; чтобы продолжить самостоятельно</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Аудитория и&nbsp;формат</h2>
+      <div class="block">
+        <table class="spec">
+          <tr><th>Кто</th><td>CEO, собственники, операционные руководители. Технический бэкграунд не&nbsp;требуется.</td></tr>
+          <tr><th>Размер группы</th><td>До&nbsp;15&nbsp;человек.</td></tr>
+          <tr><th>Соотношение</th><td>Примерно 30% теории, 70% работы руками. Это workshop, не&nbsp;лекторий.</td></tr>
+          <tr><th>Формат группы</th><td>Тройки на&nbsp;день&nbsp;1 (взаимная проверка гипотез). Индивидуально на&nbsp;день&nbsp;2&nbsp;с поддержкой соседей.</td></tr>
+          <tr><th>Длительность</th><td>0&nbsp;день&nbsp;&mdash; вечер заезда, 1.5&ndash;2 часа. Дни&nbsp;1 и&nbsp;2&nbsp;&mdash; полные, 9:00&ndash;16:00.</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Подход</h2>
+      <div class="block">
+        <p>Два принципа, которые я&nbsp;проношу через школу. Это и&nbsp;есть содержательная разница со&nbsp;стандартным &laquo;курсом по&nbsp;AI&raquo;:</p>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-title">AI ставится на&nbsp;узкое место, не&nbsp;на&nbsp;удобное</div>
+            <div class="pillar-text">Опираемся на&nbsp;Theory of&nbsp;Constraints (Голдратт). Сначала находим, где у&nbsp;бизнеса самое медленное звено. Туда ставим первого AI-сотрудника. &laquo;Автоматизировать всё&raquo;&nbsp;&mdash; антипаттерн, расходующий ресурс впустую.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Инженерия, не&nbsp;vibe coding</div>
+            <div class="pillar-text">Демо собрать легко, рабочую систему&nbsp;&mdash; нет. Учим проектировать контур: роль, инструменты, память, правила, интеграции, безопасность. То, что переживёт первую неделю эксплуатации.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Образовательная логика</h2>
+      <div class="block">
+        <p>Программа построена как сквозной образовательный путь, в&nbsp;котором каждая стадия закрывает свою функцию:</p>
+        <ol class="tight">
+          <li><strong>Погружение</strong>&nbsp;&mdash; 0&nbsp;день. Рамка, контекст, что значит работать с&nbsp;AI инженерно.</li>
+          <li><strong>Примеры</strong>&nbsp;&mdash; утро дня&nbsp;1. Живые демо моих рабочих AI-сотрудников.</li>
+          <li><strong>Правила</strong>&nbsp;&mdash; день&nbsp;1. Как искать узкое место, как устроен AI-сотрудник, какие принципы инженерии.</li>
+          <li><strong>Самостоятельная деятельность</strong>&nbsp;&mdash; день&nbsp;1 вечер и&nbsp;день&nbsp;2 первая половина. Каждый собирает прототип.</li>
+          <li><strong>Корректировки</strong>&nbsp;&mdash; параллельно сборке. Я&nbsp;обхожу, помогаю, перепроверяем гипотезы.</li>
+          <li><strong>Результат</strong>&nbsp;&mdash; финал дня&nbsp;2. Демо-сессия, обратная связь, roadmap.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Программа</h2>
+
+      <div class="day">
+        <div class="day-head">
+          <span class="day-name">0&nbsp;день, вечер заезда</span>
+          <span class="day-arc">Погружение · 1.5&ndash;2 часа</span>
+        </div>
+        <div class="slot">
+          <div class="slot-title">Знакомство</div>
+          <div class="slot-desc">Каждый коротко: что за&nbsp;бизнес, главный болевой процесс, ради чего приехал.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-title">Лекция-разговор: AI в&nbsp;2026 году</div>
+          <div class="slot-desc">Что реально изменилось. Что значит agentic engineering и&nbsp;чем отличается от&nbsp;vibe coding. Главный тезис школы: &laquo;демо собрать легко, рабочую систему&nbsp;&mdash; нет&raquo;.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-title">Анонс структуры школы</div>
+          <div class="slot-desc">Как устроены два дня, что забирает каждый, почему именно такая последовательность.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-title">Установочный вопрос на&nbsp;ночь</div>
+          <div class="slot-desc">У&nbsp;какого процесса в&nbsp;твоём бизнесе самая большая разница между &laquo;как работает&raquo; и&nbsp;&laquo;как должно работать&raquo;? Утром начнём с&nbsp;этого.</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-head">
+          <span class="day-name">День&nbsp;1 · 9:00&ndash;16:00</span>
+          <span class="day-arc">Примеры → Правила → Старт сборки</span>
+        </div>
+        <div class="slot">
+          <div class="slot-time">9:00 &ndash; 11:00</div>
+          <div class="slot-title">Примеры: 4 живых демо AI-сотрудников</div>
+          <div class="slot-desc">Каждый разбираем под капотом: что делает, как устроен, сколько занимает у&nbsp;меня времени, какой эффект. Не&nbsp;слайды&nbsp;&mdash; реальные файлы и&nbsp;конфиги.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">11:00 &ndash; 11:15</div>
+          <div class="slot-title">Кофе</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">11:15 &ndash; 12:00</div>
+          <div class="slot-title">Правила&nbsp;1: где ставить AI-сотрудника</div>
+          <div class="slot-desc">Theory of Constraints в&nbsp;практическом виде. 5&nbsp;фокусирующих шагов, закон неравномерного развития. Антипаттерн &laquo;автоматизировать всё&raquo;.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">12:00 &ndash; 13:00</div>
+          <div class="slot-title">Обед</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">13:00 &ndash; 14:00</div>
+          <div class="slot-title">Правила&nbsp;2: анатомия AI-сотрудника</div>
+          <div class="slot-desc">Из&nbsp;чего собирается контур: роль / задачи / инструменты / память / правила / интеграции. Что есть skill, что MCP, что agent. Когда что применять.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">14:00 &ndash; 15:00</div>
+          <div class="slot-title">Правила&nbsp;3: принципы инженерии</div>
+          <div class="slot-desc">Контекст, контур, безопасность, observability, версионирование. Где обламываются те, кто &laquo;просто промптит&raquo;. Разбор 3&ndash;4 типовых антипаттернов.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">15:00 &ndash; 16:00</div>
+          <div class="slot-title">Самостоятельная деятельность: TZ для своего AI-сотрудника</div>
+          <div class="slot-desc">Workshop в&nbsp;тройках. Каждый раскладывает свой бизнес, ищет узкое место, формулирует TZ. Тройки перекрёстно проверяют гипотезы. Я&nbsp;обхожу, корректирую формулировки.<br><strong>Артефакт у&nbsp;каждого:</strong> TZ AI-сотрудника на&nbsp;одну страницу.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">Вечер, опционально</div>
+          <div class="slot-title">Office hours</div>
+          <div class="slot-desc">Кто хочет довести TZ до&nbsp;готовности, может остаться после ужина. Я&nbsp;на&nbsp;связи 1&ndash;1.5 часа.</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div class="day-head">
+          <span class="day-name">День&nbsp;2 · 9:00&ndash;16:00</span>
+          <span class="day-arc">Самостоятельная деятельность → Корректировки → Результат</span>
+        </div>
+        <div class="slot">
+          <div class="slot-time">9:00 &ndash; 10:00</div>
+          <div class="slot-title">Мост от&nbsp;TZ к&nbsp;сборке</div>
+          <div class="slot-desc">Пайплайн на&nbsp;одном публичном кейсе. Как из&nbsp;TZ получается работающий контур: skill → MCP → memory → интеграция. Шаг за&nbsp;шагом, в&nbsp;реальном времени.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">10:00 &ndash; 12:00</div>
+          <div class="slot-title">Самостоятельная сборка, часть&nbsp;1</div>
+          <div class="slot-desc">Каждый собирает свой прототип на&nbsp;собственных инструментах. Соседи помогают друг другу. Я&nbsp;обхожу, разбираю проблемные места&nbsp;&mdash; это и&nbsp;есть корректировки в&nbsp;нашей логике.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">12:00 &ndash; 13:00</div>
+          <div class="slot-title">Обед</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">13:00 &ndash; 15:00</div>
+          <div class="slot-title">Самостоятельная сборка, часть&nbsp;2 + тест на&nbsp;реальных данных</div>
+          <div class="slot-desc">Каждый прогоняет своего AI-сотрудника на&nbsp;конкретном кейсе из&nbsp;своего бизнеса. Я&nbsp;подключаюсь к&nbsp;точкам, где не&nbsp;работает.</div>
+        </div>
+        <div class="slot">
+          <div class="slot-time">15:00 &ndash; 16:00</div>
+          <div class="slot-title">Результат: демо-сессия</div>
+          <div class="slot-desc">Каждый по&nbsp;4&ndash;5 минут: вот что я&nbsp;нашёл как узкое место, вот кого собрал, вот что он&nbsp;умеет. Группа даёт обратную связь. Финал&nbsp;&mdash; roadmap следующих 2&ndash;3 сотрудников и&nbsp;как продолжить после школы.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Что забирает участник</h2>
+      <div class="block">
+        <ul class="tight">
+          <li>Рабочий прототип AI-сотрудника, проверенный на&nbsp;собственных данных</li>
+          <li>Карта бизнеса с&nbsp;найденным узким местом и&nbsp;обоснованием</li>
+          <li>Шаблон TZ для&nbsp;следующих AI-сотрудников</li>
+          <li>Понимание principles agentic engineering&nbsp;&mdash; чем рабочая система отличается от&nbsp;демо</li>
+          <li>Roadmap следующих 2&ndash;3 сотрудников под свой бизнес</li>
+          <li>Стартовый набор из&nbsp;5 публичных скиллов как референс структуры (см.&nbsp;ниже)</li>
+          <li>Возможность продолжить со&nbsp;мной в&nbsp;формате проектного консалтинга, если нужно довести до&nbsp;production</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Что нужно от&nbsp;участников до&nbsp;приезда</h2>
+      <div class="block">
+        <p>Pre-req checklist рассылается организаторами участникам за&nbsp;неделю до&nbsp;школы. Без выполнения первый день идёт вхолостую&nbsp;&mdash; это критично.</p>
+
+        <div class="checklist">
+          <h4>Hardware</h4>
+          <ul>
+            <li>Ноутбук с&nbsp;16&nbsp;GB RAM минимум, 32&nbsp;GB желательно</li>
+            <li>Стабильный интернет, мобильный интернет как&nbsp;backup</li>
+            <li>Зарядка, переходники по&nbsp;необходимости</li>
+          </ul>
+        </div>
+
+        <div class="checklist">
+          <h4>Software</h4>
+          <ul>
+            <li>Cursor или VS Code <span class="note">(на&nbsp;выбор, инструкция в&nbsp;письме)</span></li>
+            <li>Claude Code CLI <span class="note">(установка по&nbsp;инструкции)</span></li>
+            <li>Claude Desktop</li>
+            <li>Telegram Desktop</li>
+            <li>Опционально: ChatGPT Desktop</li>
+          </ul>
+        </div>
+
+        <div class="checklist">
+          <h4>Подписки</h4>
+          <ul>
+            <li><strong>Claude Pro или Claude Max</strong> <span class="note">&mdash; обязательно</span></li>
+            <li>ChatGPT Plus <span class="note">&mdash; желательно</span></li>
+            <li>API key Anthropic <span class="note">&mdash; желательно для&nbsp;интеграций</span></li>
+          </ul>
+        </div>
+
+        <div class="checklist">
+          <h4>Аккаунты</h4>
+          <ul>
+            <li>GitHub <span class="note">(бесплатный)</span></li>
+            <li>Telegram <span class="note">(если планируется собирать Telegram-бота)</span></li>
+            <li>Доступ к&nbsp;собственному рабочему стеку: CRM&nbsp;/ таблицы&nbsp;/ почта&nbsp;/ то, с&nbsp;чем хочется интегрировать агента</li>
+          </ul>
+        </div>
+
+        <div class="checklist">
+          <h4>Контент к&nbsp;приезду <span class="note" style="font-weight: 400;">— обязательно</span></h4>
+          <ul>
+            <li><strong>Карта бизнеса на&nbsp;одну страницу:</strong> ключевые процессы, основные роли, главная метрика, которую хочется сдвинуть. Шаблон будет в&nbsp;письме.</li>
+            <li><strong>Список повторяющихся задач,</strong> которые делаются руками каждую неделю&nbsp;&mdash; материал для&nbsp;будущих агентов.</li>
+          </ul>
+        </div>
+
+        <div class="checklist">
+          <h4>Время и&nbsp;настрой</h4>
+          <ul>
+            <li>0&nbsp;день вечер: 1.5&ndash;2 часа без отвлечений</li>
+            <li>Дни 1&nbsp;и&nbsp;2: полные дни 9:00&ndash;16:00 без оперативки</li>
+            <li>Готовность работать руками, а&nbsp;не&nbsp;слушать</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Стартовый набор скиллов для&nbsp;участников</h2>
+      <div class="block">
+        <p>Публикую в&nbsp;виде GitHub-репозитория к&nbsp;началу школы. Универсальные, не&nbsp;завязанные на&nbsp;мою инфру, &mdash; чтобы каждый мог запустить сразу и&nbsp;увидеть структуру skill-файла.</p>
+        <div class="skills-grid">
+          <div class="skill-row">
+            <div class="skill-name">meeting-recap</div>
+            <div class="skill-what">Встреча → структурированный recap с&nbsp;ключевыми решениями, задачами, follow-up.</div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">content-draft</div>
+            <div class="skill-what">Идея + материалы → черновик поста&nbsp;/ статьи в&nbsp;собственном голосе.</div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">weekly-review</div>
+            <div class="skill-what">Материалы недели → дайджест&nbsp;/ повестка планёрки.</div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">process-transcript</div>
+            <div class="skill-what">Любой транскрипт → автодетект типа → нужный артефакт под него.</div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">task-router</div>
+            <div class="skill-what">Входящая задача (письмо&nbsp;/ сообщение) → классификация и&nbsp;маршрутизация.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Что нужно от&nbsp;организаторов и&nbsp;площадки</h2>
+      <div class="block">
+        <table class="spec">
+          <tr><th>Зал</th><td>Один тихий зал на&nbsp;всю группу, столы под ноутбуки. Возможность пересаживаться в&nbsp;тройки.</td></tr>
+          <tr><th>Wifi</th><td>Стабильный, с&nbsp;запасом по&nbsp;пропускной способности. AI-сервисы плюс GitHub плюс одновременная работа 15+ человек.</td></tr>
+          <tr><th>Оборудование</th><td>Проектор или большой экран, удлинители на&nbsp;каждый стол.</td></tr>
+          <tr><th>Питание</th><td>Согласовать тайминги завтрака&nbsp;/ обеда&nbsp;/ ужина с&nbsp;программой. Кофе-брейки в&nbsp;11:00.</td></tr>
+          <tr><th>Помощь на&nbsp;площадке</th><td>Желательно один модератор от&nbsp;клуба&nbsp;&mdash; помогать с&nbsp;логистикой и&nbsp;таймингом.</td></tr>
+          <tr><th>Рассылка участникам</th><td>За&nbsp;7 дней до&nbsp;школы: pre-req checklist, шаблон карты бизнеса, инструкции по&nbsp;установке софта. Материалы готовлю я, рассылают организаторы.</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Открытые вопросы к&nbsp;организаторам</h2>
+      <div class="block">
+
+        <div class="qbox">
+          <div class="qlabel">Дата</div>
+          <p>Конкретные даты в&nbsp;июне. Нужно для&nbsp;планирования рассылки pre-req checklist (за&nbsp;7&nbsp;дней) и&nbsp;подготовки материалов.</p>
+        </div>
+
+        <div class="qbox">
+          <div class="qlabel">Состав участников</div>
+          <p>Список с&nbsp;короткой справкой по&nbsp;бизнесу каждого&nbsp;&mdash; чтобы заранее подобрать релевантные демо-кейсы и&nbsp;примеры.</p>
+        </div>
+
+        <div class="qbox">
+          <div class="qlabel">Брендирование и&nbsp;упоминание клуба</div>
+          <p>Как корректно упоминать клуб &laquo;Команда&raquo; в&nbsp;материалах участников. Логотип, формулировки, ограничения.</p>
+        </div>
+
+        <div class="qbox">
+          <div class="qlabel">Запись и&nbsp;фото</div>
+          <p>Запись workshop разрешена&nbsp;/ запрещена? Фото для&nbsp;моих публичных каналов после школы (с&nbsp;согласия участников)&nbsp;&mdash; ОК или&nbsp;нет?</p>
+        </div>
+
+        <div class="qbox">
+          <div class="qlabel">Конфиденциальность бизнесов</div>
+          <p>Программа предполагает, что участники показывают свои бизнесы друг другу в&nbsp;тройках. Предполагаю, что это в&nbsp;норме клуба, &mdash; подтвердите. Если есть NDA-формат&nbsp;&mdash; пришлите.</p>
+        </div>
+
+        <div class="qbox">
+          <div class="qlabel">Логистика моего участия</div>
+          <p>Прилёт&nbsp;/ выезд, проживание, организационная сторона&nbsp;&mdash; как у&nbsp;вас принято для&nbsp;спикеров.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="contact-box">
+      <h3>Контакт</h3>
+      <p>По&nbsp;любым вопросам по&nbsp;программе, согласованиям и&nbsp;логистике&nbsp;&mdash; пишите напрямую.</p>
+      <p>
+        Email: <a href="mailto:bonjour@dolgovalex.com">bonjour@dolgovalex.com</a><br>
+        Telegram: <a href="https://t.me/dolgovalex" target="_blank">@dolgovalex</a>
+      </p>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap footer">
+      <div>
+        <div style="font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 4px;">Долгов, Эй Ай и партнеры</div>
+        <div>&copy; 2026</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
+        <a href="mailto:bonjour@dolgovalex.com">bonjour@dolgovalex.com</a>
+        <a href="/">Главная</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

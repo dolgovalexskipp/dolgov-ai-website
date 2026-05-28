@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-school AI · Антрацит + Бекер — Долгов, Эй Ай и партнеры</title>
+  <meta name="description" content="Две онлайн-сессии для Виктора и Надежды перед Школой Бизнес-клуба «Команда». 28 мая и 4 июня 2026.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Bold.woff2" crossorigin>
+  <style>
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Medium.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-SemiBold.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+    @font-face { font-family: 'Lufga'; src: url('/fonts/Lufga-ExtraBold.woff2') format('woff2'); font-weight: 800; font-display: swap; }
+
+    :root {
+      --paper: #f6f0e6;
+      --paper-2: #fdfbf7;
+      --ink: #10100f;
+      --muted: #67635d;
+      --muted-light: #8a857e;
+      --line: rgba(16,16,15,0.09);
+      --line-strong: rgba(16,16,15,0.16);
+      --green-950: #11281d;
+      --green-900: #173a28;
+      --green-700: #3a754d;
+      --green-100: #e7efe8;
+      --brick: #b85a3a;
+      --shadow: 0 20px 60px rgba(16,16,15,0.05);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --pill: 999px;
+      --max: 820px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lufga', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    a.link { color: var(--green-700); border-bottom: 1px solid rgba(58,117,77,0.3); }
+    a.link:hover { color: var(--green-900); border-bottom-color: var(--green-900); }
+    .wrap { width: min(var(--max), calc(100vw - 40px)); margin: 0 auto; }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(246,240,230,0.88);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: 820px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 40px;
+    }
+    .brand { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+    .back { font-size: 14px; color: var(--muted); }
+    .back:hover { color: var(--ink); }
+
+    /* Hero */
+    .hero { padding: 56px 0 28px; }
+    .hero .label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; line-height: 1; text-transform: uppercase;
+      letter-spacing: 0.16em; font-weight: 700; color: var(--green-700);
+    }
+    .hero .label::before { content: ''; width: 22px; height: 1px; background: currentColor; }
+    .hero h1 {
+      margin: 18px 0 22px;
+      font-size: clamp(34px, 4.6vw, 50px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+    }
+    .hero-meta {
+      font-size: 16px; line-height: 1.65; color: var(--muted);
+      max-width: 640px;
+    }
+    .hero-meta strong { color: var(--ink); font-weight: 600; }
+
+    .slot-pills {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 22px;
+    }
+    .slot-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--pill);
+      font-size: 13px; color: var(--ink);
+      font-weight: 500;
+    }
+    .slot-pill strong { color: var(--green-700); font-weight: 700; }
+
+    /* TOC */
+    .toc {
+      margin: 36px 0 8px;
+      padding: 22px 26px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .toc-title {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted-light);
+      margin-bottom: 14px;
+    }
+    .toc-list {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px 28px;
+      list-style: none;
+    }
+    .toc-list li { font-size: 14.5px; line-height: 1.4; }
+    .toc-list a {
+      display: inline-flex; align-items: baseline; gap: 10px;
+      color: var(--ink);
+      border-bottom: 1px solid transparent;
+      padding: 2px 0;
+      transition: border-color .15s, color .15s;
+    }
+    .toc-list a:hover { color: var(--green-900); border-bottom-color: var(--green-700); }
+    .toc-num {
+      flex: 0 0 auto;
+      font-size: 11px; font-weight: 700;
+      color: var(--green-700);
+      letter-spacing: 0.06em;
+      font-variant-numeric: tabular-nums;
+    }
+    @media (max-width: 640px) {
+      .toc-list { grid-template-columns: 1fr; }
+    }
+
+    /* Sections */
+    .section { padding: 0 0 48px; scroll-margin-top: 80px; }
+    .section + .section { padding-top: 8px; }
+    .divider { height: 1px; background: var(--line); margin: 48px 0; }
+
+    h2.section-title {
+      display: flex; align-items: baseline; gap: 14px;
+      font-size: 13px; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--green-700);
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .section-num {
+      font-size: 11px; font-weight: 700;
+      color: var(--muted-light);
+      letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    h3.block-title {
+      font-size: 22px; line-height: 1.2;
+      letter-spacing: -0.02em; font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .block { margin-bottom: 32px; }
+    .block:last-child { margin-bottom: 0; }
+    .block p, .block li {
+      font-size: 16px; line-height: 1.65; color: var(--muted);
+    }
+    .block p { margin-bottom: 12px; }
+    .block p:last-child { margin-bottom: 0; }
+    .block strong { color: var(--ink); font-weight: 600; }
+
+    ul.tight, ol.tight { padding-left: 22px; }
+    ul.tight li, ol.tight li { margin-bottom: 8px; }
+    ul.tight li:last-child, ol.tight li:last-child { margin-bottom: 0; }
+
+    /* Pillars (что в итоге) */
+    .pillars { display: grid; gap: 12px; margin: 14px 0 4px; }
+    .pillar {
+      padding: 18px 22px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .pillar-title {
+      font-size: 15px; font-weight: 700; color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .pillar-text { font-size: 15px; line-height: 1.6; color: var(--muted); }
+
+    /* Arc (callout) */
+    .arc {
+      padding: 18px 22px;
+      background: var(--green-100);
+      border: 1px solid rgba(58,117,77,0.18);
+      border-radius: var(--radius-md);
+      margin-bottom: 18px;
+      font-size: 15px; line-height: 1.6; color: var(--ink);
+    }
+
+    /* Bio (знакомство) */
+    .bio {
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 20px;
+      padding: 22px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+    }
+    .bio-avatar {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--green-100), var(--paper));
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .bio-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .bio-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .bio-role { font-size: 13px; color: var(--muted-light); margin-bottom: 12px; letter-spacing: 0.04em; }
+    .bio-text { font-size: 15px; line-height: 1.55; color: var(--muted); }
+    .bio-text p { margin-bottom: 8px; }
+    .bio-text p:last-child { margin-bottom: 0; }
+    .bio-links {
+      margin-top: 14px;
+      display: flex; gap: 14px; flex-wrap: wrap;
+      font-size: 13px;
+    }
+    .bio-links a {
+      color: var(--green-700);
+      font-weight: 600;
+      border-bottom: 1px solid rgba(58,117,77,0.3);
+    }
+    .bio-links a:hover { color: var(--green-900); }
+    @media (max-width: 540px) {
+      .bio { grid-template-columns: 1fr; }
+      .bio-avatar { margin: 0 auto; }
+    }
+
+    /* Participants */
+    .participants {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+    @media (max-width: 600px) { .participants { grid-template-columns: 1fr; } }
+    .person {
+      padding: 14px 18px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .person-name { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .person-role { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .person-co { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-700); margin-bottom: 6px; }
+    .person.bekker .person-co { color: var(--brick); }
+
+    /* Companies short */
+    .co-cards {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: 14px;
+    }
+    @media (max-width: 600px) { .co-cards { grid-template-columns: 1fr; } }
+    .co-card {
+      padding: 16px 18px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .co-card.bekker { border-left: 3px solid var(--brick); }
+    .co-card.antra { border-left: 3px solid var(--green-700); }
+    .co-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .co-tag { font-size: 12px; color: var(--muted-light); margin-bottom: 8px; letter-spacing: 0.04em; }
+    .co-desc { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
+    /* Slot cards (формат) */
+    .slot-cards { display: grid; gap: 14px; }
+    .slot-card {
+      padding: 22px 24px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      position: relative;
+    }
+    .slot-card.s1 { border-left: 3px solid var(--green-700); }
+    .slot-card.s2 { border-left: 3px solid var(--brick); }
+    .slot-label {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--green-700);
+      margin-bottom: 8px;
+    }
+    .slot-card.s2 .slot-label { color: var(--brick); }
+    .slot-title-big { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .slot-times {
+      font-size: 14px; color: var(--muted);
+      display: flex; gap: 16px; flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .slot-times span strong { color: var(--ink); }
+    .slot-card .slot-desc { font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+
+    /* Timeline (структура сессии) */
+    .timeline { display: grid; gap: 4px; margin: 8px 0 4px; }
+    .slot {
+      display: grid; grid-template-columns: 78px 1fr;
+      gap: 16px;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+    }
+    .slot:first-child { border-top: none; padding-top: 4px; }
+    .slot-time {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--green-700);
+      font-variant-numeric: tabular-nums;
+      padding-top: 2px;
+    }
+    .slot-body { font-size: 15px; line-height: 1.5; }
+    .slot-body .slot-title { font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .slot-body .slot-desc { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+    /* Diagnostic textareas (опорные точки) */
+    .diag-grid { display: grid; gap: 18px; margin-bottom: 16px; }
+    .diag-company {
+      padding: 20px 22px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+    .diag-company-name {
+      font-size: 14px; font-weight: 700; color: var(--green-700);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .diag-field { margin-bottom: 14px; }
+    .diag-field:last-child { margin-bottom: 0; }
+    .diag-label {
+      display: block;
+      font-size: 12px; font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .diag-hint {
+      font-size: 12.5px; color: var(--muted-light);
+      margin-bottom: 6px; line-height: 1.45;
+    }
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      font-family: inherit;
+      font-size: 14.5px; line-height: 1.5;
+      color: var(--ink);
+      resize: vertical;
+      transition: border-color .15s, background .15s, box-shadow .15s;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: var(--green-700);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(58,117,77,0.10);
+    }
+    textarea.tall { min-height: 110px; }
+
+    .copy-row {
+      display: flex; gap: 12px; align-items: center;
+      margin-top: 14px;
+      padding: 14px 18px;
+      background: var(--green-100);
+      border: 1px solid rgba(58,117,77,0.18);
+      border-radius: var(--radius-md);
+    }
+    .copy-row-text {
+      flex: 1;
+      font-size: 13.5px; color: var(--green-950); line-height: 1.45;
+    }
+    button.copy-btn {
+      padding: 10px 18px;
+      background: var(--green-900);
+      color: var(--paper-2);
+      border: none;
+      border-radius: var(--pill);
+      font-family: inherit;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background .15s, transform .1s;
+      white-space: nowrap;
+    }
+    button.copy-btn:hover { background: var(--green-950); }
+    button.copy-btn:active { transform: translateY(1px); }
+    button.copy-btn.ok { background: var(--green-700); }
+
+    /* Doc note (граница со школой) */
+    .doc-note {
+      margin: 10px 0 4px;
+      padding: 14px 18px;
+      background: rgba(184,90,58,0.07);
+      border-left: 3px solid var(--brick);
+      border-radius: 4px;
+      font-size: 14px; line-height: 1.55; color: var(--ink);
+    }
+
+    /* Materials list */
+    .mats { display: grid; gap: 8px; }
+    .mat-row {
+      display: grid; grid-template-columns: 150px 1fr;
+      gap: 16px;
+      padding: 11px 14px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 14.5px;
+    }
+    .mat-name { font-weight: 600; color: var(--ink); }
+    .mat-desc { color: var(--muted); line-height: 1.5; }
+    @media (max-width: 540px) {
+      .mat-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+
+    /* Contact */
+    .contact-box {
+      margin: 24px 0 48px;
+      padding: 26px 28px;
+      background: var(--green-900);
+      color: var(--paper-2);
+      border-radius: var(--radius-md);
+    }
+    .contact-box h3 {
+      font-size: 18px; font-weight: 700;
+      margin-bottom: 10px; color: var(--paper-2);
+    }
+    .contact-box p {
+      font-size: 14.5px; line-height: 1.6;
+      color: rgba(253,251,247,0.78);
+    }
+    .contact-box a {
+      color: var(--paper-2);
+      border-bottom: 1px solid rgba(253,251,247,0.4);
+    }
+    .contact-box a:hover { border-bottom-color: var(--paper-2); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 32px;
+      margin-top: 8px;
+    }
+    .footer {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px; color: var(--muted-light);
+    }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-links a:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="brand">Долгов, Эй Ай и партнеры</a>
+      <a href="/" class="back">← На главную</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <section class="hero">
+      <span class="label">Pre-school AI · Антрацит + Бекер</span>
+      <h1>AI-онбординг<br>перед&nbsp;Школой Бизнес-клуба «Команда»</h1>
+      <p class="hero-meta">
+        Две онлайн-сессии для&nbsp;<strong>команды собственников и&nbsp;ключевых руководителей</strong> Антрацита и&nbsp;Бекера. Подготовка к&nbsp;июньской выездной школе&nbsp;— чтобы 12-13&nbsp;июня вы&nbsp;стартовали на&nbsp;одном уровне с&nbsp;группой, а&nbsp;не&nbsp;догоняли. AI-грамотность, навык постановки задачи, и&nbsp;каркас «карты бизнеса» к&nbsp;школе.
+      </p>
+      <div class="slot-pills">
+        <span class="slot-pill"><strong>S1 ·</strong> 28&nbsp;мая, 11:30&ndash;13:00&nbsp;МСК</span>
+        <span class="slot-pill"><strong>S2 ·</strong> 4&nbsp;июня, 11:00&ndash;12:30&nbsp;МСК</span>
+        <span class="slot-pill">90&nbsp;минут × 2</span>
+        <span class="slot-pill">Онлайн</span>
+      </div>
+    </section>
+
+    <nav class="toc" aria-label="Содержание">
+      <div class="toc-title">Что внутри</div>
+      <ol class="toc-list">
+        <li><a href="#znakomstvo"><span class="toc-num">01</span>Знакомство</a></li>
+        <li><a href="#format"><span class="toc-num">02</span>Формат и слоты</a></li>
+        <li><a href="#itog"><span class="toc-num">03</span>Что в итоге двух сессий</a></li>
+        <li><a href="#granitsa"><span class="toc-num">04</span>Граница со школой</a></li>
+        <li><a href="#s1"><span class="toc-num">05</span>Сессия 1 — структура</a></li>
+        <li><a href="#diag"><span class="toc-num">06</span>Диагностика — точки сбора</a></li>
+        <li><a href="#domashka"><span class="toc-num">07</span>Домашка между S1 и S2</a></li>
+        <li><a href="#s2"><span class="toc-num">08</span>Сессия 2 — структура</a></li>
+        <li><a href="#do9iyunya"><span class="toc-num">09</span>Что от вас до 9 июня</a></li>
+        <li><a href="#mats"><span class="toc-num">10</span>Материалы и контакты</a></li>
+      </ol>
+    </nav>
+
+    <section class="section" id="znakomstvo">
+      <h2 class="section-title"><span class="section-num">01</span>Знакомство</h2>
+      <div class="block">
+        <div class="bio">
+          <div class="bio-avatar">
+            <img src="/assets/alex-dolgov.jpg" alt="Александр Долгов" loading="lazy" onerror="this.style.display='none'">
+          </div>
+          <div>
+            <div class="bio-name">Александр Долгов</div>
+            <div class="bio-role">FOUNDER VEYRA · ПЕРСОНАЛЬНЫЕ AI-СЕССИИ</div>
+            <div class="bio-text">
+              <p>Стратегический консалтинг, Skyeng, Skipp ($1.6M инвестиций), VEYRA (голосовые AI-агенты для&nbsp;бизнеса). Каждый этап привёл к&nbsp;собственной практике работы с&nbsp;AI&nbsp;— не&nbsp;как с&nbsp;инструментом, а&nbsp;как с&nbsp;сотрудником, встроенным в&nbsp;процесс.</p>
+              <p>Веду блок по&nbsp;поиску узких мест и&nbsp;AI-расшитию на&nbsp;июньской выездной школе клуба «Команда». Эти две сессии&nbsp;— ваша подготовка к&nbsp;ней.</p>
+            </div>
+            <div class="bio-links">
+              <a href="/about/">Подробнее обо&nbsp;мне →</a>
+              <a href="/onepager/">One-pager (PDF)</a>
+              <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="block-title" style="margin-top: 28px;">Компании</h3>
+        <p style="font-size: 14.5px; color: var(--muted); line-height: 1.55; margin-bottom: 12px;">
+          Семейная группа Виктора и&nbsp;Надежды&nbsp;— два дополняющих юрлица с&nbsp;общим фокусом на&nbsp;горнодобывающей отрасли Кузбасса.
+        </p>
+        <div class="co-cards">
+          <div class="co-card antra">
+            <div class="co-name">НПО «Антрацит»</div>
+            <div class="co-tag">Новокузнецк · собственное производство</div>
+            <div class="co-desc">Машиностроение и&nbsp;оборудование для&nbsp;горнодобывающей отрасли.</div>
+          </div>
+          <div class="co-card bekker">
+            <div class="co-name">Becker Mining Systems Rus</div>
+            <div class="co-tag">Новокузнецк · российское представительство международной группы</div>
+            <div class="co-desc">Системы и&nbsp;оборудование для&nbsp;шахт.</div>
+          </div>
+        </div>
+
+        <h3 class="block-title" style="margin-top: 28px;">Участники сессии</h3>
+        <div class="participants">
+          <div class="person">
+            <div class="person-co">Антрацит · собственник</div>
+            <div class="person-name">Виктор Реутов</div>
+            <div class="person-role">Совладелец семейной группы.</div>
+          </div>
+          <div class="person bekker">
+            <div class="person-co">Бекер · собственник</div>
+            <div class="person-name">Надежда Гроссе</div>
+            <div class="person-role">Генеральный директор Becker Mining Systems Rus. Совладелец семейной группы.</div>
+          </div>
+          <div class="person">
+            <div class="person-co">Антрацит</div>
+            <div class="person-name">Сергей Мустафин</div>
+            <div class="person-role">Генеральный директор НПО «Антрацит».</div>
+          </div>
+          <div class="person bekker">
+            <div class="person-co">Бекер</div>
+            <div class="person-name">Валентина Аскарова</div>
+            <div class="person-role">Помощник руководителя.</div>
+          </div>
+          <div class="person">
+            <div class="person-co">Команда</div>
+            <div class="person-name">Артём Галимов</div>
+            <div class="person-role">Сотрудник.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="format">
+      <h2 class="section-title"><span class="section-num">02</span>Формат и слоты</h2>
+      <div class="block">
+        <div class="slot-cards">
+          <div class="slot-card s1">
+            <div class="slot-label">Сессия 1 · Диагностика и базовые подходы</div>
+            <div class="slot-title-big">Среда, 28 мая 2026</div>
+            <div class="slot-times">
+              <span><strong>11:30 &ndash; 13:00</strong> по&nbsp;Москве</span>
+              <span><strong>15:30 &ndash; 17:00</strong> по&nbsp;Новокузнецку</span>
+            </div>
+            <div class="slot-desc">90&nbsp;минут. Разбираем ваш бизнес и&nbsp;показываю на&nbsp;ваших реальных задачах, что AI&nbsp;умеет, где предел, где риск. Демо живьём, не&nbsp;на&nbsp;учебных примерах.</div>
+          </div>
+          <div class="slot-card s2">
+            <div class="slot-label">Сессия 2 · Постановка задачи и карта бизнеса</div>
+            <div class="slot-title-big">Среда, 4 июня 2026</div>
+            <div class="slot-times">
+              <span><strong>11:00 &ndash; 12:30</strong> по&nbsp;Москве</span>
+              <span><strong>15:00 &ndash; 16:30</strong> по&nbsp;Новокузнецку</span>
+            </div>
+            <div class="slot-desc">90&nbsp;минут. Постановка задачи AI как&nbsp;управленческий навык + заполняем «карту бизнеса» к&nbsp;школе. После&nbsp;— у&nbsp;вас на&nbsp;руках готовый input для&nbsp;июня.</div>
+          </div>
+        </div>
+        <p style="font-size: 14.5px; color: var(--muted); margin-top: 16px; line-height: 1.6;">
+          Между сессиями&nbsp;— <strong style="color: var(--ink);">7&nbsp;дней практики</strong> на&nbsp;ваших реальных задачах. После S2 до&nbsp;9-10&nbsp;июня&nbsp;— дозаполнение карты бизнеса (рекомендации дам в&nbsp;отдельном артефакте).
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="itog">
+      <h2 class="section-title"><span class="section-num">03</span>Что в итоге двух сессий</h2>
+      <div class="block">
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-title">Рабочая модель «где AI помогает / где нет / где риск»</div>
+            <div class="pillar-text">Чтобы отличать рабочий инструмент от&nbsp;маркетингового шума и&nbsp;не&nbsp;тратить деньги на&nbsp;модное.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Навык постановки задачи AI</div>
+            <div class="pillar-text">Не&nbsp;везение с&nbsp;формулировкой, а&nbsp;управленческий навык. Те&nbsp;же законы, что при постановке задачи человеку.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Опыт на&nbsp;ваших реальных задачах</div>
+            <div class="pillar-text">Все демо&nbsp;— на&nbsp;ваших документах, не&nbsp;на&nbsp;учебных. К&nbsp;концу S2 будет 5-7 проверенных кейсов с&nbsp;вашей работы.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Заполненный каркас «карты бизнеса» к&nbsp;школе</div>
+            <div class="pillar-text">Бизнес одной фразой, главная метрика, повторяющиеся задачи&nbsp;— по&nbsp;каждой из&nbsp;двух компаний. Остальные блоки доделаете дома с&nbsp;инструкцией.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-title">Гайд по&nbsp;быстрому старту AI в&nbsp;бизнесе</div>
+            <div class="pillar-text">Памятка-артефакт после S1: что попробовать, какими инструментами, чего не&nbsp;делать в&nbsp;первые недели.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="granitsa">
+      <h2 class="section-title"><span class="section-num">04</span>Граница со школой</h2>
+      <div class="block">
+        <p>Эти сессии&nbsp;— не&nbsp;облегчённая школа. Два разных слоя:</p>
+        <div class="arc">
+          <strong>На&nbsp;этих сессиях:</strong> AI-грамотность, как&nbsp;ставить задачу, что попробовать, заполнение базовых блоков карты бизнеса.
+        </div>
+        <div class="arc" style="background: rgba(184,90,58,0.07); border-color: rgba(184,90,58,0.3);">
+          <strong>На&nbsp;школе 12-13&nbsp;июня:</strong> поиск <em>одного</em> узкого места в&nbsp;вашем бизнесе по&nbsp;методу Голдратта и&nbsp;проектирование ТЗ&nbsp;AI-сотрудника под него&nbsp;— с&nbsp;диагностикой группы.
+        </div>
+        <p style="margin-top: 14px;">Подготовка нужна, чтобы школа сработала на&nbsp;полную: с&nbsp;пустыми руками в&nbsp;первый день уходит на&nbsp;30% меньше пользы. С&nbsp;этими двумя сессиями вы&nbsp;входите наравне с&nbsp;группой&nbsp;— а&nbsp;не&nbsp;догоняете.</p>
+      </div>
+    </section>
+
+    <section class="section" id="s1">
+      <h2 class="section-title"><span class="section-num">05</span>Сессия 1 — структура</h2>
+      <div class="block">
+        <p><strong>Цель сессии:</strong> к&nbsp;концу вы&nbsp;понимаете где AI&nbsp;реально помогает в&nbsp;вашем бизнесе, видели 2&nbsp;демо на&nbsp;собственных данных, и&nbsp;знаете что попробовать на&nbsp;следующей неделе.</p>
+        <div class="timeline">
+          <div class="slot">
+            <div class="slot-time">5 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Знакомство и&nbsp;контракт</div>
+              <div class="slot-desc">План сессии, граница со&nbsp;школой одной фразой.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">20 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Диагностика — Антрацит</div>
+              <div class="slot-desc">Бизнес одной фразой, главная метрика, 3-5 рутин руками, текущий опыт с&nbsp;AI. Фиксируем в&nbsp;карточки ниже (раздел&nbsp;06).</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">15 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Диагностика — Бекер</div>
+              <div class="slot-desc">То&nbsp;же по&nbsp;второй компании, короче&nbsp;— что отличается, какие задачи.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">15 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Что AI реально умеет / где предел</div>
+              <div class="slot-desc">Карта силы и&nbsp;слабости. Три типа задач (текст, документы, общение) и&nbsp;где AI&nbsp;точно подведёт. Примеры&nbsp;— из&nbsp;ваших рутин.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">15 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Демо 1 — текст из&nbsp;вашей задачи</div>
+              <div class="slot-desc">Берём одну задачу из&nbsp;диагностики. Открываю Claude/ChatGPT при&nbsp;вас. Плохой prompt → итерация → рабочий результат. Видите процесс, не&nbsp;готовое.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">10 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Демо 2 — длинный документ → таблица</div>
+              <div class="slot-desc">Ваш файл (тендер, КП, длинное письмо) → структурированный вывод. Прообраз «AI-сотрудника» в&nbsp;простейшем виде.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">10 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Домашка к&nbsp;S2 + Q&amp;A</div>
+              <div class="slot-desc">Что попробовать на&nbsp;неделе, как&nbsp;структурировать опыт. Подтверждение S2 на&nbsp;4 июня.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-note" style="margin-top: 18px;">
+          <strong>К&nbsp;сессии&nbsp;— один файл от&nbsp;вас.</strong> Откройте в&nbsp;почте или&nbsp;на&nbsp;компьютере любой длинный документ: тендер, КП, длинное письмо от&nbsp;клиента, коммерческое предложение конкурента (3-10 страниц). На&nbsp;нём будем делать Демо&nbsp;2. Если получится прислать заранее&nbsp;— отлично, если нет&nbsp;— откроем на&nbsp;сессии.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="diag">
+      <h2 class="section-title"><span class="section-num">06</span>Диагностика — точки сбора</h2>
+      <div class="block">
+        <p>Заполняем вместе на&nbsp;сессии&nbsp;1. По&nbsp;каждой компании отвечают собственники и&nbsp;ГД, общие поля&nbsp;— все. Поля живые: пишете прямо здесь, сохраняется автоматически в&nbsp;браузере, в&nbsp;конце можно скопировать всё одним блоком в&nbsp;markdown для&nbsp;школы.</p>
+
+        <div class="diag-grid">
+          <div class="diag-company">
+            <div class="diag-company-name">Антрацит</div>
+
+            <div class="diag-field">
+              <label class="diag-label">Бизнес одной фразой</label>
+              <div class="diag-hint">Что продаёте, кому платит, за&nbsp;что.</div>
+              <textarea data-diag="antratsit-business" placeholder="Например: производим краны, гидравлику и анкерные крепи для угольных шахт Кузбасса, платят за единицу оборудования + сервис."></textarea>
+            </div>
+
+            <div class="diag-field">
+              <label class="diag-label">Главная метрика</label>
+              <div class="diag-hint">Одна цифра, по&nbsp;которой в&nbsp;конце месяца понимаешь&nbsp;— хорошо или&nbsp;плохо.</div>
+              <textarea data-diag="antratsit-metric" placeholder="Например: выручка за месяц, или количество выполненных заказов, или средний цикл от заявки до отгрузки."></textarea>
+            </div>
+
+            <div class="diag-field">
+              <label class="diag-label">3-5 задач руками каждую неделю</label>
+              <div class="diag-hint">Что вы&nbsp;или&nbsp;команда делает руками, отнимает время.</div>
+              <textarea class="tall" data-diag="antratsit-routines" placeholder="Например:&#10;1. Разбираю входящие тендеры — 4 ч/нед&#10;2. Согласую цену с клиентом по почте — 6 ч/нед&#10;3. ..."></textarea>
+            </div>
+
+            <div class="diag-field">
+              <label class="diag-label">Опыт с AI</label>
+              <div class="diag-hint">Что пробовали, что получилось / не&nbsp;получилось.</div>
+              <textarea data-diag="antratsit-ai-experience" placeholder="Например: пробовали ChatGPT для писем — выходит формально, не наш тон. С Алисой — не пользуемся."></textarea>
+            </div>
+          </div>
+
+          <div class="diag-company">
+            <div class="diag-company-name">Бекер</div>
+
+            <div class="diag-field">
+              <label class="diag-label">Бизнес одной фразой</label>
+              <div class="diag-hint">Что продаёте, кому платит, за&nbsp;что.</div>
+              <textarea data-diag="bekker-business" placeholder="Например: поставка систем энергоснабжения и автоматизации для угольных шахт от Becker Mining Systems AG, сервис на территории РФ и СНГ."></textarea>
+            </div>
+
+            <div class="diag-field">
+              <label class="diag-label">Главная метрика</label>
+              <div class="diag-hint">Одна цифра.</div>
+              <textarea data-diag="bekker-metric" placeholder="..."></textarea>
+            </div>
+
+            <div class="diag-field">
+              <label class="diag-label">3-5 задач руками каждую неделю</label>
+              <textarea class="tall" data-diag="bekker-routines" placeholder="..."></textarea>
+            </div>
+
+            <div class="diag-field">
+              <label class="diag-label">Опыт с AI</label>
+              <textarea data-diag="bekker-ai-experience" placeholder="..."></textarea>
+            </div>
+          </div>
+
+          <div class="diag-company">
+            <div class="diag-company-name">Общее</div>
+
+            <div class="diag-field">
+              <label class="diag-label">Что должно появиться к концу двух сессий, чтобы вы сказали «это было полезно»</label>
+              <textarea data-diag="goal" placeholder="Например: понятная картинка где AI помогает в наших компаниях, 2-3 рабочих кейса на наших данных, готовый input к школе."></textarea>
+            </div>
+
+            <div class="diag-field">
+              <label class="diag-label">Заметки сессии (демо, инсайты, что попробовать)</label>
+              <textarea class="tall" data-diag="notes" placeholder="Что заметил, что сработало, что хочется попробовать."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="copy-row">
+          <div class="copy-row-text">
+            Всё сохраняется автоматически в&nbsp;вашем браузере. Кнопка ниже&nbsp;— скопировать всё одним блоком как markdown.
+          </div>
+          <button class="copy-btn" id="copyDiag">Скопировать как markdown</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="domashka">
+      <h2 class="section-title"><span class="section-num">07</span>Домашка между S1 и S2</h2>
+      <div class="block">
+        <p>Неделя на&nbsp;практику. Цель&nbsp;— чтобы на&nbsp;S2 пришли с&nbsp;реальным опытом, а&nbsp;не&nbsp;только с&nbsp;интересом.</p>
+        <ul class="tight">
+          <li><strong>5-7 реальных задач</strong> своего бизнеса попробовать прогнать через AI. Не&nbsp;учебных&nbsp;— из&nbsp;своего рабочего дня.</li>
+          <li><strong>3 кейса где сработало хорошо</strong> + <strong>3 кейса где плохо/странно</strong>&nbsp;— коротко запишите для&nbsp;разбора на&nbsp;S2.</li>
+          <li><strong>Список 5-10 повторяющихся задач недели</strong> с&nbsp;оценкой часов&nbsp;— это материал для&nbsp;будущих AI-сотрудников. Не&nbsp;выбираем что&nbsp;автоматизировать (это школа), просто список.</li>
+          <li><strong>Один платный аккаунт</strong> Claude Pro или&nbsp;ChatGPT Plus ($20/мес). Free&nbsp;— хуже принципиально для&nbsp;серьёзных задач.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="s2">
+      <h2 class="section-title"><span class="section-num">08</span>Сессия 2 — структура</h2>
+      <div class="block">
+        <p><strong>Цель сессии:</strong> навык постановки задачи AI как&nbsp;управленческий + частично заполненная карта бизнеса под&nbsp;школу.</p>
+        <div class="timeline">
+          <div class="slot">
+            <div class="slot-time">10 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Контракт + разбор недели</div>
+              <div class="slot-desc">2-3 ваших примера из&nbsp;практики&nbsp;— что сработало, что нет, где удивило.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">20 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Постановка задачи как навык</div>
+              <div class="slot-desc">Фреймворк РКЗФОП (роль / контекст / задача / формат / ограничения / пример). Антипаттерны. Когда нужны примеры, документы, серия запросов.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">25 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Практика — реальная задача каждого</div>
+              <div class="slot-desc">Виктор и&nbsp;Надежда по&nbsp;очереди берут задачу из&nbsp;своей недели. Ставим вслух, итерируем 3-4 раза. Цель&nbsp;— опыт итерации, не&nbsp;один идеальный prompt.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">20 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Карта бизнеса — блоки 1, 2, 7</div>
+              <div class="slot-desc">По&nbsp;каждой компании отдельно: бизнес одной фразой, главная метрика, повторяющиеся задачи. Полируем формулировки. Шаблон карты&nbsp;— общий по&nbsp;школе.</div>
+            </div>
+          </div>
+          <div class="slot">
+            <div class="slot-time">10 мин</div>
+            <div class="slot-body">
+              <div class="slot-title">Мост к&nbsp;школе + следующие шаги</div>
+              <div class="slot-desc">Фрейм «Individual AI vs Institutional AI» как переход. Что доделать дома до&nbsp;9-10 июня. Куда отправлять (чат школы).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="do9iyunya">
+      <h2 class="section-title"><span class="section-num">09</span>Что от вас до 9 июня</h2>
+      <div class="block">
+        <p>После S2 на&nbsp;вашей стороне останется дозаполнить карту бизнеса. Я&nbsp;пришлю отдельный артефакт с&nbsp;конкретной инструкцией под каждый блок. В&nbsp;общем виде:</p>
+        <ul class="tight">
+          <li><strong>Блок 3 — карта 5-8 ключевых процессов.</strong> Нарисовать вместе с&nbsp;ключевыми сотрудниками. Не&nbsp;один час, но&nbsp;и&nbsp;не&nbsp;недели.</li>
+          <li><strong>Блок 4 — где работа копится.</strong> Поход в&nbsp;данные: 1С, CRM, таблицы. Лиды без касания, обещания с&nbsp;истёкшим сроком, задачи в&nbsp;работе дольше нормы&nbsp;— конкретные цифры.</li>
+          <li><strong>Блок 5 — гипотеза узкого места.</strong> «Если завтра выручка вырастет в&nbsp;2&nbsp;раза&nbsp;— что ляжет первым?». Начнёте сами, на&nbsp;школе доработаем по&nbsp;методу.</li>
+          <li><strong>Блок 6 — что пробовали с&nbsp;этим узким местом.</strong> Что сработало, что нет.</li>
+        </ul>
+        <div class="arc" style="margin-top: 18px;">
+          <strong>Дедлайн&nbsp;— 9-10 июня.</strong> Отправить заполненную карту в&nbsp;чат школы (организатор откроет его&nbsp;~5 июня). Если что-то не&nbsp;получается&nbsp;— пишите мне до&nbsp;9 июня, помогу разобраться.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mats">
+      <h2 class="section-title"><span class="section-num">10</span>Материалы и контакты</h2>
+      <div class="block">
+        <h3 class="block-title">Инструменты, о&nbsp;которых пойдёт речь</h3>
+        <div class="mats">
+          <div class="mat-row">
+            <div class="mat-name">Claude</div>
+            <div class="mat-desc">Универсальная модель для&nbsp;рассуждений, длинных документов, аналитики. Платный — $20/мес.</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-name">ChatGPT</div>
+            <div class="mat-desc">Широкий спектр, картинки, голос. Платный — $20/мес.</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-name">Gemini</div>
+            <div class="mat-desc">Длинные PDF, интеграция с&nbsp;Google.</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-name">GigaChat / Алиса</div>
+            <div class="mat-desc">Российские модели, когда чувствительные данные нельзя выпускать за&nbsp;границу.</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-name">Транскрипция встреч</div>
+            <div class="mat-desc">tl;dv, Fireflies, Yandex SpeechKit — превращают встречи в&nbsp;текст и&nbsp;структуру.</div>
+          </div>
+        </div>
+
+        <h3 class="block-title" style="margin-top: 28px;">Источники, на&nbsp;которые ссылаюсь</h3>
+        <div class="mats">
+          <div class="mat-row">
+            <div class="mat-name">Stanford AI Index</div>
+            <div class="mat-desc"><a href="https://hai.stanford.edu/" class="link" target="_blank">hai.stanford.edu</a> — главный годовой отчёт по&nbsp;состоянию AI.</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-name">MIT NANDA</div>
+            <div class="mat-desc">«The GenAI Divide: State of AI in Business 2025» — почему 95% корпоративных пилотов не&nbsp;дают эффекта.</div>
+          </div>
+          <div class="mat-row">
+            <div class="mat-name">Hakku.ai</div>
+            <div class="mat-desc">Канал Сергея Ершова — «Человечно про&nbsp;AI &amp; Tech» в&nbsp;TG.</div>
+          </div>
+        </div>
+
+        <h3 class="block-title" style="margin-top: 28px;">Артефакты после сессий</h3>
+        <ul class="tight">
+          <li><strong>После S1 (29 мая):</strong> summary встречи + памятка по&nbsp;prompt + 3 типа задач попробовать на&nbsp;неделе.</li>
+          <li><strong>После S2 (5 июня):</strong> заполненная карта бизнеса (блоки 1, 2, 7) + инструкция к&nbsp;доделке (блоки 3-6) до&nbsp;9-10 июня.</li>
+        </ul>
+      </div>
+
+      <div class="contact-box">
+        <h3>Контакт</h3>
+        <p>По&nbsp;любым вопросам&nbsp;— до&nbsp;сессий, между ними, по&nbsp;домашке&nbsp;— пишите напрямую.</p>
+        <p style="margin-top: 8px;">
+          Telegram: <a href="https://t.me/dolgovalex" target="_blank">@dolgovalex</a><br>
+          Email: <a href="mailto:bonjour@dolgovalex.com">bonjour@dolgovalex.com</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap footer">
+      <div>
+        <div style="font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; margin-bottom: 4px;">Долгов, Эй Ай и партнеры</div>
+        <div>&copy; 2026</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://t.me/dolgovalex" target="_blank">Telegram</a>
+        <a href="mailto:bonjour@dolgovalex.com">bonjour@dolgovalex.com</a>
+        <a href="/">Главная</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Diagnostic textareas: localStorage persist + copy as markdown
+    (function () {
+      const STORAGE_KEY = 'antratsit_diag_v1';
+      const textareas = document.querySelectorAll('textarea[data-diag]');
+
+      // Load saved
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) {}
+
+      textareas.forEach(ta => {
+        const key = ta.getAttribute('data-diag');
+        if (saved[key]) ta.value = saved[key];
+        ta.addEventListener('input', () => {
+          saved[key] = ta.value;
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(saved)); } catch (e) {}
+        });
+      });
+
+      // Copy as markdown
+      const btn = document.getElementById('copyDiag');
+      if (!btn) return;
+
+      btn.addEventListener('click', async () => {
+        const get = k => (saved[k] || '').trim();
+
+        const md = `# Диагностика — Антрацит + Бекер
+
+_Сессия 1 · ${new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}_
+
+## Антрацит
+
+**Бизнес одной фразой:**
+${get('antratsit-business') || '_(не заполнено)_'}
+
+**Главная метрика:**
+${get('antratsit-metric') || '_(не заполнено)_'}
+
+**Задачи руками каждую неделю:**
+${get('antratsit-routines') || '_(не заполнено)_'}
+
+**Опыт с AI:**
+${get('antratsit-ai-experience') || '_(не заполнено)_'}
+
+## Бекер
+
+**Бизнес одной фразой:**
+${get('bekker-business') || '_(не заполнено)_'}
+
+**Главная метрика:**
+${get('bekker-metric') || '_(не заполнено)_'}
+
+**Задачи руками каждую неделю:**
+${get('bekker-routines') || '_(не заполнено)_'}
+
+**Опыт с AI:**
+${get('bekker-ai-experience') || '_(не заполнено)_'}
+
+## Общее
+
+**Цель двух сессий:**
+${get('goal') || '_(не заполнено)_'}
+
+**Заметки сессии:**
+${get('notes') || '_(не заполнено)_'}
+
+---
+_Источник: dolgovalex.com/antratsit/_
+`;
+
+        try {
+          await navigator.clipboard.writeText(md);
+          btn.textContent = '✓ Скопировано';
+          btn.classList.add('ok');
+          setTimeout(() => {
+            btn.textContent = 'Скопировать как markdown';
+            btn.classList.remove('ok');
+          }, 2200);
+        } catch (e) {
+          // Fallback
+          const ta = document.createElement('textarea');
+          ta.value = md;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          btn.textContent = '✓ Скопировано';
+          btn.classList.add('ok');
+          setTimeout(() => {
+            btn.textContent = 'Скопировать как markdown';
+            btn.classList.remove('ok');
+          }, 2200);
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

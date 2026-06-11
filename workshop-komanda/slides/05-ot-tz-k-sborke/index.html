@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 · От ТЗ к сборке (live) — школа «Команда»</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Bold.woff2" crossorigin>
+<link rel="stylesheet" href="/workshop-komanda/slides/deck.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide dark">
+    <div class="kicker">День 2 · 10:00</div>
+    <h1>От ТЗ к работающему<br>AI-сотруднику</h1>
+    <div class="sub">Live-прогон на реальном кейсе — из листа в продакшн. Не лекция. Прогон.</div>
+    <div class="tag">Вчера написали ТЗ — сегодня смотрим, как из него собирается агент</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Что происходит</span>
+    <div class="kicker">Граница между демо и системой</div>
+    <h2>Демо собрать легко.<br>Рабочую систему — нет.</h2>
+    <div class="sub">За 90 минут: ТЗ → инструкция → контекст → прогон → проверка → стресс-тест → правка → версия 2. Первый результат к 30-й минуте будет выглядеть готовым. Дальше час — вытаскивание дефектов. Вот это инженерия.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Шаг 0–1</span>
+    <div class="kicker">Читаем ваше ТЗ вслух · ясность перед кодом</div>
+    <h2 style="margin-bottom:6px;">Те же шесть частей со вчера</h2>
+    <div class="steps">
+      <div class="step"><span class="lvl">1</span><span><span class="em">Роль</span> · <span class="em">Задачи</span> — <span class="hint">кто он и что делает, от входа к выходу</span></span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Инструменты</span> · <span class="em">Память</span> — <span class="hint">чем пользуется, что знает про компанию</span></span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Правила</span> · <span class="em">Интеграции</span> — <span class="hint">«если X — то Y» и связи с системами</span></span></div>
+    </div>
+    <div class="sub">Плюс <b>безопасность</b> (где зовёт человека) и <b>критерий готовности</b> (на чём проверим).</div>
+    <div class="tag">Ничего не переписываем — разворачиваем ваше ТЗ в инструкцию для агента</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Шаг 1–2</span>
+    <div class="kicker">ТЗ → должностная инструкция</div>
+    <h2 style="margin-bottom:6px;">Правило + формат = предсказуемость</h2>
+    <div class="steps">
+      <div class="step"><span class="lvl">·</span><span><span class="em">Что делать</span> — кто ты, что делаешь по шагам</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Чего НЕ делать</span> — иначе модель додумывает решения, которых не было</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Форма выхода</span> — заголовки, секции, структура. Каждый раз другой выход = сотрудник бесполезен</span></div>
+    </div>
+    <div class="tag">Выход — это контракт</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Шаг 3–4</span>
+    <div class="kicker">Контекст и первый прогон</div>
+    <div class="flow">
+      <div class="node"><div class="ic">📄</div><div class="lbl">ТЗ</div><div class="desc">6 частей со вчера</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ic">🧩</div><div class="lbl">Инструкция + контекст</div><div class="desc">роли, термины, кто есть кто в компании</div></div>
+      <div class="arrow">→</div>
+      <div class="node exec"><div class="ic">▶️</div><div class="lbl">Первый результат</div><div class="desc">виден на экране, выглядит рабочим</div></div>
+    </div>
+    <div class="tag">Контекст — это то, что отличает вашего сотрудника от чужого. Актив компании.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Шаг 5–6</span>
+    <div class="kicker">Критерий готово — не вкус, не «вау»</div>
+    <div class="split">
+      <div class="card2 bad"><div class="t">v1 на чистых данных</div><div class="d">выглядит готовой · нет явных ошибок · момент «вау» в зале</div></div>
+      <div class="card2 bad"><div class="t">v1 на грязных данных</div><div class="d">путает спикеров · теряет контекст · пропускает деталь · додумывает</div></div>
+    </div>
+    <div class="tag">Без стресс-теста ты собрал демо, а не систему</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Шаг 7 · цикл инженерии</span>
+    <div class="kicker">Одна правка — один прогон — новая версия</div>
+    <div class="steps">
+      <div class="step"><span class="lvl">1</span><span><span class="em">Нашли дефект</span> — срок потерян, договорённость пропущена</span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Вернулись в инструкцию</span> — усилили правило или добавили проверку</span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Сохранили как v2</span> — всегда версионируем, чтобы откатиться</span></div>
+      <div class="step"><span class="lvl">4</span><span><span class="em">Прогнали оба входа</span> — и чистый, и грязный</span></div>
+    </div>
+    <div class="tag">Не переписываем с нуля. Не пять правок разом — одна правка, один прогон.</div>
+  </section>
+
+  <section class="slide dark">
+    <span class="num">Переход к вашей сборке</span>
+    <h1 class="anchor">За 90 минут —<br><span class="brick">от листа до сотрудника</span></h1>
+    <div class="sub">ТЗ → инструкция → контекст → прогон → проверка → стресс → правка → v2. Сейчас то же делаете руками, каждый со своим. Я хожу по залу. Кейс прогона: автоматический рекап встречи — запись разговора → структурный рекап → задачи.</div>
+  </section>
+
+</div>
+<script src="/workshop-komanda/slides/deck.js"></script>
+</body>
+</html>

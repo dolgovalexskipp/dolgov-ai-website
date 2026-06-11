@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 · Карта инструментов — школа «Команда»</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Bold.woff2" crossorigin>
+<link rel="stylesheet" href="/workshop-komanda/slides/deck.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide dark">
+    <div class="kicker">День 1 · 11:45</div>
+    <h1>Карта инструментов</h1>
+    <div class="sub">Из чего собирается рабочая система — и кто из вас на каком слое.</div>
+    <div class="tag">Карта есть — теперь разбираемся, чем работаем</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Главное</span>
+    <div class="kicker">Не надо знать все инструменты</div>
+    <h2>Инструментов много —<br>слоёв пять</h2>
+    <div class="sub">Модель — это мозг. Всё остальное — уровни обвязки, каждый отвечает за своё. Вам нужна архитектура, а не список названий.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">5 слоёв архитектуры</span>
+    <div class="kicker">От мозга к готовому сотруднику</div>
+    <div class="steps">
+      <div class="step"><span class="lvl">5</span><span>📞 <span class="em">Голосовые агенты</span> — <span class="hint">готовый AI-сотрудник, собран из слоёв 1–4</span></span></div>
+      <div class="step"><span class="lvl">4</span><span>🔄 <span class="em">Автоматизация / воркфлоу</span> — <span class="hint">работает сам, по триггеру, без человека</span></span></div>
+      <div class="step"><span class="lvl">3</span><span>🔗 <span class="em">Коннекторы / MCP</span> — <span class="hint">видит ваши данные: CRM, таблицы, почту</span></span></div>
+      <div class="step"><span class="lvl">2</span><span>⚙️ <span class="em">IDE + CLI</span> — <span class="hint">делает руками: создаёт файлы, запускает команды</span></span></div>
+      <div class="step"><span class="lvl">1</span><span>🧠 <span class="em">Чат / ассистент</span> — <span class="hint">думает: модель в браузере</span></span></div>
+    </div>
+    <div class="sub">Слой 1 есть у всех. Слои 2–3 соберём завтра. Слой 5 — потолок, к которому идёшь, когда система живёт.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Связь с лекцией</span>
+    <div class="kicker">Возможности ↔ слои — одна лестница, два взгляда</div>
+    <div class="gtable two">
+      <div class="row head"><div class="cell">Что умеет AI (лекция)</div><div class="cell">Из каких слоёв собрано</div></div>
+      <div class="row"><div class="cell">Спросить</div><div class="cell">слой 1 — чат</div></div>
+      <div class="row"><div class="cell">Собрать</div><div class="cell">слои 1–2 — чат + IDE/CLI</div></div>
+      <div class="row"><div class="cell">Поручить</div><div class="cell">слои 1–3 — + коннекторы/MCP</div></div>
+      <div class="row"><div class="cell">Запустить</div><div class="cell">слои 4–5 — + автоматизация/голос</div></div>
+    </div>
+    <div class="sub">Это не две разные схемы. Утром в лекции — что AI умеет; здесь — из чего это собирается. На школе собираем «Поручить» — слои 1–3.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Слой 1 · думает</span>
+    <div class="kicker">Чат-модели</div>
+    <h2 style="margin-bottom:6px;">Умный собеседник в браузере</h2>
+    <div class="steps">
+      <div class="step"><span class="lvl">·</span><span><span class="em">Зачем</span> — самый быстрый способ снять рутину: письмо, договор, варианты, подготовка к переговорам</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Зарубежные</span> — Gemini, Claude, ChatGPT (один на выбор)</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Российские</span> — YandexGPT, GigaChat (доступ даёт Саша для тестов)</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Порог входа</span> — низкий: регистрация + VPN + оплата (разбираем в 14:00)</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Слой 2 · делает руками</span>
+    <div class="kicker">IDE + CLI для агентов</div>
+    <h2 style="margin-bottom:6px;">Где заканчивается вайб и начинается инженерия</h2>
+    <div class="steps">
+      <div class="step"><span class="lvl">·</span><span><span class="em">Что</span> — рабочее окно, где AI становится исполнителем: создаёт файлы, запускает команды</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Зачем</span> — переход от совета к результату; здесь рождаются рабочие системы, а не в чате</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Конкретно</span> — покажу спектр: приложение Claude (Cowork), Codex, IDE, терминал</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Порог</span> — средний; самый непривычный для нетехнаря, но на школе проходим за руку</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Слой 3 · видит данные</span>
+    <div class="kicker">Коннекторы / MCP к вашим системам</div>
+    <h2 style="margin-bottom:6px;">«Провода» между AI и бизнесом</h2>
+    <div class="steps">
+      <div class="step"><span class="lvl">·</span><span><span class="em">Что</span> — связь AI с таблицами, CRM, почтой, базой клиентов (MCP — современный стандарт)</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Зачем</span> — без этого AI слеп: не видит цифр, сделок, переписки. С данными — сотрудник, а не ассистент</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Решение «что подключаем и какие данные доверяем» — ваше</span>. Это управленческая зона, не техническая</span></div>
+    </div>
+    <div class="tag">Главный вопрос здесь — безопасность данных. Вы решаете, AI реализует.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Слои 4–5</span>
+    <div class="kicker">Работает сам + готовый сотрудник</div>
+    <h2 style="margin-bottom:6px;">Где рождается экономия</h2>
+    <div class="steps">
+      <div class="step"><span class="lvl">4</span><span><span class="em">Автоматизация</span> — рутинные цепочки без человека. Пример: запись звонка → расшифровка → готовое КП</span></div>
+      <div class="step"><span class="lvl">5</span><span><span class="em">Голосовые агенты</span> — AI, который говорит и слушает: звонки, диалоги (примеры на демо 15:30)</span></div>
+      <div class="step"><span class="lvl">↳</span><span><span class="em">ROI</span> — экономия на рутине и на лицах. Узкое место → контекст → ставим AI именно туда</span></div>
+    </div>
+    <div class="sub">На школе вы соберёте слои 1–3. Слои 4–5 поймёте принципиально.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Диагностика</span>
+    <div class="kicker">Кто на каком слое — пройдём по кругу</div>
+    <div class="checklist">
+      <div class="check"><span class="box"></span><span>Ноутбук рабочий, заряжен</span></div>
+      <div class="check"><span class="box"></span><span>VPN работает (проверен)</span></div>
+      <div class="check"><span class="box"></span><span>Доступ к одной зарубежной модели — какой?</span></div>
+      <div class="check"><span class="box"></span><span>Оплата доступа решена</span></div>
+      <div class="check"><span class="box"></span><span>Чат-моделью уже пользуюсь</span></div>
+      <div class="check"><span class="box"></span><span>IDE / CLI — ставил или нет</span></div>
+      <div class="check"><span class="box"></span><span>Знаю структуру своих данных (CRM, таблицы)</span></div>
+    </div>
+    <div class="sub">Норма — если вы пока на слое 1. Слои 2–3 на школе проходим за руку.</div>
+  </section>
+
+  <section class="slide dark">
+    <span class="num">Переход</span>
+    <h1 class="anchor">Завтра из слоёв 1–3<br><span class="brick">соберём вашего сотрудника</span></h1>
+    <div class="sub">Сейчас — блок 14:00: VPN, оплата, установки. Потом — демо голосовых агентов.</div>
+  </section>
+
+</div>
+<script src="/workshop-komanda/slides/deck.js"></script>
+</body>
+</html>

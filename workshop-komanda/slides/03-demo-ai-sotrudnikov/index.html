@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 · Демо AI-сотрудников — школа «Команда»</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Bold.woff2" crossorigin>
+<link rel="stylesheet" href="/workshop-komanda/slides/deck.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide dark">
+    <div class="kicker">День 1 · 15:30</div>
+    <h1>Демо AI-сотрудников</h1>
+    <div class="sub">Вот как выглядит готовая система. От потолка — к тому, что вы соберёте завтра сами.</div>
+    <div class="tag">В каждом — одни и те же части. Демо собрать легко, систему — нет.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Основное</span>
+    <div class="kicker">Три опоры слота</div>
+    <div class="steps">
+      <div class="step"><span class="lvl">1</span><span><span class="em">AI ставят на узкое место</span>, не на удобное — туда, где копится работа</span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Инженерия, не вайбкодинг</span> — у любого AI-сотрудника одни и те же части (следующий слайд)</span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Демо ≠ система</span> — покажу дважды: снаружи (легко) и под капотом (где работа)</span></div>
+    </div>
+    <div class="sub">Эти три проходят через все демо. Держите их в голове.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Анатомия · одна на всю школу</span>
+    <div class="kicker">Из чего собран любой AI-сотрудник</div>
+    <div class="steps">
+      <div class="step"><span class="lvl">1</span><span><span class="em">Роль</span> — <span class="hint">кто он одной фразой (как назвал бы должность)</span></span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Задачи</span> — <span class="hint">3–5 операций глаголами: что делает от входа к выходу</span></span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Инструменты</span> — <span class="hint">чем пользуется: поиск, расчёт, документ, сообщение</span></span></div>
+      <div class="step"><span class="lvl">4</span><span><span class="em">Память</span> — <span class="hint">контекст компании + что помнит между обращениями</span></span></div>
+      <div class="step"><span class="lvl">5</span><span><span class="em">Правила</span> — <span class="hint">«если X — то Y», включая «никогда»</span></span></div>
+      <div class="step"><span class="lvl">6</span><span><span class="em">Интеграции</span> — <span class="hint">откуда берёт данные, куда отдаёт результат и кому</span></span></div>
+    </div>
+    <div class="sub">Плюс две рамки: <b>безопасность</b> (где зовёт человека) и <b>критерий готовности</b> (на реальных кейсах). Эти же части вы завтра пропишете в ТЗ.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Навигатор</span>
+    <div class="kicker">5 архетипов узкого места</div>
+    <div class="gtable">
+      <div class="row head"><div class="cell">Архетип</div><div class="cell">Проблема</div><div class="cell">Как AI решает</div></div>
+      <div class="row"><div class="cell">1 · Фильтр в моменте</div><div class="cell">входящих больше, чем рук</div><div class="cell">предпроверка, эскалация нестандартного</div></div>
+      <div class="row"><div class="cell">2 · Передача между командами</div><div class="cell">договорённости теряются</div><div class="cell">речь → структуру, приёмка по критериям</div></div>
+      <div class="row"><div class="cell">3 · Страх рутинного</div><div class="cell">не делается из-за риска</div><div class="cell">прогон на копии, наблюдение, откат</div></div>
+      <div class="row"><div class="cell">4 · Регулярная проверка</div><div class="cell">раз в N времени, рук нет</div><div class="cell">по расписанию, отчёты, эскалация аномалий</div></div>
+      <div class="row"><div class="cell">5 · Шум в наблюдаемости</div><div class="cell">сигналов больше, чем успеваешь</div><div class="cell">фильтрует, дедуплицирует, выпадающее — вверх</div></div>
+    </div>
+    <div class="sub">Карта висит весь слот. Каждое демо помечу одним архетипом — это ваша карта на воркшоп.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Демо A · голосовой агент на входящих</span>
+    <div class="kicker">Архетип 1: фильтр в моменте</div>
+    <div class="flow">
+      <div class="node"><div class="ic">🔔</div><div class="lbl">Входящий звонок</div><div class="desc">пик, ночь, выходные — операторов не хватает</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ic">🤖</div><div class="lbl">Агент берёт трубку</div><div class="desc">живой диалог, квалификация, ответ из базы или эскалация</div></div>
+      <div class="arrow">→</div>
+      <div class="node exec"><div class="ic">✅</div><div class="lbl">Заявка в CRM</div><div class="desc">24/7, ни один звонок не потерян</div></div>
+    </div>
+    <div class="tag">Изнанка: роль · инструменты · память · правила. Эффект — скорость: трубка снята сразу, 24/7, без очереди</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Демо B · голосовой агент на исходящих</span>
+    <div class="kicker">Архетип 4: регулярная проверка</div>
+    <div class="flow">
+      <div class="node"><div class="ic">📋</div><div class="lbl">Список на обзвон</div><div class="desc">база стареет, менеджеры не успевают, лиды остывают</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ic">🤖</div><div class="lbl">Агент обзванивает</div><div class="desc">сценарий, обработка возражений, фиксация результата</div></div>
+      <div class="arrow">→</div>
+      <div class="node exec"><div class="ic">✅</div><div class="lbl">Результаты в систему</div><div class="desc">по расписанию; горячий лид не теряется</div></div>
+    </div>
+    <div class="tag">Изнанка жёстче: фикс. цель, ветки сценария, обработка краёв. Эффект — скорость: обзвон идёт параллельно, а не по одному контакту</div>
+  </section>
+
+  <section class="slide dark">
+    <span class="num">Мост</span>
+    <h1 class="anchor">Это потолок.<br><span class="brick">Теперь — ваш старт.</span></h1>
+    <div class="sub">Голосовые системы работают прямо сейчас. Та же инженерия, меньше масштаб — и это вы соберёте сами завтра.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Демо C · расшифровка встречи</span>
+    <div class="kicker">Архетип 2: передача между командами</div>
+    <div class="split">
+      <div class="card2 bad"><div class="t">Без агента</div><div class="d">час встречи → сырой транскрипт → кто-то тратит часы на пересказ → задачи теряются</div></div>
+      <div class="card2 good"><div class="t">С агентом</div><div class="d">час встречи → 20 секунд → решения, задачи (кто/что/срок), вопросы, сообщение клиенту</div></div>
+    </div>
+    <div class="tag">Правила «в вашем формате, без выдумок, с ответственным» — вот это инженерия</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Демо D · дайджест недели</span>
+    <div class="kicker">Архетип 5: шум в наблюдаемости</div>
+    <div class="split">
+      <div class="card2 bad"><div class="t">Без агента</div><div class="d">сотни сигналов в неделю → тонешь в деталях или не смотришь вовсе → раннее предупреждение потеряно</div></div>
+      <div class="card2 good"><div class="t">С агентом</div><div class="d">5–7 пунктов, только важное → аномалии выделены → видна картина</div></div>
+    </div>
+    <div class="tag">Чтобы агент сам понял, что выпадает из нормы именно у вас — это настройка</div>
+  </section>
+
+  <section class="slide dark">
+    <span class="num">Переход к воркшопу</span>
+    <h1 class="anchor">Пять сотрудников —<br><span class="brick">одна анатомия.</span></h1>
+    <div class="sub">Демо собрать легко, рабочую систему — нет. AI — на узкое место, не на удобное. Через 10 минут ищем ВАШЕ узкое место и собираем по тем же шести частям.</div>
+  </section>
+
+</div>
+<script src="/workshop-komanda/slides/deck.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 · Сборка AI-сотрудника — школа «Команда»</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Bold.woff2" crossorigin>
+<link rel="stylesheet" href="/workshop-komanda/slides/deck.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide dark">
+    <div class="kicker">День 2 · 11:40–16:00</div>
+    <h1>Сейчас собираете<br>своего</h1>
+    <div class="sub">Видели как — теперь руками. За два часа до первой версии. Потом — проверка на ваших данных.</div>
+    <div class="tag">Четыре принципа, которые держат сборку</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Основы</span>
+    <div class="kicker">Когда не знаете что делать — сверьтесь</div>
+    <h2 style="margin-bottom:6px;">Четыре слова на всю сборку</h2>
+    <div class="steps">
+      <div class="step"><span class="lvl">·</span><span><span class="em">Контекст</span> — это актив; даём только то, что нужно для задачи</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Безопасность</span> — решаем до загрузки данных, не после</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Контроль</span> — проверяете результат против критерия из ТЗ</span></div>
+      <div class="step"><span class="lvl">·</span><span><span class="em">Версионирование</span> — каждая заметная правка — новая версия</span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Часть 1 · 11:40–13:30</span>
+    <div class="kicker">От окружения до первой версии</div>
+    <div class="steps">
+      <div class="step"><span class="lvl">1</span><span><span class="em">Окружение</span> — логин, пробный запрос. Сначала проверьте доступ к модели</span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Контекст</span> — только то, что модель должна знать про компанию. Структурируйте, не вываливайте всё</span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Инструменты и данные</span> — начните с одного реального примера входа. Интеграции потом</span></div>
+      <div class="step"><span class="lvl">4</span><span><span class="em">Первый прогон</span> — на чистом примере, сохранили как v1. Это точка отсчёта, не демо</span></div>
+    </div>
+    <div class="tag">Цель — рабочая первая версия к обеду. Не идеально — чтобы проверять дальше</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Грабли части 1</span>
+    <div class="kicker">Где обычно спешат</div>
+    <div class="split">
+      <div class="card2 bad"><div class="t">Не делать</div><div class="d">начать без проверки доступа · вывалить весь вики компании · сразу подключать почту+CRM+диск · обрадоваться первому результату и решить, что готово</div></div>
+      <div class="card2 good"><div class="t">Делать</div><div class="d">пробный запрос прошёл — потом остальное · контекст кураторский · один файл, один простой вход · сохранил v1 и взял паузу</div></div>
+    </div>
+    <div class="tag">Работает на показе ≠ работает на реальных данных</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Часть 2 · 14:30–16:00</span>
+    <div class="kicker">Проверка на реальных данных и доводка</div>
+    <div class="steps">
+      <div class="step"><span class="lvl">5</span><span><span class="em">Тестирование</span> — минимум 3 входа, включая «неудобный» (неполный, с шумом). Сверяете с ТЗ построчно</span></div>
+      <div class="step"><span class="lvl">6</span><span><span class="em">Чек-лист готовности</span> — реальные данные, формат, ничего не потеряно, нет выдуманного, безопасность, версия</span></div>
+      <div class="step"><span class="lvl">7</span><span><span class="em">Типичные ошибки</span> — выдумывает · формат пляшет · не понимает термины · теряет детали → правило или пример</span></div>
+    </div>
+    <div class="tag">Главный тест — человек, который делает эту работу вручную, согласен</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Чек-лист готовности · шаг 6</span>
+    <div class="kicker">Закрывайте в таком порядке</div>
+    <div class="checklist">
+      <div class="check"><span class="box"></span><span>Запустил на реальных (обезличенных) данных компании</span></div>
+      <div class="check"><span class="box"></span><span>Формат совпадает с ТЗ — все секции на месте</span></div>
+      <div class="check"><span class="box"></span><span>Ничего важного не потеряно (сверил с источником)</span></div>
+      <div class="check"><span class="box"></span><span>Нет выдуманного — всё есть во входе</span></div>
+      <div class="check"><span class="box"></span><span>Спорное помечено, не угадано</span></div>
+      <div class="check"><span class="box"></span><span>Плохой вход не ломает — корректно деградирует</span></div>
+      <div class="check"><span class="box"></span><span>Чувствительные данные не утекли · версия сохранена</span></div>
+    </div>
+    <div class="sub">Когда все пункты закрыты — система работает. До этого — доводим. Сегодня сотрудник работает локально у вас; постоянный хостинг для команды — шаг после школы.</div>
+  </section>
+
+  <section class="slide">
+    <span class="num">Цикл доводки</span>
+    <div class="kicker">Как быстро дойти до готовности</div>
+    <div class="flow">
+      <div class="node"><div class="ic">🔄</div><div class="lbl">Прогнал</div><div class="desc">на одном входе из чек-листа</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ic">🐛</div><div class="lbl">Нашёл дефект</div><div class="desc">сверил с критерием — не совпадает</div></div>
+      <div class="arrow">→</div>
+      <div class="node exec"><div class="ic">⚙️</div><div class="lbl">Поправил ОДНО</div><div class="desc">одно откатываемое изменение → версия N+1</div></div>
+    </div>
+    <div class="tag">Это спираль, не прямая. Меняйте по одному: помогло — оставили, нет — откатились.</div>
+  </section>
+
+  <section class="slide dark">
+    <span class="num">Переход к демо-сессии</span>
+    <h1 class="anchor">К 16:00 — показываете<br><span class="brick">результат в зале</span></h1>
+    <div class="sub">Каждый демонстрирует своего сотрудника на реальных данных. Это значит — система работает.</div>
+  </section>
+
+</div>
+<script src="/workshop-komanda/slides/deck.js"></script>
+</body>
+</html>

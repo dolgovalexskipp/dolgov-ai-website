@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Слайды школы «Команда» — цепочка блоков</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Bold.woff2" crossorigin>
+<style>
+@font-face { font-family:'Lufga'; src:url('/fonts/Lufga-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face { font-family:'Lufga'; src:url('/fonts/Lufga-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+@font-face { font-family:'Lufga'; src:url('/fonts/Lufga-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face { font-family:'Lufga'; src:url('/fonts/Lufga-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+@font-face { font-family:'Lufga'; src:url('/fonts/Lufga-ExtraBold.woff2') format('woff2'); font-weight:800; font-display:swap; }
+:root{ --paper:#f6f0e6; --paper-2:#fdfbf7; --ink:#10100f; --muted:#67635d; --line:rgba(16,16,15,0.09); --line-strong:rgba(16,16,15,0.16); --green-950:#11281d; --green-900:#173a28; --green-700:#3a754d; --green-100:#e7efe8; --brick:#b85a3a; }
+*{box-sizing:border-box; margin:0; padding:0;}
+body{ font-family:'Lufga',system-ui,sans-serif; color:var(--ink); background:var(--paper); -webkit-font-smoothing:antialiased; line-height:1.45; }
+.wrap{ width:min(880px, calc(100vw - 40px)); margin:0 auto; padding:56px 0 80px; }
+.kicker{ font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--green-700); font-weight:600; }
+h1{ font-size:clamp(32px,5vw,56px); line-height:1.05; font-weight:800; letter-spacing:-.02em; margin:14px 0 18px; }
+.lead{ font-size:clamp(17px,2vw,21px); color:var(--muted); max-width:60ch; }
+.spine{ margin:26px 0 8px; padding:18px 22px; background:var(--green-100); border-radius:16px; color:var(--green-900); font-weight:600; font-size:clamp(14px,1.6vw,18px); }
+.spine .ops{ display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:10px; font-weight:500; }
+.spine .op{ background:rgba(255,255,255,0.55); border-radius:999px; padding:5px 13px; font-size:14px; }
+.dayhdr{ display:flex; align-items:baseline; gap:12px; margin:42px 0 16px; }
+.dayhdr h2{ font-size:clamp(22px,3vw,30px); font-weight:800; letter-spacing:-.01em; }
+.dayhdr .d{ font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--green-700); font-weight:600; }
+.chain{ display:flex; flex-direction:column; gap:12px; }
+a.card{ display:flex; gap:18px; align-items:flex-start; text-decoration:none; color:inherit; background:var(--paper-2); border:1px solid var(--line); border-radius:16px; padding:20px 22px; transition:border-color .2s, transform .2s, box-shadow .2s; }
+a.card:hover{ border-color:var(--green-700); transform:translateY(-2px); box-shadow:0 14px 40px rgba(16,16,15,0.07); }
+.card .no{ flex:0 0 auto; width:46px; height:46px; border-radius:12px; background:var(--green-900); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:19px; }
+.card.handout .no{ background:var(--paper); color:var(--green-700); border:1px dashed var(--green-700); }
+.card .body{ flex:1; }
+.card .slot{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+.card .t{ font-size:clamp(17px,2vw,21px); font-weight:700; margin:3px 0 5px; }
+.card .d{ color:var(--muted); font-size:15px; }
+.card .go{ flex:0 0 auto; align-self:center; color:var(--green-700); font-size:22px; opacity:.5; }
+a.card:hover .go{ opacity:1; }
+.foot{ margin-top:40px; color:var(--muted); font-size:14px; }
+.foot b{ color:var(--ink); }
+.hintbar{ margin-top:8px; font-size:13px; color:var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Бизнес-клуб «Команда» · 12–13 июня 2026 · СберУниверситет</div>
+  <h1>Слайды школы — вся цепочка</h1>
+  <div class="lead">Одна арка: от открытия и знакомства до собранного AI-сотрудника на узкое место. Каждый блок открывается там, где закончился предыдущий.</div>
+
+  <div class="spine">
+    Сквозные опоры через все блоки:
+    <div class="ops">
+      <span class="op">AI — на узкое место, не на удобное</span>
+      <span class="op">контекст — главный актив</span>
+      <span class="op">демо собрать легко, систему — нет</span>
+      <span class="op">собственник — дирижёр</span>
+    </div>
+  </div>
+
+  <div class="dayhdr"><h2>День 1</h2><span class="d">карта → инструменты → демо → ваше узкое место</span></div>
+  <div class="chain">
+    <a class="card" href="/workshop-komanda/slides/00-otkrytie/">
+      <div class="no">0</div>
+      <div class="body"><div class="slot">утро · открытие</div><div class="t">Открытие и знакомство</div><div class="d">Приветствие, блиц-представление (ФИО · город · УТП · зачем мне ИИ), тройки на оба дня.</div></div>
+      <div class="go">→</div>
+    </a>
+    <a class="card" href="/workshop-komanda/slides/01-lekciya-ai-2026/">
+      <div class="no">1</div>
+      <div class="body"><div class="slot">10:30 · лекция</div><div class="t">Как изменился AI для бизнеса в 2026</div><div class="d">Технология работает — дело в подходе. Контекст, постановка, доверие → ставить на узкое место.</div></div>
+      <div class="go">→</div>
+    </a>
+    <a class="card" href="/workshop-komanda/slides/02-instrumenty/">
+      <div class="no">2</div>
+      <div class="body"><div class="slot">11:45 · обзор</div><div class="t">Карта инструментов</div><div class="d">Пять слоёв архитектуры — от чата до голосового агента. Диагностика: кто на каком слое.</div></div>
+      <div class="go">→</div>
+    </a>
+    <a class="card handout" href="/Users/aleksandrdolgov/Documents/Sasha_Jopa_OS/Dolgov-AI/Workshops/krasnaya-polyana-13/materials/vpn_access_troubleshooting.md" onclick="return false;" title="Раздатка, не слайды">
+      <div class="no">3</div>
+      <div class="body"><div class="slot">14:00 · донастройка (раздатка)</div><div class="t">VPN и доступ к моделям</div><div class="d">Экскурсия + техническая готовность к завтрашней сборке. Это раздатка, не дек.</div></div>
+      <div class="go">·</div>
+    </a>
+    <a class="card" href="/workshop-komanda/slides/03-demo-ai-sotrudnikov/">
+      <div class="no">4</div>
+      <div class="body"><div class="slot">15:30 · демо</div><div class="t">Демо AI-сотрудников</div><div class="d">Голосовые агенты (потолок) + стартовые сценарии. 5 архетипов узкого места как карта.</div></div>
+      <div class="go">→</div>
+    </a>
+    <a class="card" href="/workshop-komanda/slides/04-vorkshop-uzkoe-mesto/">
+      <div class="no">5</div>
+      <div class="body"><div class="slot">16:40 · воркшоп</div><div class="t">Ваше узкое место → ТЗ</div><div class="d">Тест 2x в тройках → контекст компании → одностраничное ТЗ AI-сотрудника. Артефакт на руках.</div></div>
+      <div class="go">→</div>
+    </a>
+  </div>
+
+  <div class="dayhdr"><h2>День 2</h2><span class="d">из ТЗ → сборка руками → демо → план</span></div>
+  <div class="chain">
+    <a class="card" href="/workshop-komanda/slides/05-ot-tz-k-sborke/">
+      <div class="no">6</div>
+      <div class="body"><div class="slot">10:00 · live</div><div class="t">От ТЗ к работающему сотруднику</div><div class="d">Live-прогон: ТЗ → инструкция → контекст → прогон → стресс-тест → правка → v2.</div></div>
+      <div class="go">→</div>
+    </a>
+    <a class="card" href="/workshop-komanda/slides/06-sborka/">
+      <div class="no">7</div>
+      <div class="body"><div class="slot">11:40 / 14:30 · сборка</div><div class="t">Сборка AI-сотрудника</div><div class="d">Каждый собирает своего по ТЗ, проверяет на реальных данных. Чек-лист готовности + цикл доводки.</div></div>
+      <div class="go">→</div>
+    </a>
+    <a class="card" href="/workshop-komanda/slides/07-demo-sessiya/">
+      <div class="no">8</div>
+      <div class="body"><div class="slot">16:15 · финал</div><div class="t">Демо-сессия + план развития</div><div class="d">Показывают результат на реальных данных, инженерная обратная связь, план следующих сотрудников.</div></div>
+      <div class="go">→</div>
+    </a>
+  </div>
+
+  <div class="foot">
+    <b>Управление в деке:</b> ← → листать · <b>F</b> — полный экран · точки снизу — переход на слайд · «▦ все блоки» (справа вверху) — вернуться сюда.<br>
+    <span class="hintbar">Открывается локально и на dolgovalex.com/workshop-komanda/slides/. Блок 3 (VPN) — раздатка в материалах, не дек.</span>
+  </div>
+</div>
+</body>
+</html>

@@ -31,28 +31,27 @@
 
   <section class="slide">
     <span class="num">Большая задача</span>
-    <div class="kicker">Почему «спланируй и сделай» одним агентом разваливается</div>
-    <h2 style="margin-bottom:6px;">План текстом теряет важное</h2>
-    <div class="sub">Роли планируют текстом, исполнитель читает текст — и выпадает доступ, связь со смежной системой, готовый кусок. Никто не написал явно — для следующего агента этого нет.</div>
+    <div class="kicker">Один агент не вытянет большую задачу</div>
+    <h2>План текстом теряет важное</h2>
     <div class="steps">
-      <div class="step"><span class="lvl">1</span><span><span class="em">Жёсткий бланк</span> — план не текст, а форма с обязательными полями. Пустое поле = план не принят. Забыть пункт нельзя</span></div>
-      <div class="step"><span class="lvl">2</span><span><span class="em">Независимый контролёр</span> — план проверяет отдельный агент с чистого листа: он не планировал, читает только файлы и ищет дыры</span></div>
-      <div class="step"><span class="lvl">3</span><span><span class="em">Каждому свой кусок</span> — исполнителю даём не «всё подряд», а его срез: что делать + ровно нужные доступы, документы, части кода</span></div>
+      <div class="step"><span class="lvl">1</span><span><span class="em">Жёсткий бланк</span> — план не текст, а форма с обязательными полями. Пустое поле = не принято</span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Независимый контролёр</span> — план проверяет отдельный агент с чистого листа, ищет дыры</span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Каждому свой кусок</span> — исполнителю даём не «всё», а его срез: задача + нужные доступы</span></div>
     </div>
-    <div class="tag">Всё, что решено, — в файле. Чего нет в файле — не существует</div>
+    <div class="tag">Чего нет в файле — для следующего агента не существует</div>
   </section>
 
   <section class="slide">
     <span class="num">Конвейер с контролем</span>
     <div class="kicker">Как это работает у меня — команда агентов</div>
     <div class="steps">
-      <div class="step"><span class="lvl">1</span><span><span class="em">Разведчик</span> — до плана собирает доступы, документы, код, связи. Решение не придумывает</span></div>
-      <div class="step"><span class="lvl">2</span><span><span class="em">Проектировщик</span> — заполняет бланк плана; каждый блок ссылается на разведку</span></div>
-      <div class="step"><span class="lvl">✓</span><span><span class="em">Контроль плана</span> — новый агент с чистого листа. Принято → дальше · не принято → план на доработку</span></div>
-      <div class="step"><span class="lvl">3</span><span><span class="em">Исполнители</span> — каждому своё задание: задача + срез разведки + критерий. Запускаю по очереди, не сами</span></div>
-      <div class="step"><span class="lvl">✓</span><span><span class="em">Контроль макета</span> — для интерфейса: машинная сверка с эталоном (иконки, цвета), не «на глаз»</span></div>
+      <div class="step"><span class="lvl">1</span><span><span class="em">Разведчик</span> — собирает доступы, документы, код и связи ещё до плана</span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Проектировщик</span> — заполняет бланк плана со ссылками на разведку</span></div>
+      <div class="step"><span class="lvl">✓</span><span><span class="em">Контроль плана</span> — новый агент с чистого листа: принято / на доработку</span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Исполнители</span> — каждому своё задание и свой срез; запускаю по очереди</span></div>
+      <div class="step"><span class="lvl">✓</span><span><span class="em">Контроль макета</span> — машинная сверка с эталоном, не «на глаз»</span></div>
     </div>
-    <div class="tag">Контролёр — отдельный незаинтересованный агент. Дважды не принято подряд → стоп: задача сформулирована нечётко</div>
+    <div class="tag">Контролёр — отдельный агент. Дважды не принято подряд → стоп</div>
   </section>
 
 </div>

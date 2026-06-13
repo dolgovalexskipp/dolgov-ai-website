@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>08 · Мультиагентный пайплайн с гейтами — школа «Команда»</title>
+<title>08 · Команда агентов: конвейер с контролем — школа «Команда»</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%233a754d'/></svg>">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/Lufga-Regular.woff2" crossorigin>
@@ -15,45 +15,44 @@
 
   <section class="slide">
     <span class="num">Кирпич · один агент</span>
-    <div class="kicker">С чего начинается каждый агент — ТЗ</div>
+    <div class="kicker">Один агент — это одно ТЗ</div>
     <div class="checklist">
       <div class="check"><span class="box"></span><span><b>Роль</b> — кто одной фразой</span></div>
       <div class="check"><span class="box"></span><span><b>Задачи</b> — 3–5 операций глаголами (вход → выход)</span></div>
       <div class="check"><span class="box"></span><span><b>Инструменты</b> — что вызывает: поиск, расчёт, документ</span></div>
       <div class="check"><span class="box"></span><span><b>Память</b> — что знает про компанию + история</span></div>
-      <div class="check"><span class="box"></span><span><b>Правила</b> — 3–5 «если X — то Y», включая «никогда»</span></div>
-      <div class="check"><span class="box"></span><span><b>Интеграции</b> — откуда вход, куда выход и кому</span></div>
+      <div class="check"><span class="box"></span><span><b>Правила</b> — 3–5 «если…, то…», включая «никогда»</span></div>
+      <div class="check"><span class="box"></span><span><b>Связи</b> — откуда вход, куда выход и кому</span></div>
       <div class="check"><span class="box"></span><span><b>Безопасность</b> — где зовёт человека</span></div>
       <div class="check"><span class="box"></span><span><b>Критерий готовности</b> — 3–5 реальных кейсов</span></div>
     </div>
-    <div class="sub">Это один сотрудник на одну задачу. Но фичу, миграцию, разбор большого кода один агент не вытянет — там нужен конвейер.</div>
-    <div class="tag">Пайплайн — это несколько таких ТЗ, передающих работу друг другу</div>
+    <div class="tag">Большую задачу один агент не вытянет — собираем из таких ТЗ конвейер</div>
   </section>
 
   <section class="slide">
-    <span class="num">Когда задача больше одного агента</span>
-    <div class="kicker">Почему «спланируй и сделай» в одном промпте ломается</div>
-    <h2 style="margin-bottom:6px;">План прозой теряет критичное</h2>
-    <div class="sub">Консилиум ролей планирует текстом, имплементер читает текст — и выпадает интеграция, токен, существующий модуль: никто не написал явно, значит для следующего агента этого не существует.</div>
+    <span class="num">Большая задача</span>
+    <div class="kicker">Почему «спланируй и сделай» одним агентом разваливается</div>
+    <h2 style="margin-bottom:6px;">План текстом теряет важное</h2>
+    <div class="sub">Роли планируют текстом, исполнитель читает текст — и выпадает доступ, связь со смежной системой, готовый кусок. Никто не написал явно — для следующего агента этого нет.</div>
     <div class="steps">
-      <div class="step"><span class="lvl">1</span><span><span class="em">Forced schema</span> — план не проза, а форма с обязательными слотами. Пустой слот = план невалиден, забыть секцию нельзя</span></div>
-      <div class="step"><span class="lvl">2</span><span><span class="em">Independent gate</span> — план проверяет отдельный агент в чистом контексте. Он не планировал, читает только файлы и ищет дырки</span></div>
-      <div class="step"><span class="lvl">3</span><span><span class="em">Context injection</span> — имплементеру даём не «весь контекст», а его срез: спека модуля + ровно нужные токены, доки, ссылки на код</span></div>
+      <div class="step"><span class="lvl">1</span><span><span class="em">Жёсткий бланк</span> — план не текст, а форма с обязательными полями. Пустое поле = план не принят. Забыть пункт нельзя</span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Независимый контролёр</span> — план проверяет отдельный агент с чистого листа: он не планировал, читает только файлы и ищет дыры</span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Каждому свой кусок</span> — исполнителю даём не «всё подряд», а его срез: что делать + ровно нужные доступы, документы, части кода</span></div>
     </div>
-    <div class="tag">Artifacts first: решение, которого нет в файле, — не существует</div>
+    <div class="tag">Всё, что решено, — в файле. Чего нет в файле — не существует</div>
   </section>
 
   <section class="slide">
-    <span class="num">Конвейер с проверками</span>
-    <div class="kicker">Как это работает на примере моей dev-team</div>
+    <span class="num">Конвейер с контролем</span>
+    <div class="kicker">Как это работает у меня — команда агентов</div>
     <div class="steps">
-      <div class="step"><span class="lvl">1</span><span><span class="em">Scout</span> — разведка ДО плана: какие токены, доки, код, интеграции. Решение не проектирует. <span class="hint">→ recon</span></span></div>
-      <div class="step"><span class="lvl">2</span><span><span class="em">Architect</span> — заполняет план-форму. Каждый модуль ссылается на пункты разведки. <span class="hint">→ plan</span></span></div>
-      <div class="step"><span class="lvl">🚦</span><span><span class="em">Gate-A</span> — НОВЫЙ агент, чистый контекст. Полнота / покрытие разведки / инъекция ресурсов. <span class="hint">PASS → дальше · FAIL → план на v2</span></span></div>
-      <div class="step"><span class="lvl">4</span><span><span class="em">Spawn</span> — на каждый модуль свой бриф: спека + срез разведки + критерий. Запускаются по командам, не сами</span></div>
-      <div class="step"><span class="lvl">🚦</span><span><span class="em">Gate-B</span> — для UI: литеральные проверки спеки (иконки, цвета) через grep/jq, а не «на глаз»</span></div>
+      <div class="step"><span class="lvl">1</span><span><span class="em">Разведчик</span> — до плана собирает доступы, документы, код, связи. Решение не придумывает</span></div>
+      <div class="step"><span class="lvl">2</span><span><span class="em">Проектировщик</span> — заполняет бланк плана; каждый блок ссылается на разведку</span></div>
+      <div class="step"><span class="lvl">✓</span><span><span class="em">Контроль плана</span> — новый агент с чистого листа. Принято → дальше · не принято → план на доработку</span></div>
+      <div class="step"><span class="lvl">3</span><span><span class="em">Исполнители</span> — каждому своё задание: задача + срез разведки + критерий. Запускаю по очереди, не сами</span></div>
+      <div class="step"><span class="lvl">✓</span><span><span class="em">Контроль макета</span> — для интерфейса: машинная сверка с эталоном (иконки, цвета), не «на глаз»</span></div>
     </div>
-    <div class="tag">Гейт — отдельный незаинтересованный агент. 2 FAIL подряд → стоп: задача сформулирована нечётко</div>
+    <div class="tag">Контролёр — отдельный незаинтересованный агент. Дважды не принято подряд → стоп: задача сформулирована нечётко</div>
   </section>
 
 </div>

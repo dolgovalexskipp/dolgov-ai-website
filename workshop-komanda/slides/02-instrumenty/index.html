@@ -101,6 +101,19 @@
   </section>
 
   <section class="slide">
+    <span class="num">Слои → живой бот</span>
+    <div class="kicker">Архитектура: как бот начинает жить сам</div>
+    <div class="flow">
+      <div class="node"><div class="ic">💬</div><div class="lbl">Telegram-бот</div><div class="desc">только «лицо»: токен из BotFather, сам ничего не умеет</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="ic">🖥️</div><div class="lbl">Сервер</div><div class="desc">живёт 24/7, ходит к модели и через MCP — к вашим данным</div></div>
+      <div class="arrow">→</div>
+      <div class="node exec"><div class="ic">🧠</div><div class="lbl">LLM по API</div><div class="desc">мозг; по токенам, а не подписка</div></div>
+    </div>
+    <div class="tag">Где живёт сервер — решает, какие модели доступны: РФ-сервер → только РФ-модели, зарубежный → любые. Для тех, кто уже собрал первого.</div>
+  </section>
+
+  <section class="slide">
     <span class="num">Диагностика</span>
     <div class="kicker">Кто на каком слое — пройдём по кругу</div>
     <div class="checklist">

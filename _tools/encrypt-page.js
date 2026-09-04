@@ -38,7 +38,17 @@ async function encrypt(plaintext, password) {
   return { salt: b64(salt), iv: b64(iv), ct: b64(ciphertext) };
 }
 
-function renderGate(payload, title) {
+function esc(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function renderGate(payload, title, opts) {
+  const o = Object.assign({
+    kicker: 'Личный документ',
+    heading: 'Персональный R&D',
+    hint: 'Страница закрыта паролем. Введите пароль из сообщения — откроется рабочий документ под вашу сессию.',
+    button: 'Открыть документ',
+    brand: 'Долгов, Эй Ай и партнёры',
+    pagefoot: 'Документ виден только вам · не индексируется'
+  }, opts || {});
   const payloadJson = JSON.stringify(payload);
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -236,7 +246,7 @@ function renderGate(payload, title) {
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a href="https://dolgovalex.com/" class="brand">Долгов, Эй Ай и партнёры</a>
+      <a href="https://dolgovalex.com/" class="brand">${esc(o.brand)}</a>
       <a href="https://dolgovalex.com/" class="nav-back">← на главную</a>
     </div>
   </nav>
@@ -251,19 +261,19 @@ function renderGate(payload, title) {
           <line x1="40" y1="60" x2="420" y2="60" stroke="#173a28" stroke-opacity="0.18" stroke-width="1" stroke-dasharray="2 6"/>
         </svg>
       </div>
-      <span class="kicker">Личный документ</span>
-      <h1>Персональный R&amp;D</h1>
-      <p class="hint">Страница закрыта паролем. Введите пароль из сообщения — откроется рабочий документ под вашу сессию.</p>
+      <span class="kicker">${esc(o.kicker)}</span>
+      <h1>${esc(o.heading)}</h1>
+      <p class="hint">${esc(o.hint)}</p>
       <form onsubmit="event.preventDefault(); unlock();" autocomplete="off">
         <label for="pwd">Пароль</label>
         <input type="password" id="pwd" autofocus autocomplete="off" spellcheck="false">
-        <button type="submit">Открыть документ</button>
+        <button type="submit">${esc(o.button)}</button>
         <div class="err" id="err">Пароль не подошёл. Попробуйте ещё раз.</div>
       </form>
-      <div class="foot">Долгов, Эй Ай и партнёры</div>
+      <div class="foot">${esc(o.brand)}</div>
     </div>
   </main>
-  <footer class="page-foot">Документ виден только вам · не индексируется</footer>
+  <footer class="page-foot">${esc(o.pagefoot)}</footer>
 
 <script>
 const PAYLOAD = ${payloadJson};
@@ -314,12 +324,18 @@ async function main() {
   const args = process.argv.slice(2);
   if (args.length < 3) {
     console.error('Usage: node encrypt-page.js <source.html> <password> <output.html> [--title "Title"]');
+    console.error('  Необязательно: --kicker, --heading, --hint, --button, --brand, --pagefoot');
     process.exit(1);
   }
   const [source, password, output] = args;
   let title = 'Личный документ · Долгов, Эй Ай и партнёры';
   const titleIdx = args.indexOf('--title');
   if (titleIdx !== -1 && args[titleIdx + 1]) title = args[titleIdx + 1];
+  const opts = {};
+  for (const k of ['kicker','heading','hint','button','brand','pagefoot']) {
+    const i = args.indexOf('--' + k);
+    if (i !== -1 && args[i + 1]) opts[k] = args[i + 1];
+  }
 
   const sourceAbs = path.resolve(source);
   const outputAbs = path.resolve(output);
@@ -330,7 +346,7 @@ async function main() {
 
   const plaintext = fs.readFileSync(sourceAbs, 'utf-8');
   const payload = await encrypt(plaintext, password);
-  const html = renderGate(payload, title);
+  const html = renderGate(payload, title, opts);
   fs.writeFileSync(outputAbs, html, 'utf-8');
   console.log(`Encrypted: ${sourceAbs}`);
   console.log(`       → : ${outputAbs}`);

@@ -128,6 +128,22 @@
       margin-left: 8px; white-space: nowrap;
     }
 
+    td.dl { width: 96px; white-space: nowrap; }
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700;
+      color: var(--green-900) !important;
+      background: var(--green-100);
+      border: 1px solid rgba(58,117,77,0.25);
+      padding: 6px 10px; border-radius: var(--radius-lg);
+      text-decoration: none !important;
+      transition: background 0.15s ease;
+    }
+    .dl-btn:hover { background: #d9ead9; }
+    .dl-btn svg { width: 12px; height: 12px; flex: none; }
+    .dl-btn.ext { color: var(--muted) !important; background: transparent; border-color: var(--line); }
+    .dl-btn.ext:hover { background: rgba(16,16,15,0.04); }
+
     .flag {
       background: var(--paper-2);
       border: 1px solid var(--line);
@@ -174,6 +190,7 @@
               <th>Дата</th>
               <th>Акт</th>
               <th>Название</th>
+              <th>Файл</th>
             </tr>
           </thead>
           <tbody>
@@ -182,52 +199,63 @@
               <td class="date">27.02.2026</td>
               <td class="act">ПП РФ № 200</td>
               <td class="title">«Об утверждении Положения о государственной информационной системе противодействия правонарушениям, совершаемым с использованием информационных и коммуникационных технологий»<br><span class="note" style="font-size:13px">— запуск ГИС «Антифрод»</span></td>
+              <td class="dl"><a class="dl-btn ext" href="https://www.garant.ru/products/ipo/prime/doc/413892484/" target="_blank" rel="noopener">Открыть ↗</a></td>
             </tr>
             <tr>
               <td class="num">2</td>
               <td class="date">11.03.2026</td>
               <td class="act">Письмо БР № 44‑8‑1/1481</td>
               <td class="title">«О вопросах, связанных с формированием источниками формирования кредитной истории кредитной информации и предоставлением её в БКИ для предупреждения возможного мошенничества»<span class="badge">разъяснение</span></td>
+              <td class="dl"><a class="dl-btn ext" href="https://www.klerk.ru/cdoc/view/02273d82a22f64072be9b44e97e0f3dd/" target="_blank" rel="noopener">Открыть ↗</a></td>
             </tr>
             <tr>
               <td class="num">3</td>
               <td class="date">13.03.2026</td>
               <td class="act">Информ. письмо БР № 44‑8‑2/1586</td>
               <td class="title">«О необходимости соблюдения требований законодательства Российской Федерации по противодействию мошенничеству»<span class="badge">разъяснение</span></td>
+              <td class="dl"><a class="dl-btn ext" href="https://www.garant.ru/products/ipo/prime/doc/413812590/" target="_blank" rel="noopener">Открыть ↗</a></td>
             </tr>
             <tr>
               <td class="num">4</td>
               <td class="date">26.06.2026</td>
               <td class="act">ФЗ № 210‑ФЗ</td>
               <td class="title">«О внесении изменений в Федеральный закон "О связи" и отдельные законодательные акты Российской Федерации»<br><span class="note" style="font-size:13px">— второй антифрод-пакет: лимит платёжных карт, запрет на входящие международные звонки, обязанность банков и операторов возмещать похищенное</span></td>
+              <td class="dl"><a class="dl-btn" href="http://publication.pravo.gov.ru/file/pdf?eoNumber=0001202606260070" target="_blank" rel="noopener">PDF ↓</a></td>
             </tr>
             <tr>
               <td class="num">5</td>
               <td class="date">04.07.2026</td>
               <td class="act">ФЗ № 221‑ФЗ</td>
               <td class="title">«О внесении изменения в статью 6 Федерального закона "Об основах системы профилактики правонарушений в Российской Федерации"»<br><span class="note" style="font-size:13px">— профилактика киберпреступлений закреплена как направление работы органов внутренних дел</span></td>
+              <td class="dl"><a class="dl-btn" href="http://publication.pravo.gov.ru/file/pdf?eoNumber=0001202607040010" target="_blank" rel="noopener">PDF ↓</a></td>
             </tr>
             <tr>
               <td class="num">6</td>
               <td class="date">23.07.2026</td>
               <td class="act">Письмо БР № 44‑8‑1/4749</td>
               <td class="title">«О порядке формирования сведений для предупреждения возможного мошенничества»<span class="badge">разъяснение</span></td>
+              <td class="dl"><a class="dl-btn ext" href="https://www.consultant.ru/document/cons_doc_LAW_540226/" target="_blank" rel="noopener">Открыть ↗</a></td>
             </tr>
             <tr>
               <td class="num">7</td>
               <td class="date">26.07.2026</td>
               <td class="act">ФЗ № 251‑ФЗ</td>
               <td class="title">«О внесении изменений в Уголовный кодекс Российской Федерации и статьи 31 и 151 Уголовно-процессуального кодекса Российской Федерации»<br><span class="note" style="font-size:13px">— ужесточение ответственности, расширен перечень преступлений в сфере компьютерной информации</span></td>
+              <td class="dl"><a class="dl-btn" href="http://publication.pravo.gov.ru/file/pdf?eoNumber=0001202607260010" target="_blank" rel="noopener">PDF ↓</a></td>
             </tr>
             <tr>
               <td class="num">8</td>
               <td class="date">24.08.2026</td>
               <td class="act">Указ Президента РФ № 604</td>
               <td class="title">«О мерах по обеспечению безопасности объектов критической инфраструктуры Российской Федерации»<span class="badge">смежная тема</span></td>
+              <td class="dl"><a class="dl-btn" href="http://publication.pravo.gov.ru/file/pdf?eoNumber=0001202608240009" target="_blank" rel="noopener">PDF ↓</a></td>
             </tr>
           </tbody>
         </table>
       </div>
+      <p class="note">PDF — прямая ссылка на официально опубликованный подписанный текст на pravo.gov.ru.
+        «Открыть» — карточка акта на источнике (Гарант / КонсультантПлюс / Клерк): для писем Банка России
+        и постановления № 200 прямой файл на pravo.gov.ru обнаружить не удалось (см. ниже).</p>
 
       <div class="flag">
         <b>Не включено в таблицу — не принятый акт.</b> Проект Доктрины развития системы противодействия
@@ -241,6 +269,13 @@
         с 6 до 12 признаков мошеннических операций, действует с 01.01.2026) и Федеральный закон от 01.04.2025
         № 41‑ФЗ (первый антифрод-пакет, правовая основа ГИС «Антифрод») — по критерию «издан в 2026 году»
         не проходят, хотя оба напрямую относятся к теме и действуют в 2026-м.
+      </div>
+
+      <div class="flag">
+        <b>Про постановление № 200.</b> Прямой PDF на pravo.gov.ru для него не нашёлся: акты с этим номером
+        от 27.02.2026 в реестре правительственного блока портала отсутствуют — соседние номера (199, 201)
+        на месте, а 200-го нет. Возможно, оно опубликовано в другом разделе портала или с задержкой.
+        Ссылка в таблице ведёт на карточку у «Гаранта» — там текст читается полностью.
       </div>
     </section>
 

@@ -23,7 +23,7 @@ VEYRA Design System — ДС кабинета голосовых агентов 
 
 - `tokens.css` — шрифты, поверхности, текст, акцент, статусы, тени, радиусы, шкала, сетка.
 - `components.css` — база, шапка сайта, страница, окно приложения, кнопки, теги, карточки, таблицы, схема, цифры, тарифы, вопросы, подвал.
-- `ds.js` — меню сайта на ≤900 px: кнопка раскрывает панель под шапкой, закрывают Esc и переход по пункту.
+- `ds.js` — меню сайта на ≤1180 px: кнопка раскрывает панель под шапкой, закрывают Esc и переход по пункту.
 - `icons.svg` — спрайт lucide 0.454.0 (ISC, `LICENSE-lucide.txt`): `<svg class="i"><use href="/assets/ds/icons.svg#graduation-cap"/></svg>`.
 - `fonts/` — Geist (400–700) и Geist Mono (400–600), подмножества latin, latin-ext, cyrillic, OFL.
 
@@ -40,7 +40,7 @@ VEYRA Design System — ДС кабинета голосовых агентов 
 
 ```
 header.site-head > .wrap.in   .brand, .nav (слова; текущий — серая плашка), .head-cta (.cmd, .btn-primary, .menu-btn)
-                 > .wrap.head-panel   меню на ≤900 px: пункты с иконками и кнопка
+                 > .wrap.head-panel   меню на ≤1180 px: пункты с иконками и кнопка
 main
   .wrap.page-head   .title-row (.h1, .tag, .meta), .lead, .btns, .tabs
   .wrap             первый экран, секции .sec с .sec-head
@@ -55,7 +55,7 @@ main
   .window-body   .window-nav (.wbrand, span.on, span.sub) + .window-main (.window-head, таблица, .window-foot)
 ```
 
-На ≤1080 прячется поле `.cmd`, на ≤900 меню сворачивается в кнопку, на ≤760 у окна прячется левое меню.
+На ≤1480 прячется поле `.cmd`, на ≤1180 меню сворачивается в кнопку, на ≤760 у окна прячется левое меню.
 
 ## Цвет
 
@@ -84,7 +84,7 @@ main
 
 | Класс | Что |
 |---|---|
-| `.site-head`, `.nav`, `.cmd`, `.head-panel` | шапка сайта с меню сверху |
+| `.site-head`, `.nav`, `.cmd`, `.head-panel` | шапка сайта с меню сверху; пунктов меню не больше пяти |
 | `.window` > `.window-bar` / `.window-body` | окно приложения внутри страницы |
 | `.btn-primary`, `.btn-outline`, `.btn-ghost`, `.btn-link`, `.btn-lg`, `.btn-icon` | кнопки-пилюли; чёрная на экране одна |
 | `.kbd` | подсказка клавиши в кнопке и в подвале карточки |

@@ -96,7 +96,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .cmd .kbd { margin-left: auto; }
 .menu-btn { display: none; }
 .head-panel { display: none; }
-@media (max-width: 1080px) { .cmd { display: none; } }
+.cmd > span:not(.kbd) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 1280px) { .cmd { display: none; } }
 @media (max-width: 900px) {
   .site-head .nav, .site-head .head-cta .btn:not(.menu-btn) { display: none; }
   .menu-btn { display: inline-flex; }

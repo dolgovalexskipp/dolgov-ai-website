@@ -81,23 +81,25 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .site-head .in { display: flex; align-items: center; gap: 20px; height: 60px; }
 .brand { display: flex; align-items: baseline; gap: 6px; color: var(--primary); text-decoration: none; flex: none; }
 .brand:hover { text-decoration: none; }
-.brand b { font: 700 16px/1 var(--sans); letter-spacing: .02em; }
-.brand small { font: 600 11px/1 var(--sans); letter-spacing: .04em; color: var(--accent); }
+/* знак: «Долгов,» жирным капсом, «Эй Ай и партнеры» мелкой зелёной припиской — как «VEYRA LAB» */
+.brand b { font: 700 15px/1 var(--sans); letter-spacing: .03em; text-transform: uppercase; }
+.brand small { font: 600 11px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
 .nav { display: flex; align-items: center; gap: 2px; }
 .nav a { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px; border-radius: 10px; color: var(--fg); font: 400 var(--t-sm)/1 var(--sans); text-decoration: none; white-space: nowrap; }
 .nav a .i { color: var(--muted); }
 .nav a:hover { background: var(--hover); text-decoration: none; }
 .nav a[aria-current="page"] { background: #f2f2f3; font-weight: 500; }
 .nav a[aria-current="page"] .i { color: var(--fg); }
-.head-cta { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-.cmd { display: flex; align-items: center; gap: 8px; height: 36px; min-width: 250px; padding: 0 6px 0 12px; border: 1px solid var(--border); border-radius: var(--r-pill);
+.head-cta { margin-left: auto; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.site-head .nav { flex: none; }
+.cmd { display: flex; align-items: center; gap: 8px; height: 36px; flex: 0 1 260px; min-width: 150px; padding: 0 6px 0 12px; border: 1px solid var(--border); border-radius: var(--r-pill);
   background: var(--card); color: var(--faint); font-size: var(--t-sm); text-decoration: none; }
 .cmd:hover { border-color: #d4d4d4; text-decoration: none; }
 .cmd .kbd { margin-left: auto; }
 .menu-btn { display: none; }
 .head-panel { display: none; }
 .cmd > span:not(.kbd) { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-@media (max-width: 1280px) { .cmd { display: none; } }
+@media (max-width: 1360px) { .cmd { display: none; } }
 @media (max-width: 900px) {
   .site-head .nav, .site-head .head-cta .btn:not(.menu-btn) { display: none; }
   .menu-btn { display: inline-flex; }

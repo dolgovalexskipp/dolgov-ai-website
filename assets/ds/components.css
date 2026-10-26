@@ -81,9 +81,10 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .site-head .in { display: flex; align-items: center; gap: 20px; height: 60px; }
 .brand { display: flex; align-items: baseline; gap: 6px; color: var(--primary); text-decoration: none; flex: none; }
 .brand:hover { text-decoration: none; }
-/* знак: «Долгов,» жирным капсом, «Эй Ай и партнеры» мелкой зелёной припиской — как «VEYRA LAB» */
+/* знак: «Долгов,» жирным капсом, «Эй Ай и партнеры©» мелкой зелёной припиской — как «VEYRA LAB» */
 .brand b { font: 700 15px/1 var(--sans); letter-spacing: .03em; text-transform: uppercase; }
 .brand small { font: 600 11px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+.brand small sup { font: 500 8px/1 var(--sans); letter-spacing: 0; margin-left: 1px; vertical-align: 4px; }
 .nav { display: flex; align-items: center; gap: 2px; }
 .nav a { display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px; border-radius: 10px; color: var(--fg); font: 400 var(--t-sm)/1 var(--sans); text-decoration: none; white-space: nowrap; }
 .nav a .i { color: var(--muted); }

@@ -19,91 +19,82 @@
 .spec td:first-child b { display: block; font: 500 13px var(--mono); color: var(--fg); }
 .spec td:first-child span { font-size: 12px; color: var(--muted); }
 .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 28px; }
-.hero .display { margin-top: 10px; max-width: 14em; }
-.hero .lead { margin-top: 12px; }
-.hero .btns { margin-top: 18px; }
+.hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: center; padding-top: 44px; }
+.hero .display { margin-top: 10px; }
+.hero .lead { margin-top: 14px; }
+.hero .btns { margin-top: 20px; }
 .hero .row { margin-top: 14px; }
+@media (max-width: 1100px) { .hero { grid-template-columns: minmax(0, 1fr); gap: 28px; } }
 </style>
 </head>
 <body>
-<div class="shell">
-  <div class="frame">
-    <aside class="side" aria-label="Меню">
-      <a class="brand" href="/"><b>DOLGOV</b><small>AI</small></a>
-      <nav class="nav" aria-label="Разделы сайта">
-        <a href="/"><svg class="i"><use href="../assets/ds/icons.svg#house"/></svg>Главная</a>
-        <a href="#"><svg class="i"><use href="../assets/ds/icons.svg#graduation-cap"/></svg>Обучение</a>
-        <a href="#"><svg class="i"><use href="../assets/ds/icons.svg#workflow"/></svg>AI-контур</a>
-        <a href="#"><svg class="i"><use href="../assets/ds/icons.svg#life-buoy"/></svg>Абонентка</a>
-        <a href="#"><svg class="i"><use href="../assets/ds/icons.svg#user"/></svg>Обо мне</a>
-        <a href="#top" aria-current="page"><svg class="i"><use href="../assets/ds/icons.svg#layers"/></svg>Дизайн-система</a>
-        <div class="sub">
-          <a href="#hero" aria-current="true">Первый экран</a>
-          <a href="#color">Цвет</a>
-          <a href="#type">Текст</a>
-          <a href="#controls">Кнопки и теги</a>
-          <a href="#cards">Карточки</a>
-          <a href="#tables">Таблицы</a>
-          <a href="#graph">Схема контура</a>
-          <a href="#numbers">Цифры и тарифы</a>
-          <a href="#faq">Вопросы</a>
+<header class="site-head">
+  <div class="wrap in">
+    <a class="brand" href="/" aria-label="Dolgov AI, на главную"><b>DOLGOV</b><small>AI</small></a>
+    <nav class="nav" aria-label="Разделы сайта"><a href="/">Главная</a><a href="#">Обучение</a><a href="#">AI-контур</a><a href="#">Абонентка</a><a href="#">Обо мне</a><a href="#top" aria-current="page">Дизайн-система</a></nav>
+    <div class="head-cta">
+      <a class="cmd" href="#"><svg class="i"><use href="../assets/ds/icons.svg#message-square"/></svg><span>Опишите задачу команды</span><span class="kbd">Telegram</span></a>
+      <a class="btn btn-primary" href="#">Обсудить задачу</a>
+      <button class="btn btn-ghost btn-icon menu-btn" type="button" aria-label="Меню" aria-expanded="false"><svg class="i"><use href="../assets/ds/icons.svg#menu"/></svg></button>
+    </div>
+  </div>
+  <div class="wrap head-panel"><a href="/"><svg class="i"><use href="../assets/ds/icons.svg#house"/></svg>Главная</a><a href="#"><svg class="i"><use href="../assets/ds/icons.svg#graduation-cap"/></svg>Обучение</a><a href="#"><svg class="i"><use href="../assets/ds/icons.svg#workflow"/></svg>AI-контур</a><a href="#"><svg class="i"><use href="../assets/ds/icons.svg#life-buoy"/></svg>Абонентка</a><a href="#"><svg class="i"><use href="../assets/ds/icons.svg#user"/></svg>Обо мне</a><a href="#top" aria-current="page"><svg class="i"><use href="../assets/ds/icons.svg#layers"/></svg>Дизайн-система</a><a class="btn btn-primary btn-lg" href="#">Обсудить задачу</a></div>
+</header>
+
+<main id="top">
+  <div class="wrap page-head">
+    <div class="title-row"><h1 class="h1">Дизайн-система</h1><span class="tag mono">v0.3</span><span class="meta">основа — VEYRA DS кабинета агентов, как в INWRAP · 26.10.2026</span></div>
+    <p class="lead">Меню сайта сверху, страница лежит на сером. Окно приложения и карточки — элементы внутри страниц: окном показываем контур, карточками — форматы и тарифы. Цвет только сигнал, зелёный стоит там, где у VEYRA индиго.</p>
+    <nav class="tabs" aria-label="Разделы витрины">
+      <a href="#hero" aria-current="true">Первый экран</a><a href="#color">Цвет</a><a href="#type">Текст</a><a href="#controls">Кнопки и теги</a><a href="#cards">Карточки <span class="c">3</span></a><a href="#tables">Таблицы</a><a href="#graph">Схема</a><a href="#numbers">Цифры и тарифы</a><a href="#faq">Вопросы</a>
+    </nav>
+  </div>
+
+  <!-- 01 первый экран -->
+  <section class="wrap" id="hero">
+    <div class="hero">
+      <div>
+        <p class="mlabel">Обучение · AI-контур · Абонентка</p>
+        <h2 class="display">Обучаю команды работать с <span class="nw">ИИ-агентами</span></h2>
+        <p class="lead">И ставлю контур, в котором они продолжают работать после тренинга. За день каждый отдел собирает агента на своей задаче, за неделю — рабочая среда, дальше сопровождение помесячно.</p>
+        <div class="btns"><a class="btn btn-primary btn-lg" href="#">Обсудить обучение</a><a class="btn btn-outline btn-lg" href="#">Что входит в контур</a></div>
+        <div class="row"><span class="tag line">Школы клуба «Команда» в СберУниверситете</span><span class="tag line">ИИ-модуль MBA Сколково</span></div>
+      </div>
+      <div class="window" role="img" aria-label="Пример AI-контура компании: агенты пяти отделов, модель, статус и месячный лимит">
+        <div class="window-bar"><span class="dots"><i></i><i></i><i></i></span><div class="wtabs"><span class="on">Агенты</span><span class="dirty">Правила данных</span><span>Расходы</span></div><span class="wsearch"><svg class="i"><use href="../assets/ds/icons.svg#search"/></svg>Поиск <span class="kbd">Ctrl K</span></span></div>
+        <div class="window-body">
+          <div class="window-nav">
+            <span class="wbrand">КОНТУР<small>AI</small></span>
+            <span class="on"><svg class="i"><use href="../assets/ds/icons.svg#bot"/></svg>Агенты</span><span class="sub">Продажи</span><span class="sub">Бухгалтерия</span><span class="sub">Юристы</span>
+            <span><svg class="i"><use href="../assets/ds/icons.svg#users"/></svg>Сотрудники</span><span><svg class="i"><use href="../assets/ds/icons.svg#shield-check"/></svg>Правила</span><span><svg class="i"><use href="../assets/ds/icons.svg#database"/></svg>Модели</span><span><svg class="i"><use href="../assets/ds/icons.svg#wallet"/></svg>Расходы</span>
+          </div>
+          <div class="window-main">
+            <div class="window-head"><div class="title-row"><h3 class="h4">Агенты отделов</h3><span class="tag warn">пример</span><span class="meta">5 агентов</span></div><div class="btns"><span class="btn btn-primary">Новый агент <span class="kbd">Ins</span></span><span class="btn btn-outline">Проверить на примерах <span class="kbd">F7</span></span></div></div>
+            <div class="tw"><table class="tbl">
+              <thead><tr><th>Агент</th><th>Модель</th><th>Статус</th></tr></thead>
+              <tbody>
+                <tr class="sel"><td class="b">Ответы на обращения</td><td><span class="tag accent">RU · ПДн</span></td><td><span class="status ok">В работе</span></td></tr>
+                <tr><td class="b">Разноска выписки</td><td><span class="tag">сильная</span></td><td><span class="status ok">В работе</span></td></tr>
+                <tr><td class="b">Контроль сроков заявок</td><td><span class="tag">сильная</span></td><td><span class="status warn">На согласовании</span></td></tr>
+                <tr><td class="b">Реестр должников</td><td><span class="tag accent">RU · ПДн</span></td><td><span class="status">Черновик</span></td></tr>
+                <tr><td class="b">Отчёт за неделю</td><td><span class="tag">сильная</span></td><td><span class="status ok">В работе</span></td></tr>
+              </tbody>
+            </table></div>
+            <div class="window-foot"><span>Лимит 3 000 ₽ на сотрудника в месяц</span><span>·</span><span>ПДн — только в российские модели</span></div>
+          </div>
         </div>
-      </nav>
-      <div class="side-foot">
-        <div class="side-cta"><p>Расскажите, какие отделы хотите научить. Отвечаю в течение рабочего дня.</p><a class="btn btn-primary" href="#">Обсудить задачу</a></div>
-        <div class="person"><span class="ava">АД</span><div><b>Александр Долгов</b><span>ведёт тренинги сам</span></div></div>
       </div>
-    </aside>
-    <div class="scrim" aria-hidden="true"></div>
+    </div>
+    <div class="note-blk">
+      <div><p class="mlabel">01 · Первый экран</p><h3 class="h3">Текст слева, окно контура справа</h3></div>
+      <ul class="dash"><li><span>Страница лежит на сером, без общей рамки. Меню сайта — в шапке сверху.</span></li><li><span>Окно приложения — компонент внутри страницы: показывает контур так, как его увидит компания. Строки — пример, это видно по тегу.</span></li><li><span>Кнопка с заливкой одна и она чёрная, как у VEYRA. Зелёный — выделенная строка, тег ПДн, надпись.</span></li></ul>
+    </div>
+  </section>
 
-    <div class="main" id="top">
-      <header class="topbar">
-        <button class="btn btn-ghost btn-icon menu-btn" type="button" aria-label="Меню" aria-expanded="false"><svg class="i"><use href="../assets/ds/icons.svg#menu"/></svg></button>
-        <a class="brand" href="/"><b>DOLGOV</b><small>AI</small></a>
-        <div class="crumbs">Dolgov AI <svg class="i"><use href="../assets/ds/icons.svg#chevron-right"/></svg> <b>Дизайн-система</b></div>
-        <a class="cmd" href="#"><svg class="i"><use href="../assets/ds/icons.svg#message-square"/></svg><span class="ph">Опишите задачу команды</span><span class="kbd">Telegram</span></a>
-      </header>
-
-      <div class="page-head">
-        <div class="title-row"><h1 class="h1">Дизайн-система</h1><span class="tag mono">v0.2</span><span class="meta">основа — VEYRA DS кабинета агентов, как в INWRAP · 26.10.2026</span></div>
-        <p class="lead">Сайт собран как рабочее окно: меню слева, шапка страницы с действиями, ниже карточки и таблицы на сером. Цвет — только сигнал, зелёный стоит там, где у VEYRA индиго.</p>
-        <nav class="tabs" aria-label="Разделы витрины">
-          <a href="#hero" aria-current="true">Первый экран</a><a href="#color">Цвет</a><a href="#type">Текст</a><a href="#controls">Кнопки и теги</a><a href="#cards">Карточки <span class="c">4</span></a><a href="#tables">Таблицы</a><a href="#graph">Схема</a><a href="#numbers">Цифры и тарифы</a><a href="#faq">Вопросы</a>
-        </nav>
-      </div>
-
-      <div class="page-body">
-        <div class="with-aside">
-          <div class="content">
-
-            <!-- 01 первый экран -->
-            <section id="hero">
-              <div class="card hero">
-                <div>
-                  <p class="mlabel">Обучение · AI-контур · Абонентка</p>
-                  <h2 class="display">Обучаю команды работать с <span class="nw">ИИ-агентами</span></h2>
-                  <p class="lead">И ставлю контур, в котором они продолжают работать после тренинга. За день каждый отдел собирает агента на своей задаче, за неделю — рабочая среда, дальше сопровождение помесячно.</p>
-                  <div class="btns"><a class="btn btn-primary btn-lg" href="#">Обсудить обучение</a><a class="btn btn-outline btn-lg" href="#">Что входит в контур</a></div>
-                  <div class="row"><span class="tag line">Школы клуба «Команда» в СберУниверситете</span><span class="tag line">ИИ-модуль MBA Сколково</span></div>
-                </div>
-                <div class="graph" role="img" aria-label="Схема контура: сотрудники работают в среде с агентами, среда ходит к моделям по правилам; персональные данные идут только в российские модели">
-                  <div class="node"><b>Сотрудники</b><span>ключ и лимит у каждого</span></div>
-                  <div class="edge"></div>
-                  <div class="node sel"><b>Среда с агентами</b><span>агенты отделов, правила, шаблоны</span></div>
-                  <div class="edge"></div>
-                  <div class="node"><b>Правила</b><span>ключи, лимиты, маршруты, <span class="nw">152-ФЗ</span></span></div>
-                  <div class="edge"></div>
-                  <div class="nodes"><div class="node"><b>Сильные модели</b><span>тексты, таблицы, код · без ПДн</span></div><div class="node"><b>Российские модели</b><span>персональные данные</span></div></div>
-                </div>
-              </div>
-              <div class="note-blk">
-                <div><p class="mlabel">01 · Первый экран</p><h3 class="h3">Заголовок и сразу схема продукта</h3></div>
-                <ul class="dash"><li><span>Первый экран — одна карточка: надпись моно, заголовок 700, лид, две кнопки, два тега доверия.</span></li><li><span>Ниже в той же карточке — схема контура узлами, как граф в INWRAP. Это фирменный элемент вместо картинки.</span></li><li><span>Кнопка с заливкой одна и она чёрная, как у VEYRA. Зелёный — на выделенном узле и в надписи.</span></li></ul>
-              </div>
-            </section>
-
-            <!-- 02 цвет -->
+  <div class="wrap page-body">
+    <div class="with-aside">
+      <div>
+<!-- 02 цвет -->
             <section class="sec" id="color">
               <div class="sec-head"><div><p class="mlabel">02 · Цвет</p><h2 class="h2">Монохром, цвет — сигнал</h2></div><p>Значения VEYRA без изменений, кроме акцента. Тема одна, светлая.</p></div>
               <div class="sw">
@@ -230,19 +221,16 @@
               <span>ИП Долгов Александр [отчество] · ИНН [—] · ОГРНИП [—]</span>
               <nav aria-label="Подвал"><a href="#">Политика данных</a><a href="#">Telegram</a><a href="#">bonjour@dolgovalex.com</a><span>© 2026 Dolgov AI</span></nav>
             </footer>
-          </div>
-
-          <aside class="aside" aria-label="Пояснения">
-            <div><p class="label">Основа</p><p>VEYRA Design System (кабинет голосовых агентов) в том виде, как она работает в INWRAP ERP.</p></div>
-            <div><p class="label">Без изменений</p><p>Фон, карточки, тени, радиусы, чёрные кнопки-пилюли, Geist и Geist Mono, иконки lucide, плотные таблицы, подсказки клавиш.</p></div>
-            <div><p class="label">Своё</p><p>Зелёный вместо индиго. Знак DOLGOV AI по образцу «VEYRA LAB». Схема контура узлами. Текст сайта 16 вместо 14.</p></div>
-            <div class="callout"><svg class="i"><use href="../assets/ds/icons.svg#lock"/></svg><span><b>Шрифты открытые.</b> Geist и Geist Mono под OFL, можно держать в публичном репо.</span></div>
-          </aside>
-        </div>
       </div>
+      <aside class="aside" aria-label="Пояснения">
+        <div><p class="label">Основа</p><p>VEYRA Design System (кабинет голосовых агентов) в том виде, как она работает в INWRAP ERP.</p></div>
+        <div><p class="label">Без изменений</p><p>Фон, карточки, тени, радиусы, чёрные кнопки-пилюли, Geist и Geist Mono, иконки lucide, плотные таблицы, подсказки клавиш.</p></div>
+        <div><p class="label">Своё</p><p>Зелёный вместо индиго. Меню сайта сверху, окно — внутри страниц. Знак DOLGOV AI по образцу «VEYRA LAB». Схема контура узлами. Текст 16 вместо 14.</p></div>
+        <div class="callout"><svg class="i"><use href="../assets/ds/icons.svg#lock"/></svg><span><b>Шрифты открытые.</b> Geist и Geist Mono под OFL, можно держать в публичном репо.</span></div>
+      </aside>
     </div>
   </div>
-</div>
+</main>
 <script src="../assets/ds/ds.js" defer></script>
 </body>
 </html>

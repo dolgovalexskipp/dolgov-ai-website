@@ -3,7 +3,7 @@
    нейтрали обеих тем, тонкие крупные заголовки, Tektur для цифр, плитки r24,
    шапка-пилюля, свечение акцента. Отличия от VEYRA:
    — шрифт Onest (OFL) вместо платного ALS Hauss;
-   — акцент зелёный (наследие Dolgov AI), золото VEYRA — запасной вариант data-accent="gold";
+   — акцент зелёный (наследие Dolgov AI; решение Саши 26.10.2026), золота VEYRA нет;
    — приглушённый текст затемнён до 4.5:1 в обеих темах.
    Тема: без атрибута — по системе; data-theme="light|dark" на <html> — явный выбор. */
 
@@ -113,31 +113,6 @@
   --em-1: #c9f2da; --em-2: #5cc98f;
   --glow: rgba(79, 191, 133, .16);
   color-scheme: dark;
-}
-
-/* — запасной акцент: золото VEYRA — */
-:root[data-accent="gold"] {
-  --accent: #7d5f24; --accent-strong: #6e5529; --accent-line: rgba(138, 106, 44, .38);
-  --accent-soft: rgba(215, 181, 109, .16);
-  --btn-1: #f7da7c; --btn-2: #dba53a; --btn-ink: #0b0c0f;
-  --em-1: #b8903e; --em-2: #7d5f24;
-  --glow: rgba(215, 181, 109, .34);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"])[data-accent="gold"] {
-    --accent: #e3b95a; --accent-strong: #f2d994; --accent-line: rgba(227, 185, 90, .34);
-    --accent-soft: rgba(227, 185, 90, .10);
-    --btn-1: #f7da7c; --btn-2: #dba53a; --btn-ink: #0b0c0f;
-    --em-1: #fbe7a6; --em-2: #dfa93c;
-    --glow: rgba(236, 186, 72, .22);
-  }
-}
-:root[data-theme="dark"][data-accent="gold"] {
-  --accent: #e3b95a; --accent-strong: #f2d994; --accent-line: rgba(227, 185, 90, .34);
-  --accent-soft: rgba(227, 185, 90, .10);
-  --btn-1: #f7da7c; --btn-2: #dba53a; --btn-ink: #0b0c0f;
-  --em-1: #fbe7a6; --em-2: #dfa93c;
-  --glow: rgba(236, 186, 72, .22);
 }
 
 @media (max-width: 760px) {

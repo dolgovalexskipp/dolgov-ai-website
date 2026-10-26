@@ -5,318 +5,244 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Дизайн-система Dolgov AI</title>
-<script>try{var t=new URLSearchParams(location.search).get("theme")||localStorage.getItem("da_theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
-<link rel="preload" href="../assets/ds/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/ds/fonts/geist-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/ds/tokens.css">
 <link rel="stylesheet" href="../assets/ds/components.css">
 <style>
 /* только для витрины */
-.ds-ctrl { position: fixed; z-index: 60; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center;
-  padding: 8px 10px; border: 1px solid var(--line); border-radius: 18px; background: var(--bar-bg); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: var(--shadow-float); font-size: 13px; width: max-content; max-width: calc(100% - 24px); }
-.ds-ctrl .g { display: flex; gap: 2px; align-items: center; }
-.ds-ctrl .g > span { color: var(--text-3); margin-right: 6px; }
-.ds-ctrl button { border: 0; background: transparent; color: var(--text-2); font: 500 13px var(--font-ui); padding: 7px 10px; border-radius: 999px; cursor: pointer; }
-.ds-ctrl button[aria-pressed="true"] { background: var(--accent-soft); color: var(--text); }
-.ds-sec { padding-top: 96px; }
-.ds-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; padding-bottom: 18px; margin-bottom: 28px; border-bottom: 1px solid var(--line); }
-.ds-head .idx { font: 500 14px var(--font-num); color: var(--text-3); }
-.ds-head h2 { font: 400 26px/1.2 var(--font-ui); letter-spacing: -.01em; }
-.ds-note { margin-top: 18px; font-size: 14px; line-height: 1.55; color: var(--text-2); max-width: 52em; }
-.ds-note b { color: var(--text); font-weight: 500; }
-.sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
-.sw div { border: 1px solid var(--line); border-radius: var(--r-inner); overflow: hidden; background: var(--tile); min-width: 0; }
-.sw i { display: block; height: 64px; border-bottom: 1px solid var(--line); }
-.sw p { padding: 10px 12px 12px; font-size: 12.5px; line-height: 1.45; color: var(--text-2); }
-.sw p b { display: block; color: var(--text); font: 500 13px var(--font-ui); margin-bottom: 2px; }
-.sw code { font: 12px ui-monospace, Menlo, monospace; color: var(--text-3); }
-.spec-row { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 8px 24px; align-items: start; padding: 18px 0; border-top: 1px solid var(--line); }
-.spec-row > span { font-size: 12.5px; color: var(--text-3); line-height: 1.45; }
-.spec-row > span b { display: block; color: var(--text-2); font-weight: 500; font-size: 13px; }
-@media (max-width: 640px) { .spec-row { grid-template-columns: 1fr; } }
-.geo { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
-.geo div { display: grid; gap: 8px; font-size: 12.5px; color: var(--text-2); justify-items: start; }
-.geo .r { width: 96px; height: 64px; border: 1px solid var(--accent-line); background: var(--accent-soft); }
-.geo .s { height: 14px; background: var(--accent); border-radius: 3px; opacity: .8; }
-.demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.intro { padding-block: 40px 0; }
-.intro .h1 { margin-top: 16px; }
-.took { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); margin-top: 32px; }
-.took ul { padding-left: 18px; display: grid; gap: 6px; font-size: var(--t-small); color: var(--text-2); margin-top: 12px; }
-@media (max-width: 760px) { .took { grid-template-columns: 1fr; } }
-.ds-end { height: 120px; }
+.sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: var(--gap); }
+.sw .card { overflow: hidden; }
+.sw i { display: block; height: 56px; border-bottom: 1px solid var(--border); }
+.sw p { padding: 10px 12px 12px; font-size: 12px; line-height: 1.45; color: var(--muted); }
+.sw p b { display: block; font: 500 13px var(--mono); color: var(--fg); margin-bottom: 2px; }
+.spec td:first-child { width: 190px; }
+.spec td:first-child b { display: block; font: 500 13px var(--mono); color: var(--fg); }
+.spec td:first-child span { font-size: 12px; color: var(--muted); }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 28px; }
+.hero .display { margin-top: 10px; max-width: 14em; }
+.hero .lead { margin-top: 12px; }
+.hero .btns { margin-top: 18px; }
+.hero .row { margin-top: 14px; }
 </style>
 </head>
 <body>
+<div class="shell">
+  <div class="frame">
+    <aside class="side" aria-label="Меню">
+      <a class="brand" href="/"><b>DOLGOV</b><small>AI</small></a>
+      <nav class="nav" aria-label="Разделы сайта">
+        <a href="/"><svg class="i"><use href="../assets/ds/icons.svg#house"/></svg>Главная</a>
+        <a href="#"><svg class="i"><use href="../assets/ds/icons.svg#graduation-cap"/></svg>Обучение</a>
+        <a href="#"><svg class="i"><use href="../assets/ds/icons.svg#workflow"/></svg>AI-контур</a>
+        <a href="#"><svg class="i"><use href="../assets/ds/icons.svg#life-buoy"/></svg>Абонентка</a>
+        <a href="#"><svg class="i"><use href="../assets/ds/icons.svg#user"/></svg>Обо мне</a>
+        <a href="#top" aria-current="page"><svg class="i"><use href="../assets/ds/icons.svg#layers"/></svg>Дизайн-система</a>
+        <div class="sub">
+          <a href="#hero" aria-current="true">Первый экран</a>
+          <a href="#color">Цвет</a>
+          <a href="#type">Текст</a>
+          <a href="#controls">Кнопки и теги</a>
+          <a href="#cards">Карточки</a>
+          <a href="#tables">Таблицы</a>
+          <a href="#graph">Схема контура</a>
+          <a href="#numbers">Цифры и тарифы</a>
+          <a href="#faq">Вопросы</a>
+        </div>
+      </nav>
+      <div class="side-foot">
+        <div class="side-cta"><p>Расскажите, какие отделы хотите научить. Отвечаю в течение рабочего дня.</p><a class="btn btn-primary" href="#">Обсудить задачу</a></div>
+        <div class="person"><span class="ava">АД</span><div><b>Александр Долгов</b><span>ведёт тренинги сам</span></div></div>
+      </div>
+    </aside>
+    <div class="scrim" aria-hidden="true"></div>
 
-<div class="ds-ctrl" role="group" aria-label="Режим витрины">
-  <div class="g"><span>Тема</span><button type="button" data-ctl-theme="">Система</button><button type="button" data-ctl-theme="light">Светлая</button><button type="button" data-ctl-theme="dark">Тёмная</button></div>
-  </div>
+    <div class="main" id="top">
+      <header class="topbar">
+        <button class="btn btn-ghost btn-icon menu-btn" type="button" aria-label="Меню" aria-expanded="false"><svg class="i"><use href="../assets/ds/icons.svg#menu"/></svg></button>
+        <a class="brand" href="/"><b>DOLGOV</b><small>AI</small></a>
+        <div class="crumbs">Dolgov AI <svg class="i"><use href="../assets/ds/icons.svg#chevron-right"/></svg> <b>Дизайн-система</b></div>
+        <a class="cmd" href="#"><svg class="i"><use href="../assets/ds/icons.svg#message-square"/></svg><span class="ph">Опишите задачу команды</span><span class="kbd">Telegram</span></a>
+      </header>
 
-<header class="bar" aria-label="Главное меню">
-  <a class="logo" href="/" aria-label="Dolgov AI, на главную">
-    <svg viewBox="0 0 26 26" aria-hidden="true"><rect x="2.5" y="2.5" width="21" height="21" rx="7" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="19.5" cy="6.5" r="4.6" fill="var(--bg)"/><circle cx="19.5" cy="6.5" r="3" fill="var(--accent)"/></svg>
-    <span class="full">Dolgov <b>AI</b></span>
-  </a>
-  <nav aria-label="Разделы"><a href="#">Обучение</a><a href="#">AI-контур</a><a href="#">Абонентка</a><a href="#">Обо мне</a></nav>
-  <span class="sep" aria-hidden="true"></span>
-  <div class="theme" role="group" aria-label="Тема">
-    <button type="button" data-theme-set="dark" aria-label="Тёмная тема"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
-    <button type="button" data-theme-set="light" aria-label="Светлая тема"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-  </div>
-  <a class="btn btn-accent btn-sm" href="#">Обсудить задачу</a>
-  <button class="menu" type="button" aria-label="Меню" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-  <div class="bar-panel">
-    <a href="#">Обучение</a><a href="#">AI-контур</a><a href="#">Абонентка</a><a href="#">Обо мне</a>
-    <div class="theme" role="group" aria-label="Тема">
-      <button type="button" data-theme-set="dark" aria-label="Тёмная тема"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
-      <button type="button" data-theme-set="light" aria-label="Светлая тема"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-    </div>
-  </div>
-</header>
-<div class="bar-slot" aria-hidden="true"></div>
+      <div class="page-head">
+        <div class="title-row"><h1 class="h1">Дизайн-система</h1><span class="tag mono">v0.2</span><span class="meta">основа — VEYRA DS кабинета агентов, как в INWRAP · 26.10.2026</span></div>
+        <p class="lead">Сайт собран как рабочее окно: меню слева, шапка страницы с действиями, ниже карточки и таблицы на сером. Цвет — только сигнал, зелёный стоит там, где у VEYRA индиго.</p>
+        <nav class="tabs" aria-label="Разделы витрины">
+          <a href="#hero" aria-current="true">Первый экран</a><a href="#color">Цвет</a><a href="#type">Текст</a><a href="#controls">Кнопки и теги</a><a href="#cards">Карточки <span class="c">4</span></a><a href="#tables">Таблицы</a><a href="#graph">Схема</a><a href="#numbers">Цифры и тарифы</a><a href="#faq">Вопросы</a>
+        </nav>
+      </div>
 
-<main>
-<div class="wrap intro">
-  <p class="eyebrow">Дизайн-система · v0.1 · 26.10.2026</p>
-  <h1 class="h1">Dolgov AI на основе VEYRA Platform</h1>
-  <p class="lead" style="margin-top:18px">Одна система для сайта dolgovalex.com, КП и материалов. Внизу экрана переключатель темы: всё ниже собрано из токенов и меняется вместе с ними.</p>
-  <div class="took">
-    <div class="t"><p class="eyebrow">Взяли у VEYRA</p><ul><li>Нейтрали обеих тем: карбон и тёплая бумага</li><li>Тонкие крупные заголовки, Tektur только для цифр</li><li>Плитки с радиусом 24, шапка-пилюля, свечение акцента за первым экраном</li><li>Тёмная тема на равных со светлой, по умолчанию как в системе</li></ul></div>
-    <div class="t accent"><p class="eyebrow">Поменяли</p><ul><li>Шрифт Onest вместо ALS Hauss: Hauss платный и куплен под VEYRA, а репо сайта публичный</li><li>Акцент зелёный, как у прежнего Dolgov AI: так сайт не путается с VEYRA</li><li>Приглушённый текст затемнил до контраста 4,5:1 в обеих темах</li><li>Свой знак: контур с точкой-агентом; фирменный элемент — схема контура</li></ul></div>
-  </div>
-</div>
+      <div class="page-body">
+        <div class="with-aside">
+          <div class="content">
 
-<!-- 01 цвет -->
-<section class="wrap ds-sec" id="color">
-  <div class="ds-head"><span class="idx">01</span><h2>Цвет</h2></div>
-  <div class="sw">
-    <div><i style="background:var(--bg)"></i><p><b>bg</b>Фон страницы<br><code>#f4f1ea · #0b0c0f</code></p></div>
-    <div><i style="background:var(--tile)"></i><p><b>tile</b>Плитки, карточки, таблицы<br><code>#fffdf8 · #131418</code></p></div>
-    <div><i style="background:var(--tile-2)"></i><p><b>tile-2</b>Вложенные плашки, шапка таблицы<br><code>#f1ece1 · #191b20</code></p></div>
-    <div><i style="background:var(--text)"></i><p><b>text</b>Основной текст, 17:1<br><code>#0b0c0f · #f6f4ef</code></p></div>
-    <div><i style="background:var(--text-2)"></i><p><b>text-2</b>Вторичный текст, лиды, 6:1<br><code>#5f5a52 · #9a958c</code></p></div>
-    <div><i style="background:var(--text-3)"></i><p><b>text-3</b>Подписи и мелочь, 4,5:1<br><code>#736d63 · #858077</code></p></div>
-    <div><i style="background:var(--accent)"></i><p><b>accent</b>Надзаголовки, ссылки, точки<br><code>#24734b · #6fcf97</code></p></div>
-    <div><i style="background:var(--accent-strong)"></i><p><b>accent-strong</b>Цифры, плашка «выбор»<br><code>#173a28 · #9be3bb</code></p></div>
-    <div><i style="background:linear-gradient(180deg,var(--btn-1),var(--btn-2))"></i><p><b>btn-1 → btn-2</b>Только основная кнопка<br><code>#2a7a50→#1a4d33 · #9be3bb→#4fbf85</code></p></div>
-    <div><i style="background:var(--accent-soft)"></i><p><b>accent-soft</b>Заливка выделенной плитки, чипа<br><code>зелёный 10%</code></p></div>
-    <div><i style="background:var(--signal)"></i><p><b>signal</b>Живой статус: «идёт набор». Только точка<br><code>#0a9a45 · #0de153</code></p></div>
-    <div><i style="background:radial-gradient(closest-side,var(--glow),transparent)"></i><p><b>glow</b>Свечение за первым экраном и финалом<br><code>зелёный 16–20%</code></p></div>
-  </div>
-  <p class="ds-note"><b>Правило.</b> Акцент занимает меньше десятой части экрана: надзаголовок, одна кнопка, выделение в заголовке. Всё остальное — нейтрали. Цвет никогда не единственный носитель смысла: у выбранного тарифа есть и надпись «чаще берут».</p>
-</section>
+            <!-- 01 первый экран -->
+            <section id="hero">
+              <div class="card hero">
+                <div>
+                  <p class="mlabel">Обучение · AI-контур · Абонентка</p>
+                  <h2 class="display">Обучаю команды работать с <span class="nw">ИИ-агентами</span></h2>
+                  <p class="lead">И ставлю контур, в котором они продолжают работать после тренинга. За день каждый отдел собирает агента на своей задаче, за неделю — рабочая среда, дальше сопровождение помесячно.</p>
+                  <div class="btns"><a class="btn btn-primary btn-lg" href="#">Обсудить обучение</a><a class="btn btn-outline btn-lg" href="#">Что входит в контур</a></div>
+                  <div class="row"><span class="tag line">Школы клуба «Команда» в СберУниверситете</span><span class="tag line">ИИ-модуль MBA Сколково</span></div>
+                </div>
+                <div class="graph" role="img" aria-label="Схема контура: сотрудники работают в среде с агентами, среда ходит к моделям по правилам; персональные данные идут только в российские модели">
+                  <div class="node"><b>Сотрудники</b><span>ключ и лимит у каждого</span></div>
+                  <div class="edge"></div>
+                  <div class="node sel"><b>Среда с агентами</b><span>агенты отделов, правила, шаблоны</span></div>
+                  <div class="edge"></div>
+                  <div class="node"><b>Правила</b><span>ключи, лимиты, маршруты, <span class="nw">152-ФЗ</span></span></div>
+                  <div class="edge"></div>
+                  <div class="nodes"><div class="node"><b>Сильные модели</b><span>тексты, таблицы, код · без ПДн</span></div><div class="node"><b>Российские модели</b><span>персональные данные</span></div></div>
+                </div>
+              </div>
+              <div class="note-blk">
+                <div><p class="mlabel">01 · Первый экран</p><h3 class="h3">Заголовок и сразу схема продукта</h3></div>
+                <ul class="dash"><li><span>Первый экран — одна карточка: надпись моно, заголовок 700, лид, две кнопки, два тега доверия.</span></li><li><span>Ниже в той же карточке — схема контура узлами, как граф в INWRAP. Это фирменный элемент вместо картинки.</span></li><li><span>Кнопка с заливкой одна и она чёрная, как у VEYRA. Зелёный — на выделенном узле и в надписи.</span></li></ul>
+              </div>
+            </section>
 
-<!-- 02 типографика -->
-<section class="wrap ds-sec" id="type">
-  <div class="ds-head"><span class="idx">02</span><h2>Типографика</h2></div>
-  <div class="spec-row"><span><b>h-hero</b>Onest 300 · 42–88 / 1.0 · −3%</span><p class="h-hero">Обучаю команды</p></div>
-  <div class="spec-row"><span><b>h1</b>300 · 38–64 / 1.04</span><p class="h1">Обучение команд работе с <span class="em">ИИ-агентами</span></p></div>
-  <div class="spec-row"><span><b>h2</b>300 · 32–54 / 1.06</span><p class="h2">После тренинга агент нужен в понедельник утром</p></div>
-  <div class="spec-row"><span><b>h3</b>300 · 24–30 / 1.12</span><p class="h3">Установка <span class="nw">«AI-старт»</span> за неделю</p></div>
-  <div class="spec-row"><span><b>h4</b>500 · 20 / 1.3</span><p class="h4">Что нужно от компании</p></div>
-  <div class="spec-row"><span><b>lead</b>400 · 17–20 / 1.55 · text-2</span><p class="lead">За день каждый отдел собирает агента на своей задаче. За следующую неделю я ставлю рабочую среду.</p></div>
-  <div class="spec-row"><span><b>body</b>400 · 17 / 1.6</span><p class="prose">Модели подключены на юрлицо компании через российского поставщика. У каждого сотрудника свой ключ и свой лимит. Записано, какие данные в какие модели можно отдавать.</p></div>
-  <div class="spec-row"><span><b>small · caption</b>15 / 1.55 · 13 / 1.55</span><div><p style="font-size:var(--t-small)" class="muted">Ответ в рабочие дни с 10:00 до 19:00 по Москве.</p><p class="fine" style="margin-top:6px">Цены без НДС, ИП на упрощённой системе.</p></div></div>
-  <div class="spec-row"><span><b>eyebrow</b>500 · 12 · капс · .16em</span><p class="eyebrow">Обучение · AI-контур · Абонентка</p></div>
-  <div class="spec-row"><span><b>num</b>Tektur 500 · только цифры</span><p class="num" style="font-size:var(--t-num-xl);color:var(--accent-strong)">199 000 ₽</p></div>
-  <p class="ds-note"><b>Правило.</b> Заголовки тонкие и крупные, выделяем одно-два слова градиентом акцента (<code>.em</code>). Tektur — только для цифр: цены, часы, сроки. Капсом пишем только надзаголовки, бренд и названия в капс не ставим.</p>
-</section>
+            <!-- 02 цвет -->
+            <section class="sec" id="color">
+              <div class="sec-head"><div><p class="mlabel">02 · Цвет</p><h2 class="h2">Монохром, цвет — сигнал</h2></div><p>Значения VEYRA без изменений, кроме акцента. Тема одна, светлая.</p></div>
+              <div class="sw">
+                <div class="card"><i style="background:var(--page-grad)"></i><p><b>page-grad</b>Фон под окном<br>#eff4f7 → #f5f5f4</p></div>
+                <div class="card"><i style="background:var(--card)"></i><p><b>card</b>Окно, карточки<br>#ffffff</p></div>
+                <div class="card"><i style="background:var(--card-2)"></i><p><b>card-2</b>Тело страницы<br>#f7f7f8</p></div>
+                <div class="card"><i style="background:var(--border)"></i><p><b>border</b>Границы<br>#e5e5e5</p></div>
+                <div class="card"><i style="background:var(--primary)"></i><p><b>primary</b>Кнопка, заголовки<br>#171717</p></div>
+                <div class="card"><i style="background:var(--muted)"></i><p><b>muted</b>Вторичный текст, 5,7:1<br>#666666</p></div>
+                <div class="card"><i style="background:var(--accent)"></i><p><b>accent</b>Надписи, выделение, ссылки<br>#177245 · вместо индиго</p></div>
+                <div class="card"><i style="background:var(--accent-tint)"></i><p><b>accent-tint</b>Выделенная строка, тег<br>зелёный 8%</p></div>
+                <div class="card"><i style="background:var(--warn-tint)"></i><p><b>warn</b>«Черновик», «ждёт согласия»<br>#8a5a00</p></div>
+                <div class="card"><i style="background:var(--danger)"></i><p><b>danger</b>Удаление, ошибки<br>#d92d2d</p></div>
+              </div>
+            </section>
 
-<!-- 03 геометрия -->
-<section class="wrap ds-sec" id="geo">
-  <div class="ds-head"><span class="idx">03</span><h2>Геометрия</h2></div>
-  <div class="geo">
-    <div><span class="r" style="border-radius:var(--r-tile)"></span>r-tile · 24 (20 на телефоне)</div>
-    <div><span class="r" style="border-radius:var(--r-inner)"></span>r-inner · 14</div>
-    <div><span class="r" style="border-radius:var(--r-sm)"></span>r-sm · 8</div>
-    <div><span class="r" style="border-radius:var(--r-pill);width:140px;height:48px"></span>r-pill · кнопки, чипы, шапка</div>
-  </div>
-  <div class="geo" style="margin-top:28px">
-    <div><span class="s" style="width:4px"></span>4</div><div><span class="s" style="width:8px"></span>8</div><div><span class="s" style="width:12px"></span>12</div><div><span class="s" style="width:16px"></span>16</div><div><span class="s" style="width:24px"></span>24</div><div><span class="s" style="width:32px"></span>32</div><div><span class="s" style="width:48px"></span>48</div><div><span class="s" style="width:64px"></span>64</div><div><span class="s" style="width:96px"></span>96</div>
-  </div>
-  <p class="ds-note"><b>Правило.</b> Контейнер 1240, поля 48 (20 на телефоне). Секции отделяются воздухом 110 (64 на телефоне), без полос фона. Зазор плиток 14. Тень у плиток только в светлой теме, в тёмной — граница.</p>
-</section>
+            <!-- 03 текст -->
+            <section class="sec" id="type">
+              <div class="sec-head"><div><p class="mlabel">03 · Текст</p><h2 class="h2">Geist и Geist Mono</h2></div><p>Как в кабинете VEYRA: крупные ступени, заголовки жирные, моно — для надписей, клавиш и кодов.</p></div>
+              <div class="card"><div class="tw"><table class="tbl spec">
+                <tbody>
+                  <tr><td><b>display</b><span>700 · 34–52 · −2,5%</span></td><td><span class="display" style="font-size:40px">Обучаю команды</span></td></tr>
+                  <tr><td><b>h1</b><span>700 · 28–36</span></td><td><span class="h1">Обучение команд</span></td></tr>
+                  <tr><td><b>h2</b><span>700 · 24</span></td><td><span class="h2">После тренинга агент нужен в понедельник утром</span></td></tr>
+                  <tr><td><b>h3 · h4</b><span>600 · 20 · 16</span></td><td><span class="h3">Установка <span class="nw">«AI-старт»</span></span><br><span class="h4">Что нужно от компании</span></td></tr>
+                  <tr><td><b>lead · body</b><span>18 · 16 / 1.6</span></td><td><p class="lead">За день каждый отдел собирает агента на своей задаче.</p><p style="margin-top:6px">Модели подключены на юрлицо компании через российского поставщика. У каждого сотрудника свой ключ и лимит.</p></td></tr>
+                  <tr><td><b>sm · xs</b><span>14 · 12</span></td><td><p class="small">Ответ в рабочие дни с 10:00 до 19:00 по Москве.</p><p class="xs">Цены без НДС, ИП на упрощённой системе.</p></td></tr>
+                  <tr><td><b>label · mlabel</b><span>11 капс · 12 моно</span></td><td><p class="label">Пробный расчёт</p><p class="mlabel" style="margin-top:4px">04 · Программа дня</p></td></tr>
+                  <tr><td><b>mono</b><span>коды, клавиши, цифры</span></td><td><span class="mono">opencode.json · limit_rub = 3000</span></td></tr>
+                </tbody>
+              </table></div></div>
+            </section>
 
-<!-- 04 кнопки -->
-<section class="wrap ds-sec" id="buttons">
-  <div class="ds-head"><span class="idx">04</span><h2>Кнопки и чипы</h2></div>
-  <div class="demo-row">
-    <a class="btn btn-accent btn-lg" href="#">Обсудить обучение <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    <a class="btn btn-accent" href="#">Обсудить контур</a>
-    <a class="btn btn-line" href="#">Что входит в контур</a>
-    <a class="btn btn-ghost" href="#">Тарифы →</a>
-    <a class="btn btn-accent btn-sm" href="#">Обсудить задачу</a>
-  </div>
-  <div class="chips" style="margin-top:22px">
-    <span class="chip">СберУниверситет</span><span class="chip">Сколково</span><span class="chip accent">152-ФЗ</span><span class="chip"><span class="dot"></span>Набор на январь открыт</span><span class="chip soon">Кейсы — скоро</span>
-  </div>
-  <p class="ds-note"><b>Правило.</b> На экране одна кнопка с заливкой. Вторая — контурная. Текст кнопки — глагол и предмет: «Обсудить обучение», не «Узнать больше». Пунктирный чип — то, чего ещё нет.</p>
-</section>
+            <!-- 04 кнопки и теги -->
+            <section class="sec" id="controls">
+              <div class="sec-head"><div><p class="mlabel">04 · Кнопки и теги</p><h2 class="h2">Пилюли, клавиши, статусы</h2></div><p>Наведение — подкраска, без подъёма и теней. На экране одна чёрная кнопка.</p></div>
+              <div class="card"><div class="card-body" style="display:grid;gap:16px">
+                <div class="btns"><a class="btn btn-primary btn-lg" href="#">Обсудить обучение</a><a class="btn btn-outline btn-lg" href="#">Что входит в контур</a><a class="btn btn-primary" href="#">Записать <span class="kbd">Ctrl S</span></a><a class="btn btn-outline" href="#">Прогнать расчёт <span class="kbd">F7</span></a><a class="btn btn-ghost" href="#">Копия</a><span class="vr"></span><a class="btn btn-ghost btn-icon" href="#" aria-label="Ссылка"><svg class="i"><use href="../assets/ds/icons.svg#arrow-right"/></svg></a><a class="btn btn-link" href="#">Тарифы →</a></div>
+                <div class="row"><span class="tag">черновик</span><span class="tag mono">laminate</span><span class="tag accent">152-ФЗ</span><span class="tag warn">ждёт согласия</span><span class="tag line">СберУниверситет</span><span class="status ok">В работе</span><span class="status">Черновик</span><span class="status warn">На согласовании</span><span>уточнить <span class="qmark">?</span></span><span class="kbd">Ctrl K</span></div>
+                <div class="seg" role="group" aria-label="Формат"><button type="button" aria-pressed="true">День</button><button type="button">Полтора дня</button><button type="button">Программа</button></div>
+              </div></div>
+            </section>
 
-<!-- 05 первый экран -->
-<section class="ds-sec" id="hero">
-  <div class="wrap"><div class="ds-head"><span class="idx">05</span><h2>Первый экран</h2></div></div>
-  <div class="hero wrap">
-    <p class="eyebrow">Александр Долгов · обучение и внедрение ИИ-агентов</p>
-    <h1 class="h-hero">Обучаю команды работать с <span class="em nw">ИИ-агентами</span></h1>
-    <p class="sub">И ставлю контур, в котором они продолжают работать после тренинга</p>
-    <p class="lead">За день каждый отдел собирает агента на своей задаче. За следующую неделю я ставлю рабочую среду: модели на аккаунте компании, правила доступа, персональные данные только в российских моделях.</p>
-    <div class="btns"><a class="btn btn-accent btn-lg" href="#">Обсудить обучение</a><a class="btn btn-line btn-lg" href="#">Что входит в контур</a></div>
-    <div class="chips"><span class="chip">Школы клуба «Команда» в СберУниверситете</span><span class="chip">ИИ-модуль MBA Сколково</span></div>
-  </div>
-  <div class="wrap" style="margin-top:56px">
-    <div class="kontur" role="img" aria-label="Схема AI-контура: сотрудники работают в среде с агентами, среда ходит к моделям по правилам, персональные данные идут только в российские модели, всё на аккаунте компании">
-      <div class="kontur-top"><i></i><i></i><i></i><span>AI-контур компании · неделя после тренинга</span></div>
-      <div class="kontur-body">
-        <div class="node"><span class="k">Сотрудники</span><span class="v">Свой ключ и лимит у каждого</span></div>
-        <div class="wire"></div>
-        <div class="node hot"><span class="k">Среда с агентами</span><span class="v">Агенты отделов, правила, шаблоны, история</span></div>
-        <div class="wire"></div>
-        <div class="node"><span class="k">Правила</span><span class="v">Ключи, лимиты, маршруты, <span class="nw">152-ФЗ</span></span></div>
-        <div class="wire"></div>
-        <div class="models">
-          <div class="node"><span class="k">Сильные модели</span><span class="v">Тексты, таблицы, код. Без ПДн</span></div>
-          <div class="node"><span class="k">Российские модели</span><span class="v">Персональные данные</span></div>
+            <!-- 05 карточки -->
+            <section class="sec" id="cards">
+              <div class="sec-head"><div><p class="mlabel">05 · Карточки</p><h2 class="h2">Три входа</h2></div><p>Карточка: шапка с названием и действием, тело, низ с ценой или подсказкой клавиш.</p></div>
+              <div class="cards c-3">
+                <article class="card entry"><div class="card-body"><span class="ico"><svg class="i i-20"><use href="../assets/ds/icons.svg#graduation-cap"/></svg></span><h3 class="h4">Тренинг-хакатон «Агент в каждом отделе»</h3><p>Каждый отдел приходит со своей задачей и уходит с агентом, проверенным на своих обезличенных примерах.</p></div><div class="card-foot"><span class="price">от 280 000 ₽<small>день</small></span><a href="#">Форматы →</a></div></article>
+                <article class="card entry sel"><div class="card-body"><span class="ico"><svg class="i i-20"><use href="../assets/ds/icons.svg#workflow"/></svg></span><h3 class="h4">Установка <span class="nw">«AI-старт»</span> за неделю</h3><p>Рабочая среда, модели на аккаунте компании, ключи и лимиты на сотрудника, политика данных по <span class="nw">152-ФЗ</span>.</p></div><div class="card-foot"><span class="price">5 <small>рабочих дней</small></span><a href="#">Что входит →</a></div></article>
+                <article class="card entry"><div class="card-body"><span class="ico"><svg class="i i-20"><use href="../assets/ds/icons.svg#life-buoy"/></svg></span><h3 class="h4">Сопровождение агентов помесячно</h3><p>Отвечаю на вопросы сотрудников, дорабатываю агентов, слежу за расходами, раз в месяц присылаю отчёт.</p></div><div class="card-foot"><span class="price">от 99 000 ₽<small>в месяц</small></span><a href="#">Тарифы →</a></div></article>
+              </div>
+              <div class="cards c-2" style="margin-top:var(--gap)">
+                <div class="callout accent"><svg class="i"><use href="../assets/ds/icons.svg#shield-check"/></svg><span><b>Персональные данные — только в российские модели.</b> В зарубежную модель — только по письменному решению руководства.</span></div>
+                <div class="callout warn"><svg class="i"><use href="../assets/ds/icons.svg#circle-help"/></svg><span><b>Кейсы ждут согласия.</b> Пока нет письменного согласия клиента, блок кейсов на сайте скрыт.</span></div>
+              </div>
+            </section>
+
+            <!-- 06 таблицы -->
+            <section class="sec" id="tables">
+              <div class="sec-head"><div><p class="mlabel">06 · Таблицы</p><h2 class="h2">Программа дня</h2></div><p>Плотная таблица как справочник INWRAP: время моно, выделенная строка — зелёная полоса.</p></div>
+              <div class="card">
+                <div class="card-head"><h3 class="h4">Тренинг-хакатон, день 1 <span class="count">7</span></h3><div class="btns"><a class="btn btn-outline" href="#">Полтора дня</a></div></div>
+                <div class="tw"><table class="tbl tbl-min">
+                  <thead><tr><th>Время</th><th>Блок</th><th>Что делают отделы</th><th>Формат</th></tr></thead>
+                  <tbody>
+                    <tr><td class="m">10:00</td><td class="b">Знакомство и цели</td><td>Что каждый отдел хочет отдать агенту</td><td><span class="tag">разбор</span></td></tr>
+                    <tr><td class="m">10:30</td><td class="b">Модель, навыки, агенты</td><td>Коротко, на примерах из анкет</td><td><span class="tag">теория</span></td></tr>
+                    <tr><td class="m">12:30</td><td class="b">Данные, безопасность, 1С</td><td>Что можно отдавать моделям</td><td><span class="tag">теория</span></td></tr>
+                    <tr class="sel"><td class="m">14:30</td><td class="b">Папка контекста отдела</td><td>Начало практики: правила агента, навык с чек-листом</td><td><span class="tag accent">практика</span></td></tr>
+                    <tr><td class="m">16:45</td><td class="b">Прогон на примерах</td><td>20–30 обезличенных примеров отдела</td><td><span class="tag accent">практика</span></td></tr>
+                    <tr><td class="m">17:30</td><td class="b">Показ отделов</td><td>Каждый отдел показывает агента</td><td><span class="tag">демо</span></td></tr>
+                    <tr><td class="m">18:00</td><td class="b">Час с собственниками</td><td>Что внедрять первым, бюджет, ответственные</td><td><span class="tag">стратсессия</span></td></tr>
+                  </tbody>
+                </table></div>
+                <div class="card-foot"><span>Время ориентировочное</span><span>·</span><span>по программе тренинга 21.10.2026</span></div>
+              </div>
+            </section>
+
+            <!-- 07 схема -->
+            <section class="sec" id="graph">
+              <div class="sec-head"><div><p class="mlabel">07 · Схема контура</p><h2 class="h2">Узлы и связи</h2></div><p>Как граф маршрута в INWRAP: белые узлы на точечной сетке, выделенный узел — зелёная полоса.</p></div>
+              <div class="card"><div class="card-body">
+                <div class="graph" role="img" aria-label="Схема контура">
+                  <div class="node"><b>Сотрудники</b><span><code>до 100</code> мест</span></div>
+                  <div class="edge"></div>
+                  <div class="node sel"><b>Среда с агентами</b><span>агенты, правила, история</span></div>
+                  <div class="edge"></div>
+                  <div class="node"><b>Правила</b><span><code>limit_rub</code> · маршруты</span></div>
+                  <div class="edge"></div>
+                  <div class="nodes"><div class="node"><b>Сильные модели</b><span>без ПДн</span></div><div class="node"><b>Российские модели</b><span>ПДн по <span class="nw">152-ФЗ</span></span></div></div>
+                </div>
+              </div><div class="card-foot"><span>Всё на аккаунте компании</span><span>·</span><span>ответственный: ваш сотрудник и я по абонентке</span></div></div>
+            </section>
+
+            <!-- 08 цифры и тарифы -->
+            <section class="sec" id="numbers">
+              <div class="sec-head"><div><p class="mlabel">08 · Цифры и тарифы</p><h2 class="h2">Абонентка</h2></div><p>Цифры — обычный Geist 600 с табличными цифрами. Выбранный тариф отмечен полосой и тегом.</p></div>
+              <div class="cards c-4">
+                <div class="card stat"><div class="card-body"><span class="v">≈70</span><span class="l">программ и выездных семинаров до ИИ, 2010–2016</span></div></div>
+                <div class="card stat"><div class="card-body"><span class="v">120 млн ₽</span><span class="l">в год — направление для госсектора в Skyeng</span></div></div>
+                <div class="card stat"><div class="card-body"><span class="v">$1,6 млн</span><span class="l">инвестиций в Skipp, сооснователь</span></div></div>
+                <div class="card stat"><div class="card-body"><span class="v">3</span><span class="l">школы клуба «Команда» в 2026 году</span></div></div>
+              </div>
+              <div class="cards c-4" style="margin-top:var(--gap)">
+                <div class="card tariff"><div class="card-head"><h3 class="h4">Контур</h3></div><div class="card-body"><span class="price">99 000<small>₽/мес</small></span><dl><div><dt>AI-часов</dt><dd>10</dd></div><div><dt>Сотрудников</dt><dd>до 20</dd></div><div><dt>Агентов</dt><dd>2</dd></div><div><dt>Ответ</dt><dd>1 рабочий день</dd></div></dl></div></div>
+                <div class="card tariff sel"><div class="card-head"><h3 class="h4">Агенты</h3><span class="tag accent">чаще берут</span></div><div class="card-body"><span class="price">199 000<small>₽/мес</small></span><dl><div><dt>AI-часов</dt><dd>24</dd></div><div><dt>Сотрудников</dt><dd>до 50</dd></div><div><dt>Агентов</dt><dd>5</dd></div><div><dt>Ответ</dt><dd>1 рабочий день</dd></div></dl></div></div>
+                <div class="card tariff"><div class="card-head"><h3 class="h4">Процессы</h3></div><div class="card-body"><span class="price">299 000<small>₽/мес</small></span><dl><div><dt>AI-часов</dt><dd>40</dd></div><div><dt>Сотрудников</dt><dd>до 100</dd></div><div><dt>Агентов</dt><dd>10</dd></div><div><dt>Ответ</dt><dd>4 часа</dd></div></dl></div></div>
+                <div class="card tariff"><div class="card-head"><h3 class="h4">Выделенный</h3></div><div class="card-body"><span class="price">399 000<small>₽/мес</small></span><dl><div><dt>AI-часов</dt><dd>60</dd></div><div><dt>Сотрудников</dt><dd>без лимита</dd></div><div><dt>Агентов</dt><dd>без лимита</dd></div><div><dt>Ответ</dt><dd>4 часа + планёрка</dd></div></dl></div></div>
+              </div>
+              <p class="xs" style="margin-top:10px">Цены и показ всех четырёх тарифов ждут решения Саши, здесь для вёрстки.</p>
+            </section>
+
+            <!-- 09 вопросы -->
+            <section class="sec" id="faq">
+              <div class="sec-head"><div><p class="mlabel">09 · Вопросы</p><h2 class="h2">Частые вопросы</h2></div></div>
+              <div class="card faq">
+                <details open><summary>Куда уходят наши данные?<svg class="i"><use href="../assets/ds/icons.svg#chevron-down"/></svg></summary><div>Персональные данные идут только в российские модели. Остальное уходит в модели, которые компания подключила на свой аккаунт, по правилам, которые мы записали вместе.</div></details>
+                <details><summary>Что нужно от компании?<svg class="i"><use href="../assets/ds/icons.svg#chevron-down"/></svg></summary><div>Ноутбуки у участников, зал с проектором и человек от ИТ, который поставит среду до тренинга.</div></details>
+                <details><summary>Кто проводит?<svg class="i"><use href="../assets/ds/icons.svg#chevron-down"/></svg></summary><div>Я сам, без соведущих.</div></details>
+              </div>
+            </section>
+
+            <footer class="foot">
+              <span>ИП Долгов Александр [отчество] · ИНН [—] · ОГРНИП [—]</span>
+              <nav aria-label="Подвал"><a href="#">Политика данных</a><a href="#">Telegram</a><a href="#">bonjour@dolgovalex.com</a><span>© 2026 Dolgov AI</span></nav>
+            </footer>
+          </div>
+
+          <aside class="aside" aria-label="Пояснения">
+            <div><p class="label">Основа</p><p>VEYRA Design System (кабинет голосовых агентов) в том виде, как она работает в INWRAP ERP.</p></div>
+            <div><p class="label">Без изменений</p><p>Фон, карточки, тени, радиусы, чёрные кнопки-пилюли, Geist и Geist Mono, иконки lucide, плотные таблицы, подсказки клавиш.</p></div>
+            <div><p class="label">Своё</p><p>Зелёный вместо индиго. Знак DOLGOV AI по образцу «VEYRA LAB». Схема контура узлами. Текст сайта 16 вместо 14.</p></div>
+            <div class="callout"><svg class="i"><use href="../assets/ds/icons.svg#lock"/></svg><span><b>Шрифты открытые.</b> Geist и Geist Mono под OFL, можно держать в публичном репо.</span></div>
+          </aside>
         </div>
       </div>
-      <div class="kontur-foot"><span>Всё на аккаунте компании, оплата поставщику напрямую</span><span>Ответственный: <b>ваш сотрудник</b> и я по абонентке</span></div>
     </div>
   </div>
-  <div class="wrap"><p class="ds-note"><b>Правило.</b> Первый экран по центру, со свечением акцента. Под ним вместо картинки — схема контура в рамке окна: это фирменный элемент, им же объясняем продукт на странице «AI-контур». Фото Саши — в «Кто ведёт», не на первом экране.</p></div>
-</section>
-
-<!-- 06 три входа -->
-<section class="wrap ds-sec" id="path">
-  <div class="ds-head"><span class="idx">06</span><h2>Плитки: три входа</h2></div>
-  <div class="sh"><div><p class="eyebrow">Как работаем</p><h2 class="h2">Три входа. Можно начать с любого</h2></div><p>Чаще всего путь такой: тренинг, через неделю контур, потом сопровождение.</p></div>
-  <div class="path">
-    <article class="t"><div class="t-body"><p class="eyebrow">1 · Обучение</p><h3 class="h3">Тренинг-хакатон «Агент в каждом отделе»</h3><p>Каждый отдел приходит со своей задачей и уходит с агентом, проверенным на своих обезличенных примерах.</p></div><div class="t-foot"><span class="price">от 280 000 <small>₽ за день</small></span><a class="btn btn-ghost" href="#">Форматы →</a></div></article>
-    <article class="t accent"><div class="t-body"><p class="eyebrow">2 · AI-контур</p><h3 class="h3">Установка <span class="nw">«AI-старт»</span> за неделю</h3><p>Рабочая среда, модели на аккаунте компании, ключи и лимиты на сотрудника, политика данных по <span class="nw">152-ФЗ</span>.</p></div><div class="t-foot"><span class="price">5 <small>рабочих дней</small></span><a class="btn btn-ghost" href="#">Что входит →</a></div></article>
-    <article class="t"><div class="t-body"><p class="eyebrow">3 · Абонентка</p><h3 class="h3">Сопровождение агентов помесячно</h3><p>Отвечаю на вопросы сотрудников, дорабатываю агентов, слежу за расходами, раз в месяц присылаю отчёт.</p></div><div class="t-foot"><span class="price">от 99 000 <small>₽ в месяц</small></span><a class="btn btn-ghost" href="#">Тарифы →</a></div></article>
-  </div>
-  <p class="ds-note"><b>Правило.</b> Номера только там, где есть порядок: здесь это реальный путь клиента, поэтому стрелки между плитками. Выделенная плитка одна. Цена внизу плитки цифрами Tektur.</p>
-</section>
-
-<!-- 07 было / стало -->
-<section class="wrap ds-sec" id="versus">
-  <div class="ds-head"><span class="idx">07</span><h2>Было и стало</h2></div>
-  <div class="versus">
-    <div class="old"><p class="eyebrow" style="color:var(--text-3)">Понедельник без контура</p><h3 class="h4">Сотрудник остаётся один</h3><ul><li>Доступа к модели нет или он оплачен с личной карты</li><li>Правил по данным нет, клиентскую базу отправляют куда попало</li><li>Спросить некого, агент ломается на третьей задаче</li></ul></div>
-    <div class="new"><p class="eyebrow">Понедельник с контуром</p><h3 class="h4">Работа продолжается</h3><ul><li><span><b>Доступ.</b> Модели на юрлицо компании, у каждого ключ и лимит</span></li><li><span><b>Правила.</b> Записано, какие данные в какие модели можно отдавать</span></li><li><span><b>Ответственный.</b> Человек в компании и я на связи по абонентке</span></li></ul></div>
-  </div>
-  <p class="ds-note"><b>Правило.</b> Сравнение — только фактами, без эмоций. Левая колонка приглушена, правая с акцентом. На телефоне колонки встают друг под друга.</p>
-</section>
-
-<!-- 08 программа дня -->
-<section class="wrap ds-sec" id="timeline">
-  <div class="ds-head"><span class="idx">08</span><h2>Программа дня</h2></div>
-  <div class="grid g-2" style="align-items:start">
-    <ol class="timeline">
-      <li><time>10:00</time><div><b>Знакомство и цели отделов</b><span>Что каждый отдел хочет отдать агенту</span></div></li>
-      <li><time>10:30</time><div><b>Модель, навыки, агенты</b><span>Коротко, на примерах из анкет</span></div></li>
-      <li class="key"><time>14:30</time><div><b>Папка контекста отдела</b><span>Начало практики</span></div></li>
-      <li><time>16:45</time><div><b>Прогон на 20–30 примерах</b><span>Обезличенные примеры отдела</span></div></li>
-      <li class="key"><time>18:00</time><div><b>Час с собственниками</b><span>Что внедрять первым, бюджет, ответственные</span></div></li>
-    </ol>
-    <div class="t"><p class="eyebrow">Что остаётся у команды</p><ul style="margin-top:14px;padding-left:18px;display:grid;gap:8px;color:var(--text-2);font-size:var(--t-small)"><li>Агенты отделов, проверенные на своих примерах</li><li>Файлы правил и папки контекста</li><li>Приоритеты внедрения</li><li>План на 30 дней</li></ul></div>
-  </div>
-  <p class="ds-note"><b>Правило.</b> Время цифрами Tektur. Закрашенная точка — ключевой момент дня, их не больше двух-трёх.</p>
-</section>
-
-<!-- 09 цифры -->
-<section class="wrap ds-sec" id="stats">
-  <div class="ds-head"><span class="idx">09</span><h2>Цифры</h2></div>
-  <div class="stats">
-    <div class="stat"><span class="n">≈70</span><span class="l">образовательных программ и выездных семинаров до ИИ, 2010–2016</span></div>
-    <div class="stat"><span class="n">120 млн</span><span class="l">₽ в год — направление для госсектора в Skyeng</span></div>
-    <div class="stat"><span class="n">$1,6 млн</span><span class="l">инвестиций в Skipp, сооснователь</span></div>
-    <div class="stat"><span class="n">3</span><span class="l">школы клуба «Команда» в 2026 году</span></div>
-  </div>
-  <p class="ds-note"><b>Правило.</b> Каждая цифра проверяема и встречается на сайте один раз. Подпись говорит, откуда цифра.</p>
-</section>
-
-<!-- 10 тарифы -->
-<section class="wrap ds-sec" id="tariffs">
-  <div class="ds-head"><span class="idx">10</span><h2>Тарифы</h2></div>
-  <div class="tariffs">
-    <div class="t tariff"><p class="eyebrow">Контур</p><p class="price">99 000<small>₽/мес</small></p><dl><div><dt>AI-часов</dt><dd>10</dd></div><div><dt>Сотрудников</dt><dd>до 20</dd></div><div><dt>Агентов</dt><dd>2</dd></div><div><dt>Ответ</dt><dd>1 рабочий день</dd></div></dl></div>
-    <div class="t tariff pick"><span class="tag">чаще берут</span><p class="eyebrow">Агенты</p><p class="price">199 000<small>₽/мес</small></p><dl><div><dt>AI-часов</dt><dd>24</dd></div><div><dt>Сотрудников</dt><dd>до 50</dd></div><div><dt>Агентов</dt><dd>5</dd></div><div><dt>Ответ</dt><dd>1 рабочий день</dd></div></dl></div>
-    <div class="t tariff"><p class="eyebrow">Процессы</p><p class="price">299 000<small>₽/мес</small></p><dl><div><dt>AI-часов</dt><dd>40</dd></div><div><dt>Сотрудников</dt><dd>до 100</dd></div><div><dt>Агентов</dt><dd>10</dd></div><div><dt>Ответ</dt><dd>4 часа</dd></div></dl></div>
-    <div class="t tariff"><p class="eyebrow">Выделенный</p><p class="price">399 000<small>₽/мес</small></p><dl><div><dt>AI-часов</dt><dd>60</dd></div><div><dt>Сотрудников</dt><dd>без лимита</dd></div><div><dt>Агентов</dt><dd>без лимита</dd></div><div><dt>Ответ</dt><dd>4 часа + планёрка</dd></div></dl></div>
-  </div>
-  <div class="tw" style="margin-top:24px"><table class="tbl">
-    <thead><tr><th>Формат обучения</th><th>Длительность</th><th>Группа</th><th>Цена</th></tr></thead>
-    <tbody>
-      <tr><td>Тренинг-хакатон «Агент в каждом отделе»</td><td>день</td><td>до 15 человек</td><td class="n">от 280 000 ₽</td></tr>
-      <tr><td>Тренинг-хакатон, расширенный</td><td>полтора дня</td><td>до 15 человек</td><td class="n">от 400 000 ₽</td></tr>
-      <tr><td>Программа для руководителей</td><td>по программе</td><td>5–7 человек</td><td class="n">от 600 000 ₽</td></tr>
-    </tbody>
-  </table></div>
-  <p class="ds-note"><b>Правило.</b> Тарифы карточками, детали — таблицей. «Чаще берут» ставим только по факту продаж. Цены и показ всех четырёх тарифов — ждут решения Саши, здесь для вёрстки.</p>
-</section>
-
-<!-- 11 кейсы -->
-<section class="wrap ds-sec" id="case">
-  <div class="ds-head"><span class="idx">11</span><h2>Кейсы</h2></div>
-  <div class="grid g-2">
-    <article class="t case stub"><p class="who">Кейс ждёт согласия клиента</p><p class="muted">Отрасль и город · задача · что сделали · результат в цифрах · цитата с именем и должностью.</p><p class="res"><span>Пока нет письменного согласия, блок на сайте скрыт</span></p></article>
-    <article class="t case"><p class="who">Пример вёрстки · не для публикации</p><q>Здесь будет цитата руководителя, дословно и с согласия.</q><p class="muted" style="font-size:var(--t-small)">Имя Фамилия, должность, компания</p><p class="res"><span>Отделов на тренинге</span><b class="num">5</b></p></article>
-  </div>
-  <p class="ds-note"><b>Правило.</b> Отзывы не выдумываем. Пунктирная рамка — место, которое ждёт согласия; в продакшен такие плитки не попадают.</p>
-</section>
-
-<!-- 12 вопросы -->
-<section class="wrap ds-sec" id="faq">
-  <div class="ds-head"><span class="idx">12</span><h2>Вопросы</h2></div>
-  <div class="faq">
-    <details open><summary>Куда уходят наши данные?</summary><div><p>Персональные данные идут только в российские модели. Остальное уходит в модели, которые компания подключила на свой аккаунт, по правилам, которые мы записали вместе.</p></div></details>
-    <details><summary>Что нужно от компании?</summary><div><p>Ноутбуки у участников, зал с проектором и человек от ИТ, который поставит среду до тренинга.</p></div></details>
-    <details><summary>Кто проводит?</summary><div><p>Я сам, без соведущих.</p></div></details>
-  </div>
-</section>
-
-<!-- 13 финал -->
-<section class="wrap ds-sec" id="fin">
-  <div class="ds-head"><span class="idx">13</span><h2>Финальный призыв</h2></div>
-  <div class="fin">
-    <p class="eyebrow">Заявка</p>
-    <h2 class="h2">Расскажите, какие отделы хотите научить</h2>
-    <p class="lead">Бот в Telegram задаст пару вопросов и передаст мне. Или напишите на почту.</p>
-    <div class="btns"><a class="btn btn-accent btn-lg" href="#">Написать в Telegram</a><a class="btn btn-line btn-lg" href="#">bonjour@dolgovalex.com</a></div>
-  </div>
-</section>
-
-<!-- 14 подвал -->
-<section class="ds-sec" id="foot">
-  <div class="wrap"><div class="ds-head"><span class="idx">14</span><h2>Подвал</h2></div></div>
-  <footer class="wrap">
-    <div class="foot">
-      <div><span class="logo"><svg viewBox="0 0 26 26" aria-hidden="true"><rect x="2.5" y="2.5" width="21" height="21" rx="7" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="19.5" cy="6.5" r="4.6" fill="var(--bg)"/><circle cx="19.5" cy="6.5" r="3" fill="var(--accent)"/></svg><span>Dolgov <b>AI</b></span></span><p>Обучаю команды работать с ИИ-агентами и ставлю контур, в котором они продолжают работать.</p></div>
-      <div><h5>Услуги</h5><a href="#">Обучение</a><a href="#">AI-контур</a><a href="#">Абонентка</a></div>
-      <div><h5>Ещё</h5><a href="#">Обо мне</a><a href="#">Манифест</a><a href="#">Политика данных</a></div>
-      <div><h5>Связь</h5><a href="#">Telegram</a><a href="#">bonjour@dolgovalex.com</a></div>
-    </div>
-    <div class="foot-legal"><span>ИП Долгов Александр [отчество] · ИНН [—] · ОГРНИП [—]</span><span>© 2026 Dolgov AI</span></div>
-  </footer>
-</section>
-<div class="ds-end"></div>
-</main>
-
+</div>
 <script src="../assets/ds/ds.js" defer></script>
-<script>
-(function(){
-  var r=document.documentElement;
-  function paint(){
-    document.querySelectorAll("[data-ctl-theme]").forEach(function(b){b.setAttribute("aria-pressed",String((r.dataset.theme||"")===b.dataset.ctlTheme))});
-    document.querySelectorAll(".theme button[data-theme-set]").forEach(function(b){var t=r.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");b.setAttribute("aria-pressed",String(b.dataset.themeSet===t))});
-  }
-  document.addEventListener("click",function(e){
-    var t=e.target.closest("[data-ctl-theme]");
-    if(t){ if(t.dataset.ctlTheme){r.dataset.theme=t.dataset.ctlTheme}else{delete r.dataset.theme} try{t.dataset.ctlTheme?localStorage.setItem("da_theme",t.dataset.ctlTheme):localStorage.removeItem("da_theme")}catch(x){} }
-    setTimeout(paint,0);
-  });
-  paint();
-})();
-</script>
 </body>
 </html>

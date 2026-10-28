@@ -12,7 +12,9 @@
   const lc = s => s ? s.charAt(0).toLowerCase() + s.slice(1) : "";
 
   /* ─── разделы и вкладки ─── */
-  const TITLES = { home: "Главная", programmy: "Программы", harness: "Company Harness", metod: "Метод", produkty: "Продукты", stati: "Статьи", bio: "Био" };
+  const TITLES = { home: "Главная", programmy: "Программы", mastermind: "Мастермайнд", harness: "Company Harness", metod: "Метод", produkty: "Продукты", stati: "Статьи", bio: "Био" };
+  /* короткие адреса, которые открывают раздел сразу на нужном месте */
+  const ALIAS = { opyt: ["bio", "bio-teach"] };
   const app = $("#ap");
   let opened = [];
   let cur = "home";
@@ -21,6 +23,8 @@
   $$(".ap-nav a").forEach(a => { const t = a.textContent.trim(); a.title = t; });
 
   function show(s) {
+    let anchor = null;
+    if (ALIAS[s]) [s, anchor] = ALIAS[s];
     if (!TITLES[s]) s = "home";
     cur = s;
     $$(".ap-view").forEach(v => { v.hidden = v.dataset.view !== s; });
@@ -30,7 +34,11 @@
     renderTabs();
     sheet(false);
     const pane = $(`.ap-view[data-view="${s}"] .win-pane`);
-    if (pane) { pane.scrollTop = 0; spy(pane); }
+    if (pane) {
+      pane.scrollTop = 0;
+      if (anchor) { const el = document.getElementById(anchor); if (el) pane.scrollTop = el.getBoundingClientRect().top - pane.getBoundingClientRect().top - 12; }
+      spy(pane);
+    }
   }
   function go(s) { if (location.hash.slice(1) !== s) location.hash = s; else show(s); }
   window.addEventListener("hashchange", () => show(location.hash.slice(1) || "home"));
@@ -236,7 +244,7 @@
   async function suggest() {
     let s = "programmy", txt;
     if (L.topic === T.proc) { L.format = "Company Harness"; s = "harness"; txt = "Это задача для Company Harness: запускаем процесс за две недели, два месяца внедряем на живых данных, дальше поддерживаем. Тариф зависит от того, как часто брать новые процессы."; }
-    else if (L.topic === T.mm) { L.format = "Мастермайнд «ИИ на практике»"; txt = "Подойдёт мастермайнд: за месяц у вас будет личная рабочая среда и три агента на ваших задачах. 80 000 ₽ с участника."; }
+    else if (L.topic === T.mm) { L.format = "Мастермайнд «ИИ на практике»"; s = "mastermind"; txt = "Подойдёт мастермайнд: за месяц у вас будет личная рабочая среда и три агента на ваших задачах. 80 000 ₽ с участника."; }
     else if (/16|25/.test(L.detail || "")) { L.format = "Программа «Два дня»"; txt = "Для такой группы подойдёт программа «Два дня»: разбор ваших данных, агенты под задачи отделов и защита проектов."; }
     else { L.format = "Тренинг-хакатон «День»"; txt = "Подойдёт тренинг-хакатон «День»: за 8 часов каждый отдел собирает агента на своей задаче и уходит с планом на 30 дней."; }
     const d = await say(`${esc(txt)}<div class="mlink"><button type="button" class="btn btn-outline btn-sm">${icon("arrow-right")}Открыть «${TITLES[s]}»</button></div>`, 900);

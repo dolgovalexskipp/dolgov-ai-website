@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Политика обработки данных · Долгов, Эй Ай и партнеры</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../assets/ds/tokens.css">
+<link rel="stylesheet" href="../assets/ds/components.css">
+<style>
+  body { background: var(--page-grad) fixed, var(--page); }
+  .col { max-width: calc(72ch + 2 * var(--pad)); margin: 0 auto; padding-left: max(var(--pad), env(safe-area-inset-left, 0px)); padding-right: max(var(--pad), env(safe-area-inset-right, 0px)); }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; border-bottom: 1px solid var(--hair); }
+  .back { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px 0 8px; margin-left: -8px; border-radius: 10px; color: var(--fg); font-size: var(--t-sm); }
+  .back:hover { background: var(--hover); text-decoration: none; }
+  .back svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+  .doc { padding-top: 40px; overflow-wrap: anywhere; }
+  .doc .ver { margin-top: 10px; font-size: var(--t-sm); color: var(--muted); }
+  .doc .lead { margin-top: 16px; }
+  .doc section { margin-top: 48px; scroll-margin-top: 24px; }
+  .doc h2 { font: 700 22px/1.3 var(--sans); letter-spacing: -.01em; color: var(--primary); text-wrap: balance; }
+  .doc h2 .n { font: 500 15px/1 var(--mono); color: var(--accent); margin-right: 8px; vertical-align: 2px; }
+  .doc h3 { margin-top: 28px; font: 600 var(--t-h4)/1.4 var(--sans); color: var(--primary); }
+  .doc h2 + p, .doc h3 + p, .doc h3 + ul { margin-top: 10px; }
+  .doc p + p, .doc p + ul, .doc ul + p, .doc .card + p, .doc p + .card { margin-top: 14px; }
+  .doc ul { padding-left: 1.2em; display: grid; gap: 6px; }
+  .doc li::marker { color: var(--faint); }
+  .doc b { font-weight: 600; }
+  .doc p a, .doc ul li a, .doc dd a, .doc td a { text-decoration: underline; text-decoration-color: var(--accent-line); text-underline-offset: 3px; }
+  .doc .card { overflow: hidden; }
+  .doc .rows dt { white-space: normal; }
+
+  .toc { margin-top: 28px; padding: 16px 18px; }
+  .toc ol { margin: 8px 0 0; padding-left: 1.4em; display: grid; gap: 4px; font-size: var(--t-sm); }
+  .toc li::marker { font-family: var(--mono); color: var(--accent); }
+
+  .tbl th:first-child { width: 34%; }
+  .doc-foot { margin-top: 56px; padding-block: 18px 40px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: var(--t-xs); color: var(--muted); }
+  .doc-foot a { color: var(--muted); }
+  .doc-foot a:hover { color: var(--fg); }
+
+  @media (max-width: 760px) {
+    .doc { padding-top: 28px; }
+    .doc section { margin-top: 40px; }
+    .doc h2 { font-size: 20px; }
+    .tbl th:first-child { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="col top">
+  <a class="back" href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>На сайт</a>
+  <a class="brand" href="/" aria-label="Долгов, Эй Ай и партнеры, на главную"><b>Долгов,</b><small>Эй Ай и партнеры<sup>©</sup></small></a>
+</header>
+
+<main class="col">
+  <article class="doc">
+    <p class="mlabel">Документ</p>
+    <h1 class="h1">Политика обработки персональных данных и cookie</h1>
+    <p class="ver">Версия от 29 октября 2026 года</p>
+    <p class="lead">Здесь написано, какие данные собирает сайт dolgovalex.com, зачем они нужны, где хранятся и как их удалить. Политика действует для всех страниц сайта и составлена по Федеральному закону от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+
+    <nav class="card toc" aria-label="Содержание">
+      <p class="label">Содержание</p>
+      <ol>
+        <li><a href="#operator">Кто обрабатывает данные</a></li>
+        <li><a href="#data">Какие данные и зачем</a></li>
+        <li><a href="#chat">Чат с ИИ</a></li>
+        <li><a href="#storage">Где хранятся данные и сколько</a></li>
+        <li><a href="#notify">Уведомления о заявках</a></li>
+        <li><a href="#cookie">Cookie и Яндекс Метрика</a></li>
+        <li><a href="#rights">Ваши права и как отозвать согласие</a></li>
+        <li><a href="#changes">Изменения политики</a></li>
+      </ol>
+    </nav>
+
+    <section id="operator">
+      <h2><span class="n">1</span>Кто обрабатывает данные</h2>
+      <p>Сайт dolgovalex.com работает под названием «Долгов, Эй Ай и партнеры». Оператор персональных данных на сайте один: Александр Долгов.</p>
+      <div class="card">
+        <dl class="rows">
+          <div><dt>Оператор</dt><dd>Долгов Александр Александрович</dd></div>
+          <div><dt>Статус</dt><dd>Плательщик налога на профессиональный доход</dd></div>
+          <div><dt>ИНН</dt><dd class="num">503116237791</dd></div>
+          <div><dt>Почта</dt><dd><a href="mailto:bonjour@dolgovalex.com">bonjour@dolgovalex.com</a></dd></div>
+          <div><dt>Telegram</dt><dd><a href="https://t.me/dolgovalex" target="_blank" rel="noopener">@dolgovalex</a></dd></div>
+        </dl>
+      </div>
+      <p>Ниже «мы» означает оператора, «вы» означает посетителя сайта.</p>
+    </section>
+
+    <section id="data">
+      <h2><span class="n">2</span>Какие данные и зачем</h2>
+      <p>Данные попадают к нам тремя путями: через форму заявки, через чат с ИИ и через Яндекс Метрику. Здесь описана форма, чату посвящён раздел 3, Метрике раздел 6.</p>
+
+      <h3>Форма заявки</h3>
+      <p>Форма появляется в чате, когда вы хотите, чтобы с вами связались.</p>
+      <ul>
+        <li><b>Обязательно:</b> имя и контакт (телефон, почта или Telegram).</li>
+        <li><b>По желанию:</b> компания, роль, размер компании, задача, удобный канал и время связи, откуда вы о нас узнали, какие разделы сайта смотрели.</li>
+        <li><b>Сохраняется автоматически:</b> время отправки, раздел сайта, из которого отправлена заявка, хеш IP-адреса и данные браузера (user-agent).</li>
+      </ul>
+      <p><b>Зачем.</b> Чтобы связаться с вами и обсудить обучение или другие услуги.</p>
+      <p><b>Основание.</b> Ваше согласие. Без отметки о согласии форма не отправится.</p>
+
+      <h3>Журнал согласий</h3>
+      <p>Когда вы отправляете форму, в журнал записываются время, версия политики, текст согласия, хеш IP-адреса и данные браузера (user-agent). Сам IP-адрес не хранится, только его хеш.</p>
+      <p><b>Зачем.</b> Чтобы подтвердить, что согласие было дано, когда и на каких условиях.</p>
+      <p><b>Основание.</b> Обязанность оператора доказать получение согласия (часть 3 статьи 9 закона № 152-ФЗ).</p>
+
+      <h3>Что мы делаем с данными</h3>
+      <p>Собираем, записываем, систематизируем, накапливаем, храним, уточняем, извлекаем, используем, передаём в случаях, описанных в этой политике, блокируем, удаляем и уничтожаем. Обрабатываем с помощью средств автоматизации и без них.</p>
+      <p>Данные из формы и журнала согласий мы не продаём и не передаём третьим лицам, кроме случаев, предусмотренных законом. Как сообщения чата попадают в языковую модель, описано в разделе 3.</p>
+      <p>Сайт не просит сведений о здоровье, убеждениях и других специальных категорий данных, а также биометрических данных. Пожалуйста, не указывайте их ни в форме, ни в чате.</p>
+    </section>
+
+    <section id="chat">
+      <h2><span class="n">3</span>Чат с ИИ</h2>
+      <p>На вопросы в чате отвечает ИИ-ассистент. Ваше сообщение проходит через хаб Dolgov AI на сервере в России и отправляется в языковую модель. Перед отправкой телефоны, адреса почты, ники Telegram и длинные числа автоматически заменяются метками.</p>
+      <p>Модель может работать у поставщика за пределами России. Поэтому просим не писать в чате персональные данные, паспортные данные и коммерческую тайну. Автоматическая замена находит только контакты и номера. Имена, адреса и другие сведения о вас, если вы их напишете, уйдут в модель вместе с сообщением.</p>
+      <p>Если хотите, чтобы мы с вами связались, оставьте контакт в форме заявки. Данные формы сохраняются на нашем сервере в России и в модель не передаются.</p>
+      <p>Тексты сообщений, в которых контакты уже заменены метками, и ответы ассистента хранятся в базе на сервере в России. Вместе с ними сохраняются время, раздел сайта, номер сессии чата и хеш IP-адреса. Этот журнал мы читаем, чтобы проверять и улучшать ответы ассистента. Журнал чата хранится 1 год.</p>
+    </section>
+
+    <section id="storage">
+      <h2><span class="n">4</span>Где хранятся данные и сколько</h2>
+      <p>Заявки, журнал согласий и журнал чата хранятся в базе на сервере в Москве, в облаке Cloud.ru. Резервная копия базы лежит на том же сервере и хранится 14 дней.</p>
+      <div class="card">
+        <div class="tw">
+          <table class="tbl tbl-stack">
+            <thead><tr><th scope="col">Что</th><th scope="col">Сколько храним</th></tr></thead>
+            <tbody>
+              <tr><td class="b">Заявки из формы</td><td data-label="Срок">Пока не достигнута цель обработки, но не дольше 3 лет с последнего контакта с вами. Если вы отзовёте согласие раньше, удалим раньше.</td></tr>
+              <tr><td class="b">Журнал чата</td><td data-label="Срок">1 год</td></tr>
+              <tr><td class="b">Резервная копия базы</td><td data-label="Срок">14 дней</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p>Когда срок истекает или вы отзываете согласие, мы удаляем данные из базы. Из резервных копий они пропадают не позже чем через 14 дней.</p>
+    </section>
+
+    <section id="notify">
+      <h2><span class="n">5</span>Уведомления о заявках</h2>
+      <p>О новой заявке Александр узнаёт из уведомления в Telegram. В уведомлении нет имени, контакта, названия компании и должности, свободный текст из формы туда тоже не попадает. Там номер заявки, тема, канал и время связи, другие ответы с готовыми вариантами и ссылка на заявку.</p>
+      <p>Имя и контакт можно посмотреть только на сервере в России: страница заявки открывается по паролю.</p>
+    </section>
+
+    <section id="cookie">
+      <h2><span class="n">6</span>Cookie и Яндекс Метрика</h2>
+      <p>Cookie — небольшие файлы, которые сайт сохраняет в вашем браузере.</p>
+      <p>На сайте работает Яндекс Метрика, счётчик 108677290. Она сохраняет свои cookie и собирает обезличенную статистику посещений. Мы смотрим её, чтобы понимать, как посетители пользуются сайтом, и делать его удобнее.</p>
+      <p>В Метрике включены Вебвизор, карта кликов и отслеживание ссылок. Вебвизор записывает действия на странице: прокрутку, движения мыши и нажатия. Карта кликов показывает, куда нажимают чаще всего, отслеживание ссылок показывает, по каким ссылкам уходят с сайта.</p>
+      <p>Данные Метрики обрабатывает ООО «Яндекс» по своим <a href="https://yandex.ru/legal/metrica_termsofuse/" target="_blank" rel="noopener">условиям использования сервиса</a>.</p>
+      <p>При первом заходе сайт показывает уведомление о cookie со ссылкой на этот раздел. Запретить cookie или удалить уже сохранённые можно в настройках браузера.</p>
+      <p>Чат хранит номер своей сессии в хранилище браузера (sessionStorage), чтобы разговор не терялся при переходе между страницами. Это не cookie: номер стирается, когда вы закрываете вкладку.</p>
+    </section>
+
+    <section id="rights">
+      <h2><span class="n">7</span>Ваши права и как отозвать согласие</h2>
+      <p>По закону № 152-ФЗ вы можете:</p>
+      <ul>
+        <li>узнать, обрабатываем ли мы ваши данные, какие и зачем;</li>
+        <li>потребовать уточнить, заблокировать или удалить данные, если они неполные, устарели, неточны или обрабатываются незаконно;</li>
+        <li>отозвать согласие на обработку;</li>
+        <li>обжаловать наши действия в Роскомнадзоре или в суде.</li>
+      </ul>
+      <p>Чтобы отозвать согласие или удалить данные, напишите на <a href="mailto:bonjour@dolgovalex.com">bonjour@dolgovalex.com</a>. Укажите имя и контакт, которые оставляли в форме, чтобы мы нашли заявку. Ответим в течение 10 рабочих дней.</p>
+      <p>После отзыва согласия мы прекращаем обработку и удаляем ваши данные из базы. Из резервных копий они пропадают не позже чем через 14 дней.</p>
+      <p>С другими вопросами о данных можно написать в Telegram <a href="https://t.me/dolgovalex" target="_blank" rel="noopener">@dolgovalex</a>.</p>
+    </section>
+
+    <section id="changes">
+      <h2><span class="n">8</span>Изменения политики</h2>
+      <p>Если изменится то, как сайт обрабатывает данные, или статус оператора, мы обновим политику на этой странице и поставим новую дату версии. В журнале согласий записано, с какой версией политики вы согласились.</p>
+      <p>Текущая версия от 29 октября 2026 года.</p>
+    </section>
+  </article>
+
+  <footer class="doc-foot">
+    <span>© 2026 Долгов, Эй Ай и партнеры</span>
+    <a href="/">dolgovalex.com</a>
+  </footer>
+</main>
+
+</body>
+</html>

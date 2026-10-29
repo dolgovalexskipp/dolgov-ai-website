@@ -1,7 +1,5 @@
-/* Прототип каркаса v3: пять разделов, программы по одной на экран, вход по ролям,
-   ассистент с экспресс-диагностикой и подсказкой по разделу.
-   Адреса в прототипе — #komandam, #agent и т. д.; в рабочей версии это отдельные
-   статичные страницы (/komandam/agent/), чтобы их находил поиск. */
+/* dolgovalex.com: окна разделов, вкладки, чат по материалам сайта с заявкой, баннер cookie.
+   Адреса разделов: #komandam, #pilot, #pogruzhenie и т. д.; старые страницы сайта ведут сюда же. */
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -13,17 +11,20 @@
   const lc = s => s ? s.charAt(0).toLowerCase() + s.slice(1) : "";
 
   /* ─── разделы, вкладки, экраны внутри раздела ─── */
-  const TITLES = { home: "Главная", komandam: "Командам", harness: "Агентное управление", lichno: "Лично", metod: "Метод", bio: "Обо мне" };
+  const TITLES = { home: "Главная", komandam: "Командам", lichno: "Для себя", harness: "Управление агентами", metod: "Метод", bio: "Обо мне", stati: "Статьи" };
   /* короткие адреса: раздел и экран внутри (имя экрана) или место на странице (#якорь) */
   const ALIAS = {
     programmy: ["komandam", "obzor"], navyk: ["komandam", "navyk"], agent: ["komandam", "agent"], pilot: ["komandam", "pilot"], sistema: ["komandam", "sistema"],
     pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], mastermind: ["lichno", "pogruzhenie"],
-    kontur: ["harness", "#hz-corp"], opyt: ["bio", "#bio-teach"], produkty: ["bio", "#bio-prod"], stati: ["bio", "#bio-stati"], sdelano: ["bio", "#bio-site"],
+    kontur: ["harness", "#hz-corp"], opyt: ["bio", "#bio-teach"], produkty: ["bio", "#bio-prod"], sdelano: ["bio", "#bio-site"],
+    "dlya-sebya": ["lichno"], upravlenie: ["harness"], tarify: ["harness", "#hz-tariffs"],
+    /* старые адреса сайта */
+    obuchenie: ["komandam", "obzor"], soprovozhdenie: ["harness"], konsultacii: ["lichno", "konsultaciya"], about: ["bio"], manifest: ["metod"],
   };
   const SUBNAME = { navyk: "Навык", agent: "Агент", pilot: "Пилот", sistema: "Система", pogruzhenie: "Погружение", konsultaciya: "Консультация" };
   const app = $("#ap");
   let opened = [];
-  let cur = "home";
+  let cur = "home", curSub = "";
   const seen = new Set();
 
   $$(".ap-nav a").forEach(a => { a.title = a.textContent.trim(); });
@@ -36,6 +37,7 @@
     $$(".win-nav [data-sub]", win).forEach(b => b.classList.toggle("on", b.dataset.sub === name));
     const pane = $(".win-pane", win);
     if (pane) pane.scrollTop = 0;
+    curSub = name;
     if (SUBNAME[name]) seen.add(SUBNAME[name]);
   }
   $$(".win-nav [data-sub]").forEach(b => b.addEventListener("click", () => setSub(b.closest(".ap-view"), b.dataset.sub)));
@@ -45,7 +47,8 @@
     let s = token, sub = null;
     if (ALIAS[s]) [s, sub] = ALIAS[s];
     if (!TITLES[s]) s = "home";
-    cur = s;
+    const prev = pageName();
+    cur = s; curSub = "";
     $$(".ap-view").forEach(v => { v.hidden = v.dataset.view !== s; });
     $$("[data-s]").forEach(a => a.dataset.s === s ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (s !== "home") { if (!opened.includes(s)) opened.push(s); seen.add(TITLES[s]); }
@@ -64,6 +67,7 @@
       spy(pane);
     }
     context(s);
+    if (booted && !touched && !busy && !inForm && pageName() !== prev) start(true);
   }
   function go(s) { if (location.hash.slice(1) !== s) location.hash = s; else show(s); }
   window.addEventListener("hashchange", () => show(location.hash.slice(1) || "home"));
@@ -122,7 +126,7 @@
     update();
   }
 
-  /* сетка темпа запусков агентного управления */
+  /* сетка темпа запусков управления агентами */
   $$(".pace-r").forEach(r => {
     const n = +r.dataset.every;
     for (let m = 1; m <= 12; m++) {
@@ -138,28 +142,18 @@
   moreBtn.addEventListener("click", () => sheet(moreSheet.hidden));
   document.addEventListener("click", e => { if (!moreSheet.hidden && !e.target.closest("#moreSheet, #moreBtn")) sheet(false); });
 
-  /* тост для заглушек */
-  let toastT;
-  function toast(text) {
-    let t = $(".toast");
-    if (!t) { t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); document.body.append(t); }
-    t.textContent = text; t.hidden = false;
-    clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 2800);
-  }
-  document.addEventListener("click", e => {
-    if (e.target.closest("[data-policy]")) { e.preventDefault(); toast("Политика обработки данных и cookie: страница в работе, появится до запуска"); }
-  });
-
   /* ─── ассистент ─── */
   const chat = $("#chat"), log = $("#chLog"), form = $("#chForm"), input = $("#chIn"), ctxBox = $("#chCtx");
   const L = {};
-  let pending = null, busy = false, inForm = false;
+  let pending = null, busy = false, inForm = false, touched = false, booted = false;
+  const pageName = () => (TITLES[cur] || "Главная") + (SUBNAME[curSub] ? " · " + SUBNAME[curSub] : "");
   const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
   /* Сервис чата: адрес в <html data-chat-api="https://...">. Без адреса чат работает по демо-сценарию.
      На localhost адрес можно передать параметром ?chat_api=..., на сайте — нельзя (иначе чужая ссылка
      могла бы увести переписку и заявку на чужой сервер). */
   const isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-  const API = ((isLocal && new URLSearchParams(location.search).get("chat_api")) || document.documentElement.dataset.chatApi || "").replace(/\/$/, "");
+  /* на своей машине боевой сервис не трогаем: только явный ?chat_api=... */
+  const API = ((isLocal ? new URLSearchParams(location.search).get("chat_api") : document.documentElement.dataset.chatApi) || "").replace(/\/$/, "");
   const H = [];
   let SID = "";
   try { SID = sessionStorage.getItem("chatSid") || ""; } catch (e) { SID = ""; }
@@ -176,7 +170,7 @@
     let d;
     try {
       const r = await fetch(API + "/api/chat", { method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ session: SID, page: TITLES[cur], message: text, history: H.slice(-7, -1) }) });
+        body: JSON.stringify({ session: SID, page: pageName(), message: text, history: H.slice(-7, -1) }) });
       d = await r.json();
     } catch (e) {
       d = { reply: "Сейчас не могу ответить. Оставьте контакт в форме ниже, Александр ответит сам.", action: "show_form", chips: [] };
@@ -192,6 +186,7 @@
     }
     if (d.action === "show_form" || d.action === "handoff") { await contact(); return; }
     if (d.chips && d.chips.length) chips(d.chips.map(c => ({ label: c, action: () => { if (busy) return; clearChips(); add("me", esc(c)); llm(c); } })));
+    else pending = onTopic;
   }
   const scrollEnd = () => { log.scrollTop = log.scrollHeight; };
 
@@ -206,9 +201,9 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") { closeChat(); sheet(false); } });
   document.addEventListener("click", e => {
     const d = e.target.closest("[data-diag]");
-    if (d) { openChat(false); restartWith("Экспресс-диагностика", diag); return; }
+    if (d) { openChat(false); restartWith(T.diag, diag); return; }
     const f = e.target.closest("[data-chat-focus]");
-    if (f) { openChat(); if (f.dataset.topic) restartWith(f.dataset.topic, () => onTopic(f.dataset.topic)); }
+    if (f) { openChat(f.dataset.topic === T.pq); if (f.dataset.topic) restartWith(f.dataset.topic, () => onTopic(f.dataset.topic)); }
   });
   /* вход по ролям: раздел открывается, ассистент знает, кто пришёл */
   $$("[data-role]").forEach(a => a.addEventListener("click", () => { L.role = a.dataset.role; }));
@@ -216,6 +211,7 @@
   function add(cls, html) {
     const d = document.createElement("div");
     d.className = "msg " + cls;
+    if (cls === "me") touched = true;
     d.innerHTML = html;
     log.append(d);
     scrollEnd();
@@ -238,7 +234,7 @@
       const o = typeof c === "string" ? { label: c } : c;
       const b = document.createElement("button");
       b.type = "button"; b.className = "chip"; b.textContent = o.label;
-      b.addEventListener("click", () => { if (o.action) o.action(); else answer(o.label); });
+      b.addEventListener("click", () => { if (busy) return; if (o.action) o.action(); else answer(o.label); });
       w.append(b);
     });
     log.append(w);
@@ -279,57 +275,100 @@
   const lock = (on, hint) => { inForm = on; input.disabled = on; input.placeholder = on ? hint : "Опишите задачу своими словами"; context(cur); };
   const freeze = el => $$("button, input, select", el).forEach(x => { x.disabled = true; });
 
-  /* подсказка по разделу над полем ввода */
+  const T = { diag: "Подобрать программу за 3 минуты", learn: "Обучить команду работе с агентами", proc: "Перевести процесс компании на агентов", solo: "Хочу разобраться сам",
+    signup: "Записаться на Погружение 28 ноября", pq: "Вопрос про Погружение", cons: "Записаться на консультацию" };
+  /* подсказка над полем ввода: одна главная кнопка для раздела */
   const CTX = {
-    home: ["Какую работу отдать агентам первой?", diag],
-    komandam: ["Какая программа подойдёт нам?", diag],
-    harness: ["Какой тариф нам подойдёт?", diag],
-    lichno: ["Записаться на Погружение", () => onTopic(T.solo)],
-    metod: ["Как это выглядит на наших задачах?", diag],
+    home: [T.diag, () => diag()],
+    komandam: ["Какая программа подойдёт нам?", () => diag()],
+    lichno: [T.signup, () => signup()],
+    harness: ["Какой тариф нам подойдёт?", () => diag()],
+    metod: ["Как это выглядит на наших задачах?", () => diag()],
     bio: ["Обсудить задачу", () => onTopic(T.learn)],
+    stati: ["Задать вопрос", () => input.focus()],
   };
   function context(s) {
     const c = CTX[s];
     if (!c || inForm) { ctxBox.hidden = true; return; }
     ctxBox.hidden = false;
-    ctxBox.innerHTML = `<span>Вы в разделе «${TITLES[s]}»</span>`;
+    ctxBox.innerHTML = `<span>Вы в разделе «${esc(pageName())}»</span>`;
     const b = document.createElement("button");
     b.type = "button"; b.className = "chip"; b.textContent = c[0];
     b.addEventListener("click", () => { openChat(false); restartWith(c[0], c[1]); });
     ctxBox.append(b);
   }
+  /* приветствие чата зависит от раздела, где его открыли */
+  function greet() {
+    const prog = SUBNAME[curSub];
+    if (cur === "komandam" && ["navyk", "agent", "pilot", "sistema"].includes(curSub))
+      return [`Вы смотрите программу «${prog}». Подскажу, подойдёт ли она вашей команде, и соберу заявку.`, [`Подойдёт ли нам «${prog}»?`, "Что нужно подготовить?", `Обсудить «${prog}»`]];
+    if (cur === "komandam") return ["Подберу программу для команды и подскажу стоимость. Можно пройти короткую диагностику или сразу описать задачу.", [T.diag, "Чем «Агент» отличается от «Пилота»?", "Сколько стоит для 20 человек?", T.learn]];
+    if (cur === "lichno" && curSub === "konsultaciya") return ["Консультация: два часа один на один, онлайн или в Москве. Какой вопрос хотите разобрать?", [T.cons, "Чем она отличается от Погружения?"]];
+    if (cur === "lichno") return ["Ближайшее Погружение 28 ноября в Кибердоме, осталось 4 места. Записать вас или сначала ответить на вопросы?", [T.signup, "Подойдёт ли мне Погружение?", "Что взять с собой?", "Как проходит день?"]];
+    if (cur === "harness") return ["Расскажу про управление агентами и подберу тариф. Какой процесс хотите перевести на агентов первым?", ["Продажи и КП", "Закупки и тендеры", "Отчётность", "У нас уже есть агенты"]];
+    if (cur === "metod") return ["Могу показать, как метод выглядит на ваших задачах.", [T.diag, "Чем это отличается от курсов по промптам?", T.solo]];
+    if (cur === "bio") return ["Можно обсудить обучение для команды, выступление или своё участие в Погружении.", ["Пригласить выступить", T.learn, T.solo]];
+    if (cur === "stati") return ["Подскажу, с чего начать, или отвечу на вопрос по работе с агентами.", ["С чего начать работу с агентами?", "Как сделать, чтобы ИИ помнил контекст?", T.solo]];
+    return ["Здравствуйте. Отвечу на вопросы о программах, Погружении и управлении агентами. За три минуты подберу программу. Или сразу опишите задачу.", [T.diag, T.learn, T.proc, T.solo]];
+  }
+  const SCRIPTED = new Set(Object.values(T));
+  /* кнопка приветствия: сценарий, если он есть, иначе вопрос нейросети (или общий сценарий без неё) */
+  function pick(label) {
+    if (cur === "harness" && ["Продажи и КП", "Закупки и тендеры", "Отчётность"].includes(label)) { L.topic = T.proc; L.detail = label; return askRole(); }
+    if (label === "У нас уже есть агенты") { L.role = "Агенты уже есть"; L.topic = T.proc; L.detail = label; return askRole(); }
+    if (/^Обсудить «/.test(label)) { L.format = SUBNAME[curSub]; return onTopic(T.learn); }
+    if (label === "Пригласить выступить") { L.topic = "Выступление"; return ask("О каком событии речь: тема, аудитория и дата?", ["Конференция", "Внутреннее событие компании", "Расскажу сам"], async d => { L.detail = d; await contact(); }); }
+    if (SCRIPTED.has(label) || !API) return onTopic(label);
+    return llm(label);
+  }
 
-  const T = { diag: "Экспресс-диагностика, 3 минуты", learn: "Обучить команду работе с агентами", proc: "Перевести процесс компании на агентов", solo: "Хочу разобраться сам" };
   const ROLES = ["Собственник", "Руководитель отдела", "Отвечаю за обучение"];
 
-  async function start() {
-    log.innerHTML = "";
+  async function start(quiet = false) {
+    log.innerHTML = ""; touched = false; H.length = 0;
     const role = L.role;
     Object.keys(L).forEach(k => delete L[k]);
     if (role) L.role = role;
     pending = null; busy = false; lock(false);
     $("#tgDemo").hidden = true;
     if (!API) add("sys", "Прототип: чат идёт по готовому сценарию, без нейросети.");
-    await ask("Здравствуйте. Отвечу на вопросы о программах и агентном управлении. За три минуты могу разобрать, какую работу отдать агентам первой и с какой программы начать. Или сразу опишите задачу.", [T.diag, T.learn, T.proc, T.solo], onTopic);
+    const [text, list] = greet();
+    await say(esc(text), quiet ? 250 : 650);
+    chips(list.map(l => ({ label: l, action: () => { clearChips(); add("me", esc(l)); pick(l); } })));
+    pending = onTopic;
   }
   async function onTopic(t) {
     if (t === T.diag) return diag();
+    if (t === T.signup) return signup();
+    if (t === T.cons) return consult();
+    if (t === T.pq) { pending = onTopic; return say("Спрашивайте: про программу дня, место, оплату или кому подходит."); }
+    if (API && !SCRIPTED.has(t)) return llm(t);
     L.topic = t;
+    if (!L.format && t === T.learn && SUBNAME[curSub] && cur === "komandam") L.format = SUBNAME[curSub];
     if (t === T.learn) return ask("Сколько человек будет учиться и из каких отделов?", ["До 15 человек", "От 16 до 25", "Больше 25"], onDetail);
     if (t === T.proc) return ask("Какой процесс болит сильнее всего? Например, путь от заявки клиента до отправленного КП.", ["Продажи и КП", "Закупки и тендеры", "Отчётность", "Другой процесс"], onDetail);
-    if (t === T.solo) return ask("Для себя есть Погружение: один день в Москве, 5–8 человек, своя рабочая среда и агенты на ваших задачах. Какие задачи хотите отдать агентам?", ["Почта и документы", "Продажи", "Аналитика и отчёты", "Расскажу сам"], onDetail);
+    if (t === T.solo) return ask("Для себя есть Погружение: один день в Кибердоме, группа до 10 человек, ближайшее 28 ноября. Своя рабочая среда и агенты на ваших задачах. Какие задачи хотите отдать агентам?", ["Почта и документы", "Продажи", "Аналитика и отчёты", "Расскажу сам"], onDetail);
     L.topic = "Своя задача"; L.detail = t;
     return askRole();
   }
   async function onDetail(d) { L.detail = d; await askRole(); }
+  /* запись на Погружение и консультацию: короткий вопрос и форма контакта */
+  async function signup() {
+    L.topic = "Погружение 28 ноября"; L.format = "Погружение 28 ноября, Кибердом";
+    await ask("На 28 ноября осталось 4 места. Какие задачи хотите отдать агентам? Можно коротко, подробнее разберём на созвоне до старта.", ["Документы и переписка", "Продажи и клиенты", "Аналитика и отчёты", "Расскажу на созвоне"], async d => { L.detail = d; await contact(); });
+  }
+  async function consult() {
+    L.topic = "Консультация"; L.format = "Консультация, два часа";
+    await ask("Какой вопрос или задачу хотите разобрать?", ["Свой процесс", "Рабочая среда и агенты", "С чего начать компании"], async d => { L.detail = d; await contact(); });
+  }
   async function askRole() {
     if (L.role) { await suggest(); return askChannel(); }
     await ask("В какой компании вы работаете и какая у вас роль? Можно коротко, например «производство, собственник».", ROLES, async r => { L.role = r; await suggest(); await askChannel(); });
   }
   async function suggest() {
     let s, txt;
-    if (L.topic === T.proc || L.role === "Агенты уже есть") { L.format = "Агентное управление"; s = "harness"; txt = "Это задача для агентного управления: запускаем процесс за две недели, два месяца внедряем на живых данных, дальше поддерживаем. Если агенты у вас уже есть, начинаем с корпоративного контура."; }
-    else if (L.topic === T.solo || L.role === "Для себя") { L.format = "Погружение"; s = "pogruzhenie"; txt = "Подойдёт Погружение: за один день своя рабочая среда и агенты на двух или трёх ваших задачах. 80 000 ₽ с участника."; }
+    if (L.topic === T.proc || L.role === "Агенты уже есть") { L.format = "Управление агентами"; s = "harness"; txt = "Это задача для управления агентами: запускаем процесс за две недели, два месяца внедряем на живых данных, дальше поддерживаем. Если агенты у вас уже есть, начинаем с корпоративного контура."; }
+    else if (L.topic === T.solo || L.role === "Для себя") { L.format = "Погружение"; s = "pogruzhenie"; txt = "Подойдёт Погружение: за один день своя рабочая среда и агенты на двух или трёх ваших задачах. Ближайшее 28 ноября в Кибердоме, 80 000 ₽ с участника."; }
     else if (L.role === "Собственник") { L.format = "Пилот"; s = "pilot"; txt = "Подойдёт Пилот: отделы проектируют агентов на данных компании, а вечером первого дня руководители выбирают первые процессы, ответственных и бюджет на модели."; }
     else { L.format = "Агент"; s = "agent"; txt = "Подойдёт программа «Агент»: за день каждый отдел собирает агента на своей задаче и проверяет его на своих примерах." + (/16|25/.test(L.detail || "") ? " Для группы больше 15 человек стоимость выше на 20%." : ""); }
     const name = SUBNAME[s] || TITLES[s];
@@ -339,7 +378,7 @@
 
   /* экспресс-диагностика: пять вопросов и короткий разбор */
   async function diag() {
-    L.topic = "Экспресс-диагностика";
+    L.topic = "Подбор программы";
     await ask("Пять коротких вопросов. Сколько человек в компании?", ["До 20", "От 20 до 100", "От 100 до 500", "Больше 500"], async size => {
       L.size = size;
       await ask("Какая работа съедает больше всего часов руками?", ["Заявки и КП", "Документы и договоры", "Отчёты и сводки", "Ответы клиентам", "Другое"], async work => {
@@ -359,12 +398,12 @@
     const month = { "До 10": "до 40 часов в месяц", "От 10 до 40": "от 40 до 160 часов в месяц", "Больше 40": "больше 160 часов в месяц" }[L.hours];
     const tariff = { "До 20": "Старт", "От 20 до 100": "Стандарт", "От 100 до 500": "Бизнес", "Больше 500": "Анлимит" }[L.size];
     let s, why;
-    if (L.ai === "Есть свои агенты") { s = "harness"; L.format = "Агентное управление с корпоративным контуром"; why = "агенты уже есть, их нужно собрать в одно место с версиями и взять на поддержку"; }
+    if (L.ai === "Есть свои агенты") { s = "harness"; L.format = "Управление агентами с корпоративным контуром"; why = "агенты уже есть, их нужно собрать в одно место с версиями и взять на поддержку"; }
     else if (L.role === "Собственник" && L.hours !== "До 10") { s = "pilot"; L.format = "Пилот"; why = "часов много, а собственнику нужно выбрать первые процессы и проверить агентов на данных компании"; }
     else if (L.ai === "Нет" && L.hours === "До 10") { s = "navyk"; L.format = "Навык"; why = "команда начинает с нуля, первый навык даст понятный результат за четыре часа"; }
     else { s = "agent"; L.format = "Агент"; why = "за день каждый отдел соберёт агента на этой работе и проверит его на своих примерах"; }
     L.detail = `${L.work}, ${lc(L.hours)} ч в неделю, компания ${lc(L.size)} человек, ИИ: ${lc(L.ai)}`;
-    const rows = [["Отдать агентам первым", L.work], ["Сейчас уходит руками", month], ["С чего начать", `${L.format}: ${why}`], ["Дальше", `агентное управление, ориентир по размеру компании: тариф «${tariff}»`]];
+    const rows = [["Отдать агентам первым", L.work], ["Сейчас уходит руками", month], ["С чего начать", `${L.format}: ${why}`], ["Дальше", `управление агентами, ориентир по размеру компании: тариф «${tariff}»`]];
     const d = await say(`<b>Разбор</b><dl class="sum rep">${rows.map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("")}</dl><div class="mlink"><button type="button" class="btn btn-outline btn-sm">${icon("arrow-right")}Открыть «${SUBNAME[s] || TITLES[s]}»</button></div>`, 1100);
     $("button", d).addEventListener("click", () => { go(s); if (overlay()) closeChat(); });
     await ask("Передать этот разбор Александру?", ["Созвониться", "Переписка в Telegram", "Письмом на почту", "Пока не надо"], async c => {
@@ -390,11 +429,11 @@
     const mode = { email: "email", phone: "tel", tg: "text" }[kind];
     const d = await say(`Как к вам обращаться и куда ответить?
       <form class="mform" novalidate>
-        <label>Имя<input name="name" autocomplete="given-name" value="${esc(L.name || "")}"></label>
-        <label>${lbl}<input name="contact" inputmode="${mode}" value="${esc(L.contact || "")}"></label>
+        <label>Имя<input class="ym-disable-keys" name="name" autocomplete="given-name" value="${esc(L.name || "")}"></label>
+        <label>${lbl}<input class="ym-disable-keys" name="contact" inputmode="${mode}" value="${esc(L.contact || "")}"></label>
         ${L.channel ? "" : `<label>Как удобнее<select name="channel"><option>Переписка в Telegram</option><option>Созвониться</option><option>Письмом на почту</option></select></label>`}
         <label>Откуда вы о нас узнали<select name="source"><option value="">Выберите</option><option>Школа клуба «Команда»</option><option>ИИ-модуль в Казани</option><option>Рекомендация</option><option>Поиск в интернете</option><option>Telegram-канал</option><option>Другое</option></select></label>
-        <label class="ck"><input type="checkbox" name="ok"><span>Согласен на обработку персональных данных по <a href="#" data-policy>политике</a></span></label>
+        <label class="ck"><input type="checkbox" name="ok"><span>Согласен на обработку персональных данных по <a href="/privacy/" target="_blank" rel="noopener">политике</a></span></label>
         <p class="err" hidden></p>
         <button class="btn btn-primary btn-sm" type="submit">Дальше</button>
       </form>`, 700);
@@ -431,7 +470,7 @@
         const r = await fetch(API + "/api/lead", { method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ session: SID, name: L.name, contact: L.contact, consent: true, channel: L.channel || "", time: L.time || "",
             place: L.where || "", source: L.source || "", topic: L.topic || "", details: L.detail || "", role: L.role || "",
-            company: L.company || "", size: L.size || "", format: L.format || "", seen: [...seen].join(", ").slice(0, 300), page: TITLES[cur] }) });
+            company: L.company || "", size: L.size || "", format: L.format || "", seen: [...seen].join(", ").slice(0, 300), page: pageName() }) });
         ok = r.ok && (await r.json()).ok;
       } catch (e) { ok = false; }
       if (!ok) {
@@ -455,7 +494,26 @@
   $("#tgClose").addEventListener("click", () => { $("#tgDemo").hidden = true; });
   $("#chReset").addEventListener("click", start);
 
+  /* cookie: Яндекс Метрика включается только после согласия */
+  const CK = "cookieConsent";
+  const metrika = () => { const sc = document.createElement("script"); sc.src = "/assets/analytics.js"; sc.defer = true; document.head.append(sc); };
+  let consent = null;
+  try { consent = localStorage.getItem(CK); } catch (e) { consent = null; }
+  if (consent === "yes") metrika();
+  else if (consent !== "no" && !/claudeusercontent|claude\.ai/.test(location.hostname)) {
+    const bar = document.createElement("div");
+    bar.className = "cookie"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "Cookie");
+    bar.innerHTML = `<p>Сайт использует cookie Яндекс Метрики, чтобы считать посещения. <a href="/privacy/#cookie">Подробнее</a></p><div class="row"><button class="btn btn-primary btn-sm" type="button" data-ck="yes">Принять</button><button class="btn btn-ghost btn-sm" type="button" data-ck="no">Отказаться</button></div>`;
+    bar.addEventListener("click", e => {
+      const b = e.target.closest("[data-ck]"); if (!b) return;
+      try { localStorage.setItem(CK, b.dataset.ck); } catch (err) { /* без хранилища спросим снова */ }
+      if (b.dataset.ck === "yes") metrika();
+      bar.remove();
+    });
+    document.body.append(bar);
+  }
+
   /* старт */
   show(location.hash.slice(1) || "home");
-  start();
+  start().then(() => { booted = true; });
 })();

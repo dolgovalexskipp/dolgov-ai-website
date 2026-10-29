@@ -5,6 +5,5 @@ Disallow: /landing-clean-lab.html
 Disallow: /illustrations-brief.md
 Disallow: /style-guide.css
 Disallow: /ds/
-Disallow: /proto/
 
 Sitemap: https://dolgovalex.com/sitemap.xml

@@ -324,7 +324,21 @@ code, pre, .code { font-family: var(--mono) !important; }
 .of-faq details[open] summary::before{content:"–"}
 .of-faq .a{font-size:14.5px;line-height:1.55;color:var(--ink-72);margin:8px 0 0 20px}
 @media (max-width:640px){.of-anat{grid-template-columns:1fr}.of-side{justify-content:flex-start;text-align:left;border-right:0;border-left:2px solid var(--ink-12);padding:6px 0 6px 10px;margin-top:10px}.of-side.vis{border-left-color:var(--accent)}.of-life{grid-template-columns:1fr}}
-@media print{.of-tlwrap{overflow:visible}.of-cad{min-width:0}}
+.of-cards.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.of-cards.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.of-cards.four{grid-template-columns:1fr}}
+@media print{
+.of-tlwrap{overflow:visible}.of-cad{min-width:0}
+.of-cards.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+.of-card,.of-layer,.of-tlwrap,.of-life,.of-faq details,.callout,.chk,.tbl tr,.tscroll{break-inside:avoid}
+.of-num,.mat-h2,.mat-h3{break-after:avoid}
+.of-stack{break-inside:avoid}
+.mat-p:has(+ .of-anat),.mat-p:has(+ .of-tlwrap),.mat-h3:has(+ .mat-p){break-after:avoid}
+.checklist{break-inside:avoid}
+.of-tlwrap + p{break-before:avoid}
+.of-pb{break-before:page}
+.of-card,.of-layer{box-shadow:none}
+}
 </style>
 
 <section class="blk" style="border-top:0;padding-top:36px">
@@ -342,7 +356,7 @@ code, pre, .code { font-family: var(--mono) !important; }
 <div class="of-num">01</div>
 <h2 class="mat-h2">Как устроен Company Harness</h2>
 <p class="mat-p">Company Harness — так я называю эту работу. Это обвязка, в которой агенты работают внутри компании: процессы, данные, доступы, модели и человек, который за всем этим следит.</p>
-<div class="of-cards">
+<div class="of-cards four">
 <div class="of-card"><div class="k">Процессы</div><div class="v">Новый процесс в темпе тарифа</div><div class="s">от раза в полгода до каждого месяца; каждый проходит запуск, внедрение и поддержку</div></div>
 <div class="of-card"><div class="k">Консультации</div><div class="v">Часы на ваших людей</div><div class="s">вопросы сотрудников по их собственным агентам, обучение, планёрки</div></div>
 <div class="of-card"><div class="k">Рабочая среда</div><div class="v">Места, модели, подключения</div><div class="s">OpenCode у сотрудников, доступ к моделям через хаб, подключение ваших систем</div></div>
@@ -371,7 +385,7 @@ code, pre, .code { font-family: var(--mono) !important; }
 </div>
 </section>
 
-<section class="blk">
+<section class="blk of-pb">
 <div class="wrap">
 <div class="of-num">03</div>
 <h2 class="mat-h2">Что мы называем процессом</h2>
@@ -419,7 +433,7 @@ code, pre, .code { font-family: var(--mono) !important; }
 <div class="wrap">
 <div class="of-num">05</div>
 <h2 class="mat-h2">Что входит</h2>
-<div class="of-cards">
+<div class="of-cards four">
 <div class="of-card"><div class="k">Запуск процесса</div><ul><li>разбор процесса с ответственным</li><li>точка отсчёта и три-четыре показателя</li><li>справочники, шаблоны, агенты</li><li>подключение до двух систем</li><li>прогон на учебных данных и первая сводка</li></ul></div>
 <div class="of-card"><div class="k">Люди</div><ul><li>консультации и обучение в часах тарифа</li><li>планёрки и ответ в рабочее время по тарифу</li><li>агент первой линии отвечает на типовые вопросы</li><li>работаем в основном онлайн; выезды по согласованию, оцениваются отдельно</li></ul></div>
 <div class="of-card"><div class="k">Рабочая среда</div><ul><li>рабочие места: OpenCode, папка агента, личный ключ</li><li>доступ к моделям через хаб с лимитом на каждого</li><li>сетевой доступ к серверу вместе с вашим ИТ-подрядчиком</li></ul></div>
@@ -428,7 +442,7 @@ code, pre, .code { font-family: var(--mono) !important; }
 </div>
 </section>
 
-<section class="blk">
+<section class="blk of-pb">
 <div class="wrap">
 <div class="of-num">06</div>
 <h2 class="mat-h2">Для компаний с опытом: корпоративный контур</h2>

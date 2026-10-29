@@ -658,3 +658,6 @@ a.btn-link .i, button.btn-link .i { width: 14px; height: 14px; }
 .art-next .i { grid-column: 2; grid-row: 1 / 3; color: var(--accent); }
 .win-nav[aria-label="Статьи"] button { font-size: 13px; line-height: 1.3; white-space: normal; text-align: left; height: auto; padding-block: 6px; }
 .win-nav[aria-label="Статьи"] .label { margin-top: 10px; }
+
+/* подпись «Сделано с ❤️ и AI» одна: в подвале сайта (на телефоне в меню «Ещё»), не в окнах */
+.pane-end:empty { display: none; }

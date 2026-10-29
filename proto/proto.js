@@ -186,7 +186,7 @@
   async function say(html, ms = 650) {
     busy = true;
     const t = add("bot typing", "<i></i><i></i><i></i>");
-    t.setAttribute("aria-label", "Ассистент печатает");
+    t.setAttribute("aria-label", "Печатает");
     await wait(ms);
     t.remove();
     const d = add("bot", html);
@@ -270,8 +270,8 @@
     if (role) L.role = role;
     pending = null; busy = false; lock(false);
     $("#tgDemo").hidden = true;
-    add("sys", "Прототип: ассистент идёт по готовому сценарию. Нейросеть подключим следующим шагом.");
-    await ask("Здравствуйте. Я ИИ-ассистент Александра Долгова. За три минуты разберу, какую работу отдать агентам первой и с какой программы начать. Или сразу расскажите задачу.", [T.diag, T.learn, T.proc, T.solo], onTopic);
+    add("sys", "Прототип: чат идёт по готовому сценарию. Нейросеть подключим следующим шагом.");
+    await ask("Здравствуйте. Отвечу на вопросы о программах и агентном управлении. За три минуты могу разобрать, какую работу отдать агентам первой и с какой программы начать. Или сразу опишите задачу.", [T.diag, T.learn, T.proc, T.solo], onTopic);
   }
   async function onTopic(t) {
     if (t === T.diag) return diag();

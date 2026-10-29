@@ -481,3 +481,26 @@ body { overflow: hidden; background: var(--page-grad) fixed, var(--page); color:
 @media (prefers-reduced-motion: reduce) {
   .ap *, .ap *::before, .ap *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+/* v4: программы по правилам КП, метод шестью слоями */
+.cols2.fill > div, .cols2.parts > div { gap: 6px; }
+.cols2 .res { background: var(--accent-tint); border-color: var(--accent-line); }
+.cols2 .label { color: var(--accent); }
+.cols2 .dots { font-size: 13.5px; line-height: 1.45; }
+.dots.wide { max-width: 80ch; font-size: 14.5px; line-height: 1.55; gap: 7px; }
+.prep { margin-top: 14px; display: grid; max-width: 820px; }
+.prep > div { display: grid; grid-template-columns: 120px 1fr; gap: 12px; padding: 9px 0; border-top: 1px solid var(--hair); font-size: 14px; line-height: 1.5; align-items: baseline; }
+.prep > div:first-child { border-top: 0; }
+.prep .m { font: 500 12px/1.4 var(--mono); color: var(--accent); white-space: nowrap; }
+.roles-ex { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.roles-ex > div { display: flex; flex-direction: column; gap: 3px; padding: 11px 14px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--card); font-size: 13.5px; line-height: 1.45; color: var(--muted); }
+.roles-ex b { color: var(--fg); font-size: 14px; font-weight: 600; }
+.ladder td { vertical-align: top; }
+.ladder td:nth-child(3), .ladder td:nth-child(4) { min-width: 200px; }
+.layers-s { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+.layers-s .tag { font-size: 12px; padding: 0 7px; height: 21px; }
+.sched td:nth-child(2) { min-width: 240px; }
+@media (max-width: 760px) {
+  .roles-ex { grid-template-columns: minmax(0, 1fr); }
+  .prep > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}

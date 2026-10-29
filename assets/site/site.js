@@ -1,5 +1,7 @@
 /* dolgovalex.com: окна разделов, вкладки, чат по материалам сайта с заявкой, баннер cookie.
-   Адреса разделов: #komandam, #pilot, #pogruzhenie и т. д.; старые страницы сайта ведут сюда же. */
+   У каждого раздела и экрана свой адрес (/komandam/pilot/, /pogruzhenie/, /stati/<статья>/): такие страницы
+   собирает _tools/build_pages.py, а здесь переходы между ними идут без перезагрузки. Старые ссылки
+   вида /#pilot переводятся на новые адреса. */
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -17,10 +19,33 @@
     programmy: ["komandam", "obzor"], navyk: ["komandam", "navyk"], agent: ["komandam", "agent"], pilot: ["komandam", "pilot"], sistema: ["komandam", "sistema"],
     pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], mastermind: ["lichno", "pogruzhenie"],
     kontur: ["harness", "#hz-corp"], opyt: ["bio", "#bio-teach"], produkty: ["bio", "#bio-prod"], sdelano: ["bio", "#bio-site"],
-    "dlya-sebya": ["lichno"], upravlenie: ["harness"], tarify: ["harness", "#hz-tariffs"],
+    "dlya-sebya": ["lichno"], upravlenie: ["harness"], tarify: ["harness", "#hz-tariffs"], podgotovka: ["komandam", "podgotovka"],
     /* старые адреса сайта */
     obuchenie: ["komandam", "obzor"], soprovozhdenie: ["harness"], konsultacii: ["lichno", "konsultaciya"], about: ["bio"], manifest: ["metod"],
   };
+  /* адрес раздела и экрана внутри него */
+  function pathFor(s, sub) {
+    if (s === "komandam") return sub && sub !== "obzor" ? `/komandam/${sub}/` : "/komandam/";
+    if (s === "lichno") return sub === "konsultaciya" ? "/konsultaciya/" : "/pogruzhenie/";
+    if (s === "stati") return sub && sub !== "spisok" ? `/stati/${sub}/` : "/stati/";
+    return { home: "/", harness: "/upravlenie-agentami/", metod: "/metod/", bio: "/obo-mne/" }[s] || "/";
+  }
+  function fromPath(path) {
+    const m = path.replace(/index\.html$/, "").replace(/\/?$/, "/").match(/^\/([^/]+)\/(?:([^/]+)\/)?$/);
+    if (!m) return path === "/" || path === "" || /^\/index\.html$/.test(path) ? ["home"] : null;
+    const [, a, b] = m;
+    if (a === "komandam") return ["komandam", b || "obzor"];
+    if (a === "stati") return ["stati", b || "spisok"];
+    if (b) return null;
+    return { pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], "upravlenie-agentami": ["harness"], metod: ["metod"], "obo-mne": ["bio"] }[a] || null;
+  }
+  /* Яндекс Метрика: цели и просмотры страниц при переходах внутри сайта. Счётчик есть только после согласия на cookie. */
+  const YM = 108677290;
+  const goal = (name, params) => { try { if (window.ym) window.ym(YM, "reachGoal", name, params); } catch (e) { /* без счётчика молчим */ } };
+  const hit = (url, referer) => { try { if (window.ym) window.ym(YM, "hit", url, { title: document.title, referer }); } catch (e) { /* без счётчика молчим */ } };
+  /* заголовки и описания страниц: их пишет сборщик страниц в <script id="routes"> */
+  let META = {};
+  try { META = JSON.parse(document.getElementById("routes")?.textContent || "{}"); } catch (e) { META = {}; }
   const SUBNAME = { navyk: "Навык", agent: "Агент", pilot: "Пилот", sistema: "Система", pogruzhenie: "Погружение", konsultaciya: "Консультация" };
   const app = $("#ap");
   let opened = [];
@@ -40,12 +65,38 @@
     curSub = name;
     if (SUBNAME[name]) seen.add(SUBNAME[name]);
   }
-  $$(".win-nav [data-sub]").forEach(b => b.addEventListener("click", () => setSub(b.closest(".ap-view"), b.dataset.sub)));
+  $$(".win-nav [data-sub]").forEach(b => b.addEventListener("click", () => route(b.closest(".ap-view").dataset.view, b.dataset.sub, "push")));
   $$("tr[data-go]").forEach(tr => { tr.tabIndex = 0; tr.addEventListener("click", () => go(tr.dataset.go)); tr.addEventListener("keydown", e => { if (e.key === "Enter") go(tr.dataset.go); }); });
 
-  function show(token) {
+  /* разбор имени: раздел, экран (или #якорь) */
+  function resolve(token) {
     let s = token, sub = null;
     if (ALIAS[s]) [s, sub] = ALIAS[s];
+    if (!TITLES[s]) return null;
+    return [s, sub];
+  }
+  /* перейти: нарисовать раздел и обновить адрес (push — новая запись в истории, replace — заменить, none — не трогать) */
+  function route(s, sub, mode = "push", anchor = "") {
+    render(s, sub);
+    if (anchor) scrollToAnchor(anchor);
+    const url = pathFor(cur, curSub) + (anchor ? "#" + anchor : "");
+    const before = location.href;
+    if (mode !== "none" && url !== location.pathname + location.hash) history[mode === "replace" ? "replaceState" : "pushState"]({}, "", url);
+    const m = META[pathFor(cur, curSub)];
+    if (m) {
+      document.title = m.t;
+      document.querySelector('meta[name="description"]')?.setAttribute("content", m.d);
+      document.querySelector('link[rel="canonical"]')?.setAttribute("href", "https://dolgovalex.com" + pathFor(cur, curSub));
+    }
+    if (mode === "push" && location.href !== before) hit(location.href, before);
+  }
+  function scrollToAnchor(id) {
+    const el = document.getElementById(id), pane = el?.closest(".win-pane");
+    if (!el || !pane) return;
+    pane.scrollTop = 0;
+    pane.scrollTop = el.getBoundingClientRect().top - pane.getBoundingClientRect().top - 12;
+  }
+  function render(s, sub) {
     if (!TITLES[s]) s = "home";
     const prev = pageName();
     cur = s; curSub = "";
@@ -69,8 +120,31 @@
     context(s);
     if (booted && !touched && !busy && !inForm && pageName() !== prev) start(true);
   }
-  function go(s) { if (location.hash.slice(1) !== s) location.hash = s; else show(s); }
-  window.addEventListener("hashchange", () => show(location.hash.slice(1) || "home"));
+  function go(token) {
+    const r = resolve(token); if (!r) return;
+    const [s, sub] = r;
+    if (sub && sub.startsWith("#")) route(s, null, "push", sub.slice(1)); else route(s, sub, "push");
+  }
+  const show = go;
+  /* ссылки на разделы сайта открываются внутри, без перезагрузки */
+  document.addEventListener("click", e => {
+    const a = e.target.closest("a[href]");
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank" || a.hasAttribute("download")) return;
+    const u = new URL(a.getAttribute("href"), location.href);
+    if (u.origin !== location.origin) return;
+    if (u.pathname === location.pathname && u.hash && !resolve(u.hash.slice(1))) {
+      if (document.getElementById(u.hash.slice(1))?.closest(".win-pane")) { e.preventDefault(); scrollToAnchor(u.hash.slice(1)); }
+      return;
+    }
+    const hashTok = u.hash && resolve(u.hash.slice(1));
+    if (u.pathname === location.pathname && hashTok) { e.preventDefault(); go(u.hash.slice(1)); return; }
+    const r = fromPath(u.pathname);
+    if (!r) return;
+    e.preventDefault();
+    route(r[0], r[1], "push", u.hash.slice(1));
+  });
+  window.addEventListener("popstate", () => { const r = fromPath(location.pathname) || ["home"]; route(r[0], r[1], "none", location.hash.slice(1)); });
+  window.addEventListener("hashchange", () => { const t = location.hash.slice(1); if (resolve(t)) go(t); });
 
   function renderTabs() {
     const box = $("#tabs");
@@ -82,8 +156,8 @@
       t.setAttribute("aria-selected", String(s === cur));
       t.tabIndex = 0;
       t.innerHTML = `<span>${TITLES[s]}</span>` + (closable ? `<button class="x" type="button" aria-label="Закрыть вкладку ${TITLES[s]}">${icon("x")}</button>` : "");
-      t.addEventListener("click", e => { if (e.target.closest(".x")) { e.stopPropagation(); closeTab(s); } else go(s); });
-      t.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(s); } });
+      t.addEventListener("click", e => { if (e.target.closest(".x")) { e.stopPropagation(); closeTab(s); } else route(s, null, "push"); });
+      t.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); route(s, null, "push"); } });
       box.append(t);
     };
     tab("home", false);
@@ -97,7 +171,7 @@
   }
   function closeTab(s) {
     opened = opened.filter(x => x !== s);
-    if (cur === s) go(opened[opened.length - 1] || "home"); else renderTabs();
+    if (cur === s) route(opened[opened.length - 1] || "home", null, "push"); else renderTabs();
   }
 
   /* оглавление длинного раздела: переход и подсветка при прокрутке */
@@ -146,7 +220,7 @@
   const chat = $("#chat"), log = $("#chLog"), form = $("#chForm"), input = $("#chIn"), ctxBox = $("#chCtx");
   const L = {};
   let pending = null, busy = false, inForm = false, touched = false, booted = false;
-  const pageName = () => (TITLES[cur] || "Главная") + (SUBNAME[curSub] ? " · " + SUBNAME[curSub] : "");
+  const pageName = () => (TITLES[cur] || "Главная") + (SUBNAME[curSub] ? " · " + SUBNAME[curSub] : (cur === "stati" && curSub && curSub !== "spisok" ? " · " + (document.querySelector(`.sub[data-sub="${curSub}"]`)?.dataset.t || "").slice(0, 40) : ""));
   const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
   /* Сервис чата: адрес в <html data-chat-api="https://...">. Без адреса чат работает по демо-сценарию.
      На localhost адрес можно передать параметром ?chat_api=..., на сайте — нельзя (иначе чужая ссылка
@@ -191,6 +265,7 @@
   const scrollEnd = () => { log.scrollTop = log.scrollHeight; };
 
   function openChat(focus = true) {
+    goal("chat_open");
     if (overlay()) chat.classList.add("open");
     else { chat.classList.remove("flash"); void chat.offsetWidth; chat.classList.add("flash"); setTimeout(() => chat.classList.remove("flash"), 700); }
     if (focus && !input.disabled) setTimeout(() => input.focus({ preventScroll: true }), overlay() ? 260 : 0);
@@ -270,6 +345,7 @@
     const v = input.value.trim();
     if (!v || input.disabled) return;
     input.value = ""; autosize();
+    if (!touched) goal("chat_message");
     answer(v, true);
   });
   const lock = (on, hint) => { inForm = on; input.disabled = on; input.placeholder = on ? hint : "Опишите задачу своими словами"; context(cur); };
@@ -354,10 +430,12 @@
   async function onDetail(d) { L.detail = d; await askRole(); }
   /* запись на Погружение и консультацию: короткий вопрос и форма контакта */
   async function signup() {
+    goal("signup_pogruzhenie");
     L.topic = "Погружение 28 ноября"; L.format = "Погружение 28 ноября, Кибердом";
     await ask("На 28 ноября осталось 4 места. Какие задачи хотите отдать агентам? Можно коротко, подробнее разберём на созвоне до старта.", ["Документы и переписка", "Продажи и клиенты", "Аналитика и отчёты", "Расскажу на созвоне"], async d => { L.detail = d; await contact(); });
   }
   async function consult() {
+    goal("signup_konsultaciya");
     L.topic = "Консультация"; L.format = "Консультация, два часа";
     await ask("Какой вопрос или задачу хотите разобрать?", ["Свой процесс", "Рабочая среда и агенты", "С чего начать компании"], async d => { L.detail = d; await contact(); });
   }
@@ -378,6 +456,7 @@
 
   /* экспресс-диагностика: пять вопросов и короткий разбор */
   async function diag() {
+    goal("diag_start");
     L.topic = "Подбор программы";
     await ask("Пять коротких вопросов. Сколько человек в компании?", ["До 20", "От 20 до 100", "От 100 до 500", "Больше 500"], async size => {
       L.size = size;
@@ -424,6 +503,7 @@
     await contact();
   }
   async function contact() {
+    goal("lead_form");
     const kind = L.channel === "Письмом на почту" ? "email" : (L.where === "По телефону" ? "phone" : "tg");
     const lbl = { email: "Почта", phone: "Телефон", tg: "Telegram или телефон" }[kind];
     const mode = { email: "email", phone: "tel", tg: "text" }[kind];
@@ -477,6 +557,7 @@
         await say("Не получилось отправить заявку. Напишите напрямую: @dolgovalex или bonjour@dolgovalex.com.");
         pending = null; chips([{ label: "Начать заново", action: start }]); return;
       }
+      goal("lead_sent", { format: L.format || "", page: pageName() });
       await say(`Передал. ${esc(next)}`, 400);
     } else {
       await say(`Передал. ${esc(next)} Если вопрос срочный, напишите напрямую: @dolgovalex.`, 900);
@@ -514,6 +595,10 @@
   }
 
   /* старт */
-  show(location.hash.slice(1) || "home");
+  {
+    const t = location.hash.slice(1), r = resolve(t);
+    if (r) { const [rs, rsub] = r; if (rsub && rsub.startsWith("#")) route(rs, null, "replace", rsub.slice(1)); else route(rs, rsub, "replace"); }
+    else { const pr = fromPath(location.pathname) || ["home"]; route(pr[0], pr[1], "none", t); }
+  }
   start().then(() => { booted = true; });
 })();

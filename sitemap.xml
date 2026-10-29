@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://dolgovalex.com/</loc><lastmod>2026-10-29</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://dolgovalex.com/tips/</loc><lastmod>2026-10-29</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://dolgovalex.com/partners/</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://dolgovalex.com/</loc><lastmod>2026-10-29</lastmod><priority>1.0</priority></url>
+  <url><loc>https://dolgovalex.com/komandam/</loc><lastmod>2026-10-29</lastmod><priority>0.9</priority></url>
+  <url><loc>https://dolgovalex.com/komandam/navyk/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/komandam/agent/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/komandam/pilot/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/komandam/sistema/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/komandam/podgotovka/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/pogruzhenie/</loc><lastmod>2026-10-29</lastmod><priority>0.9</priority></url>
+  <url><loc>https://dolgovalex.com/konsultaciya/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/upravlenie-agentami/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/metod/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/obo-mne/</loc><lastmod>2026-10-29</lastmod><priority>0.8</priority></url>
+  <url><loc>https://dolgovalex.com/stati/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/kontekst-kopitsya/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/vtoroy-mozg-na-faylah/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/lovushka-uskoritelya/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/pravila-vmesto-promptov/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/itogi-vstrechi-za-30-sekund/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/claude-code-cursor-chatgpt/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/rezhim-orkestratora/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/rabochiy-kontur/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/kontekst/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/ii-stek/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/stati/pamyat/</loc><lastmod>2026-10-29</lastmod><priority>0.6</priority></url>
+  <url><loc>https://dolgovalex.com/partners/</loc><priority>0.3</priority></url>
 </urlset>

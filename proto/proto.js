@@ -155,6 +155,44 @@
   const L = {};
   let pending = null, busy = false, inForm = false;
   const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+  /* Сервис чата: адрес в <html data-chat-api="https://...">. Без адреса чат работает по демо-сценарию.
+     На localhost адрес можно передать параметром ?chat_api=..., на сайте — нельзя (иначе чужая ссылка
+     могла бы увести переписку и заявку на чужой сервер). */
+  const isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  const API = ((isLocal && new URLSearchParams(location.search).get("chat_api")) || document.documentElement.dataset.chatApi || "").replace(/\/$/, "");
+  const H = [];
+  let SID = "";
+  try { SID = sessionStorage.getItem("chatSid") || ""; } catch (e) { SID = ""; }
+  if (!SID) {
+    SID = ((crypto.randomUUID && crypto.randomUUID()) || (Date.now().toString(36) + Math.random().toString(36).slice(2))).replace(/[^\w-]/g, "");
+    try { sessionStorage.setItem("chatSid", SID); } catch (e) { /* без хранилища сессия живёт до перезагрузки */ }
+  }
+  const fmt = t => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+  const LEAD_MAP = { topic: "topic", details: "detail", role: "role", company: "company", size: "size", format: "format", channel: "channel", time: "time", where: "where", source: "source" };
+  async function llm(text) {
+    pending = null; busy = true;
+    H.push({ role: "user", text });
+    const t = add("bot typing", "<i></i><i></i><i></i>");
+    let d;
+    try {
+      const r = await fetch(API + "/api/chat", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session: SID, page: TITLES[cur], message: text, history: H.slice(-7, -1) }) });
+      d = await r.json();
+    } catch (e) {
+      d = { reply: "Сейчас не могу ответить. Оставьте контакт в форме ниже, Александр ответит сам.", action: "show_form", chips: [] };
+    }
+    t.remove(); busy = false;
+    H.push({ role: "assistant", text: d.reply || "" });
+    for (const [k, v] of Object.entries(LEAD_MAP)) if (d.lead && d.lead[k]) L[v] = d.lead[k];
+    const msg = add("bot", fmt(d.reply || ""));
+    if (d.action === "open_section" && d.section) {
+      const name = SUBNAME[d.section] || TITLES[d.section];
+      msg.insertAdjacentHTML("beforeend", `<div class="mlink"><button type="button" class="btn btn-outline btn-sm">${icon("arrow-right")}${name ? `Открыть «${name}»` : "Открыть раздел"}</button></div>`);
+      $("button", msg).addEventListener("click", () => { go(d.section); if (overlay()) closeChat(); });
+    }
+    if (d.action === "show_form" || d.action === "handoff") { await contact(); return; }
+    if (d.chips && d.chips.length) chips(d.chips.map(c => ({ label: c, action: () => { if (busy) return; clearChips(); add("me", esc(c)); llm(c); } })));
+  }
   const scrollEnd = () => { log.scrollTop = log.scrollHeight; };
 
   function openChat(focus = true) {
@@ -212,8 +250,9 @@
     if (list && list.length) chips(list);
     pending = fn;
   }
-  function answer(text) {
+  function answer(text, typed = false) {
     if (busy) return;
+    if (API && typed && (!pending || pending === onTopic)) { clearChips(); add("me", esc(text)); llm(text); return; }
     if (!pending) { add("me", esc(text)); say("Записал, добавлю к заявке."); return; }
     clearChips();
     add("me", esc(text));
@@ -235,7 +274,7 @@
     const v = input.value.trim();
     if (!v || input.disabled) return;
     input.value = ""; autosize();
-    answer(v);
+    answer(v, true);
   });
   const lock = (on, hint) => { inForm = on; input.disabled = on; input.placeholder = on ? hint : "Опишите задачу своими словами"; context(cur); };
   const freeze = el => $$("button, input, select", el).forEach(x => { x.disabled = true; });
@@ -270,7 +309,7 @@
     if (role) L.role = role;
     pending = null; busy = false; lock(false);
     $("#tgDemo").hidden = true;
-    add("sys", "Прототип: чат идёт по готовому сценарию. Нейросеть подключим следующим шагом.");
+    if (!API) add("sys", "Прототип: чат идёт по готовому сценарию, без нейросети.");
     await ask("Здравствуйте. Отвечу на вопросы о программах и агентном управлении. За три минуты могу разобрать, какую работу отдать агентам первой и с какой программы начать. Или сразу опишите задачу.", [T.diag, T.learn, T.proc, T.solo], onTopic);
   }
   async function onTopic(t) {
@@ -353,6 +392,7 @@
       <form class="mform" novalidate>
         <label>Имя<input name="name" autocomplete="given-name" value="${esc(L.name || "")}"></label>
         <label>${lbl}<input name="contact" inputmode="${mode}" value="${esc(L.contact || "")}"></label>
+        ${L.channel ? "" : `<label>Как удобнее<select name="channel"><option>Переписка в Telegram</option><option>Созвониться</option><option>Письмом на почту</option></select></label>`}
         <label>Откуда вы о нас узнали<select name="source"><option value="">Выберите</option><option>Школа клуба «Команда»</option><option>ИИ-модуль в Казани</option><option>Рекомендация</option><option>Поиск в интернете</option><option>Telegram-канал</option><option>Другое</option></select></label>
         <label class="ck"><input type="checkbox" name="ok"><span>Согласен на обработку персональных данных по <a href="#" data-policy>политике</a></span></label>
         <p class="err" hidden></p>
@@ -366,7 +406,8 @@
       const name = String(fd.get("name") || "").trim(), ct = String(fd.get("contact") || "").trim();
       if (!name || !ct) { err.textContent = "Укажите имя и контакт, чтобы Александр мог ответить."; err.hidden = false; return; }
       if (!fd.get("ok")) { err.textContent = "Без согласия на обработку данных передать заявку нельзя."; err.hidden = false; return; }
-      L.name = name; L.contact = ct; L.source = String(fd.get("source") || "") || "не указано";
+      L.name = name; L.contact = ct; L.source = String(fd.get("source") || "") || L.source || "не указано";
+      if (fd.get("channel")) L.channel = String(fd.get("channel"));
       freeze(f); lock(false);
       summary();
     });
@@ -384,8 +425,24 @@
     const next = L.channel === "Созвониться"
       ? `Александр или его ассистент напишет вам, чтобы подтвердить звонок: ${lc(L.time)}, ${lc(L.where)}.`
       : (L.channel === "Письмом на почту" ? "Александр или его ассистент ответит вам на почту." : "Александр или его ассистент напишет вам в Telegram.");
-    await say(`Передал. ${esc(next)} Если вопрос срочный, напишите напрямую: @dolgovalex.`, 900);
-    tg();
+    if (API) {
+      let ok = false;
+      try {
+        const r = await fetch(API + "/api/lead", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session: SID, name: L.name, contact: L.contact, consent: true, channel: L.channel || "", time: L.time || "",
+            place: L.where || "", source: L.source || "", topic: L.topic || "", details: L.detail || "", role: L.role || "",
+            company: L.company || "", size: L.size || "", format: L.format || "", seen: [...seen].join(", ").slice(0, 300), page: TITLES[cur] }) });
+        ok = r.ok && (await r.json()).ok;
+      } catch (e) { ok = false; }
+      if (!ok) {
+        await say("Не получилось отправить заявку. Напишите напрямую: @dolgovalex или bonjour@dolgovalex.com.");
+        pending = null; chips([{ label: "Начать заново", action: start }]); return;
+      }
+      await say(`Передал. ${esc(next)}`, 400);
+    } else {
+      await say(`Передал. ${esc(next)} Если вопрос срочный, напишите напрямую: @dolgovalex.`, 900);
+      tg();
+    }
     pending = null;
     chips([{ label: "Начать заново", action: start }]);
   }

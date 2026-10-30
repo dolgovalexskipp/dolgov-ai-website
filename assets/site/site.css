@@ -538,7 +538,7 @@ body { overflow: hidden; background: var(--page-grad) fixed, var(--page); color:
 .pick-c.co a { background: var(--accent-tint); border-color: var(--accent-line); }
 
 .t-bio .photo { flex: 1 1 auto; min-height: 120px; width: 100%; object-fit: cover; object-position: 60% 30%; background: none; display: block; }
-img.photo.big { object-fit: cover; object-position: 60% 30%; display: block; }
+img.photo.big { object-fit: cover; object-position: 60% 30%; display: block; height: auto; }
 .t-bio .tile-h a { color: inherit; }
 
 .logos-i { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }

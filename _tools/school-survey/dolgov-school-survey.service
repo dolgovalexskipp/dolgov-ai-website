@@ -1,0 +1,17 @@
+[Unit]
+Description=Dolgov AI private school survey
+After=network.target
+[Service]
+User=www-data
+Group=www-data
+EnvironmentFile=/etc/dolgov-school-survey.env
+ExecStart=/usr/bin/python3 /opt/dolgov-school-survey/server.py
+Restart=on-failure
+UMask=0077
+StateDirectory=dolgov-school-survey
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target

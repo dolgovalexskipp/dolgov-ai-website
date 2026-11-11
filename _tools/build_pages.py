@@ -30,8 +30,8 @@ PAGES = {
     "/komandam/sistema/": ("komandam", "sistema", "Система: два дня для управленческой команды", ""),
     "/komandam/podgotovka/": ("komandam", "podgotovka", "Как компании подготовиться к обучению работе с ИИ-агентами",
                               "Что нужно от компании за три недели, две недели и накануне обучения: анкета, данные, рабочая среда, ключи к моделям."),
-    "/pogruzhenie/": ("lichno", "pogruzhenie", "Погружение 28 ноября в Кибердоме: день работы с ИИ на своих задачах",
-                      "Один день, после которого вы работаете с ИИ по-новому: своя рабочая среда, база знаний и агенты на ваших задачах. 28 ноября, Москва, до 10 человек."),
+    "/pogruzhenie/": ("lichno", "pogruzhenie", "Публичные встречи об ИИ: Hakku и офлайн в декабре",
+                      "Вайбкожинг From Zero to Hero с Hakku и декабрьская офлайн-встреча про второе мнение, контекст, инструменты и эффективность."),
     "/konsultaciya/": ("lichno", "konsultaciya", "Консультация по ИИ-агентам один на один", ""),
     "/upravlenie-agentami/": ("harness", None, "Управление агентами: процессы компании на ИИ-агентах по подписке",
                               "Процессы компании один за другим переходят на ИИ-агентов: данные, правила, ответственные, отчёт раз в неделю. Тарифы от 120 000 ₽ в месяц."),
@@ -96,7 +96,7 @@ def set_meta(page: str, path: str, title: str, desc: str) -> str:
 
 
 def keep_event_only_where_relevant(page: str, path: str) -> str:
-    """Разметку мероприятия оставляем на главной и на странице Погружения."""
+    """Если появится подтверждённое мероприятие, не дублируем его разметку на всех страницах."""
     m = re.search(r'(<script type="application/ld\+json">)(.*?)(</script>)', page, re.S)
     if not m or path in ("/", "/pogruzhenie/"):
         return page
@@ -146,6 +146,7 @@ def main():
 
     urls = ["/"] + list(pages)
     prio = lambda u: "1.0" if u == "/" else ("0.9" if u in ("/pogruzhenie/", "/komandam/") else ("0.6" if u.startswith("/stati/") else "0.8"))  # noqa: E731
+    urls.append("/spiker/")
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                       + "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{TODAY}</lastmod><priority>{prio(u)}</priority></url>\n" for u in urls)
                                       + f"  <url><loc>{SITE}/partners/</loc><priority>0.3</priority></url>\n</urlset>\n")

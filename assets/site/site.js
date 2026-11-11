@@ -17,7 +17,7 @@
   /* короткие адреса: раздел и экран внутри (имя экрана) или место на странице (#якорь) */
   const ALIAS = {
     programmy: ["komandam", "obzor"], navyk: ["komandam", "navyk"], agent: ["komandam", "agent"], pilot: ["komandam", "pilot"], sistema: ["komandam", "sistema"],
-    pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], mastermind: ["lichno", "pogruzhenie"],
+    vibecoding: ["lichno", "vibecoding"], pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], mastermind: ["lichno", "pogruzhenie"],
     kontur: ["harness", "#hz-corp"], opyt: ["bio", "#bio-teach"], produkty: ["bio", "#bio-prod"], sdelano: ["bio", "#bio-site"],
     "dlya-sebya": ["lichno"], upravlenie: ["harness"], tarify: ["harness", "#hz-tariffs"], podgotovka: ["komandam", "podgotovka"],
     /* старые адреса сайта */
@@ -26,7 +26,7 @@
   /* адрес раздела и экрана внутри него */
   function pathFor(s, sub) {
     if (s === "komandam") return sub && sub !== "obzor" ? `/komandam/${sub}/` : "/komandam/";
-    if (s === "lichno") return sub === "konsultaciya" ? "/konsultaciya/" : "/pogruzhenie/";
+    if (s === "lichno") return sub === "konsultaciya" ? "/konsultaciya/" : sub === "vibecoding" ? "/vibecoding/" : "/pogruzhenie/";
     if (s === "stati") return sub && sub !== "spisok" ? `/stati/${sub}/` : "/stati/";
     return { home: "/", harness: "/upravlenie-agentami/", metod: "/metod/", bio: "/obo-mne/" }[s] || "/";
   }
@@ -37,7 +37,7 @@
     if (a === "komandam") return ["komandam", b || "obzor"];
     if (a === "stati") return ["stati", b || "spisok"];
     if (b) return null;
-    return { pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], "upravlenie-agentami": ["harness"], metod: ["metod"], "obo-mne": ["bio"] }[a] || null;
+    return { vibecoding: ["lichno", "vibecoding"], pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], "upravlenie-agentami": ["harness"], metod: ["metod"], "obo-mne": ["bio"] }[a] || null;
   }
   /* Яндекс Метрика: цели и просмотры страниц при переходах внутри сайта. Счётчик есть только после согласия на cookie. */
   const YM = 108677290;
@@ -46,7 +46,7 @@
   /* заголовки и описания страниц: их пишет сборщик страниц в <script id="routes"> */
   let META = {};
   try { META = JSON.parse(document.getElementById("routes")?.textContent || "{}"); } catch (e) { META = {}; }
-  const SUBNAME = { navyk: "Навык", agent: "Агент", pilot: "Пилот", sistema: "Система", pogruzhenie: "Публичные встречи", konsultaciya: "Консультация" };
+  const SUBNAME = { navyk: "Навык", agent: "Агент", pilot: "Пилот", sistema: "Система", vibecoding: "Вайбкодинг с Hakku", pogruzhenie: "Погружение в ИИ", konsultaciya: "Консультация" };
   const app = $("#ap");
   let opened = [];
   let cur = "home", curSub = "";
@@ -352,7 +352,7 @@
   const freeze = el => $$("button, input, select", el).forEach(x => { x.disabled = true; });
 
   const T = { diag: "Подобрать программу за 3 минуты", learn: "Обучить команду работе с агентами", proc: "Перевести процесс компании на агентов", solo: "Хочу разобраться сам",
-    signup: "Узнать о публичных встречах", pq: "Вопрос о публичных встречах", cons: "Записаться на консультацию" };
+    signup: "Узнать о встрече", pq: "Вопрос о встрече", cons: "Записаться на консультацию" };
   /* подсказка над полем ввода: одна главная кнопка для раздела */
   const CTX = {
     home: [T.diag, () => diag()],
@@ -380,7 +380,8 @@
       return [`Вы смотрите программу «${prog}». Подскажу, подойдёт ли она вашей команде, и соберу заявку.`, [`Подойдёт ли нам «${prog}»?`, "Что нужно подготовить?", `Обсудить «${prog}»`]];
     if (cur === "komandam") return ["Подберу программу для команды и подскажу стоимость. Можно пройти короткую диагностику или сразу описать задачу.", [T.diag, "Чем «Агент» отличается от «Пилота»?", "Сколько стоит для 20 человек?", T.learn]];
     if (cur === "lichno" && curSub === "konsultaciya") return ["Консультация: два часа один на один, онлайн или в Москве. Какой вопрос хотите разобрать?", [T.cons, "Какие будут публичные встречи?"]];
-    if (cur === "lichno") return ["Готовим публичный «Вайбкожинг: From Zero to Hero» с Hakku и офлайн-встречу об ИИ в декабре. Даты и детали пока уточняются.", [T.signup, "О чём будут встречи?", "Подойдёт ли мне встреча?"]];
+    if (cur === "lichno" && curSub === "vibecoding") return ["Готовим публичный «Вайбкодинг: From Zero to Hero» с Hakku. Дата и программа уточняются.", [T.signup, "О чём мероприятие?"]];
+    if (cur === "lichno") return ["В декабре планируем офлайн-встречу «Погружение в ИИ» о втором мнении, контексте, инструментах и эффективности. Точная дата уточняется.", [T.signup, "Кому подойдёт встреча?"]];
     if (cur === "harness") return ["Расскажу про управление агентами и подберу тариф. Какой процесс хотите перевести на агентов первым?", ["Продажи и КП", "Закупки и тендеры", "Отчётность", "У нас уже есть агенты"]];
     if (cur === "metod") return ["Могу показать, как метод выглядит на ваших задачах.", [T.diag, "Чем это отличается от курсов по промптам?", T.solo]];
     if (cur === "bio") return ["Можно обсудить обучение для команды, выступление или публичные встречи.", ["Пригласить выступить", T.learn, T.solo]];
@@ -415,7 +416,7 @@
   }
   async function onTopic(t) {
     if (t === T.diag) return diag();
-    if (t === T.signup) return signup();
+    if (t === T.signup || t === "Узнать о вайбкодинге с Hakku" || t === "Узнать о декабрьской встрече") return signup();
     if (t === T.cons) return consult();
     if (t === T.pq) { pending = onTopic; return say("Спрашивайте о темах и формате. Дату, место и условия сообщим позже."); }
     if (API && !SCRIPTED.has(t)) return llm(t);
@@ -423,7 +424,7 @@
     if (!L.format && t === T.learn && SUBNAME[curSub] && cur === "komandam") L.format = SUBNAME[curSub];
     if (t === T.learn) return ask("Сколько человек будет учиться и из каких отделов?", ["До 15 человек", "От 16 до 25", "Больше 25"], onDetail);
     if (t === T.proc) return ask("Какой процесс болит сильнее всего? Например, путь от заявки клиента до отправленного КП.", ["Продажи и КП", "Закупки и тендеры", "Отчётность", "Другой процесс"], onDetail);
-    if (t === T.solo) return ask("В декабре планируем офлайн-встречу об ИИ: второе мнение, контекст, инструменты и эффективность. Также готовим публичный «Вайбкожинг: From Zero to Hero» с Hakku. Что вам ближе?", ["Офлайн-встреча в декабре", "Вайбкожинг с Hakku", "Консультация один на один"], onDetail);
+    if (t === T.solo) return ask("Для себя можно выбрать публичное мероприятие о вайбкодинге с Hakku, декабрьскую офлайн-встречу об ИИ или личную консультацию. Что вам ближе?", ["Вайбкодинг с Hakku", "Встреча об ИИ в декабре", "Личная консультация"], onDetail);
     L.topic = "Своя задача"; L.detail = t;
     return askRole();
   }
@@ -431,8 +432,9 @@
   /* интерес к публичным встречам и запись на консультацию */
   async function signup() {
     goal("public_events_interest");
-    L.topic = "Публичные встречи"; L.format = "Интерес к анонсу";
-    await ask("О какой встрече сообщить вам детали, когда они появятся?", ["Вайбкожинг с Hakku", "Офлайн-встреча об ИИ в декабре", "Обе встречи"], async d => { L.detail = d; await contact(); });
+    const event = curSub === "vibecoding" ? "Вайбкодинг с Hakku" : "Погружение в ИИ в декабре";
+    L.topic = event; L.format = "Интерес к анонсу";
+    await ask("Когда появятся дата и подробности, сообщить вам о событии «" + event + "»?", ["Да, сообщите", "Сначала задам вопрос"], async d => { if (d === "Сначала задам вопрос") { pending = onTopic; return say("Спрашивайте. Если детали ещё не утверждены, так и скажу."); } L.detail = d; await contact(); });
   }
   async function consult() {
     goal("signup_konsultaciya");
@@ -446,7 +448,7 @@
   async function suggest() {
     let s, txt;
     if (L.topic === T.proc || L.role === "Агенты уже есть") { L.format = "Управление агентами"; s = "harness"; txt = "Это задача для управления агентами: запускаем процесс за две недели, два месяца внедряем на живых данных, дальше поддерживаем. Если агенты у вас уже есть, начинаем с корпоративного контура."; }
-    else if (L.topic === T.solo || L.role === "Для себя") { L.format = "Публичные встречи"; s = "pogruzhenie"; txt = "Планируем публичную встречу с Hakku и офлайн-встречу об ИИ в декабре. Точную дату и условия сообщим позже. Если нужен разбор вашей задачи сейчас, можно выбрать консультацию."; }
+    else if (L.topic === T.solo || L.role === "Для себя") { L.format = "Погружение в ИИ"; s = "pogruzhenie"; txt = "В декабре планируем офлайн-встречу об ИИ для всех, кто хочет разобраться в инструментах, контексте и проверке ответов. Точную дату и условия сообщим позже. Если нужен личный разбор сейчас, можно выбрать консультацию."; }
     else if (L.role === "Собственник") { L.format = "Пилот"; s = "pilot"; txt = "Подойдёт Пилот: отделы проектируют агентов на данных компании, а вечером первого дня руководители выбирают первые процессы, ответственных и бюджет на модели."; }
     else { L.format = "Агент"; s = "agent"; txt = "Подойдёт программа «Агент»: за день каждый отдел собирает агента на своей задаче и проверяет его на своих примерах." + (/16|25/.test(L.detail || "") ? " Для группы больше 15 человек стоимость выше на 20%." : ""); }
     const name = SUBNAME[s] || TITLES[s];

@@ -4,9 +4,22 @@ from collections import defaultdict,deque
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
 
-ORIGINS={'https://dolgovalex.com','https://dolgov.ai','https://www.dolgovalex.com'}
+ORIGINS={'https://dolgovalex.com','https://dolgov.ai','https://www.dolgovalex.com','https://leads.dolgovalex.com:8443'}
 REQUIRED={'name','company','contact','frequency','level','task','effort','result','os','setup','backup','consent'}
 ALLOWED=REQUIRED|{'tools','tried','help'}
+FEEDBACK_EVENT='komanda-2026-11-feedback'
+RATINGS={'use_theory','use_demo','use_practice','use_defense','clarity_slides','clarity_create','clarity_run','clarity_choose','clarity_setup','clarity_task','clarity_stop'}
+FREE_TEXT={'result_detail','helped_blocked','keep','change','nps_reason','comment'}
+RESULTS={'checked','draft','prepared','stuck','not_started'}
+FEEDBACK_FIELDS=RATINGS|FREE_TEXT|{'result_stage','nps','consent'}
+
+def valid_feedback(answers):
+    if set(answers)-FEEDBACK_FIELDS or answers.get('consent')!='yes': return False
+    if any(not isinstance(v,str) or len(v)>2500 for v in answers.values()): return False
+    if any(answers[k] not in {'1','2','3','4','5','na'} for k in RATINGS & answers.keys()): return False
+    if 'nps' in answers and answers['nps'] not in {str(i) for i in range(11)}: return False
+    if 'result_stage' in answers and answers['result_stage'] not in RESULTS: return False
+    return any(v.strip() for k,v in answers.items() if k!='consent')
 DB=Path(os.environ.get('SURVEY_DB','/var/lib/dolgov-school-survey/answers.sqlite3'))
 TOKEN=os.environ['SURVEY_TOKEN']
 if len(TOKEN)<32: raise RuntimeError('Submission token too short')
@@ -66,17 +79,21 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(data,dict): raise ValueError()
             ident=data.get('id',''); answers=data.get('answers')
             if not isinstance(ident,str) or not re.fullmatch(r'[a-zA-Z0-9_-]{12,80}',ident): raise ValueError()
-            if data.get('event')!='komanda-2026-11' or not isinstance(answers,dict): raise ValueError()
-            if not REQUIRED.issubset(answers) or set(answers)-ALLOWED: raise ValueError()
-            if any(not isinstance(v,str) or len(v)>2500 for v in answers.values()): raise ValueError()
-            if any(not answers[k].strip() for k in REQUIRED) or answers['consent']!='yes': raise ValueError()
+            if not isinstance(answers,dict): raise ValueError()
+            if data.get('event')==FEEDBACK_EVENT:
+                if not valid_feedback(answers): raise ValueError()
+            elif data.get('event')=='komanda-2026-11':
+                if not REQUIRED.issubset(answers) or set(answers)-ALLOWED: raise ValueError()
+                if any(not isinstance(v,str) or len(v)>2500 for v in answers.values()): raise ValueError()
+                if any(not answers[k].strip() for k in REQUIRED) or answers['consent']!='yes': raise ValueError()
+            else: raise ValueError()
             packed=json.dumps(answers,ensure_ascii=False,sort_keys=True)
         except (ValueError,TypeError,UnicodeError): return self.reply(400,{'ok':False})
         try:
             with connect() as db:
                 db.execute('BEGIN IMMEDIATE')
-                prior=db.execute('SELECT answers FROM responses WHERE id=?',(ident,)).fetchone()
-                if prior and prior[0]!=packed: return self.reply(409,{'ok':False})
+                prior=db.execute('SELECT event,answers FROM responses WHERE id=?',(ident,)).fetchone()
+                if prior and prior!=(data['event'],packed): return self.reply(409,{'ok':False})
                 db.execute('INSERT OR IGNORE INTO responses(id,event,answers) VALUES(?,?,?)',(ident,data['event'],packed))
             return self.reply(200,{'ok':True,'receipt':ident})
         except sqlite3.Error: return self.reply(503,{'ok':False})

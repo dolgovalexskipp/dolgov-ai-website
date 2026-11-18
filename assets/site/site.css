@@ -717,3 +717,21 @@ tr[data-go] { cursor: pointer; }
 tr[data-go] td:last-child { position: relative; padding-right: 26px; }
 tr[data-go] td:last-child::after { content: "›"; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 20px; line-height: 1; color: var(--muted); transition: transform .15s ease, color .15s ease; }
 tr[data-go]:hover td:last-child::after, tr[data-go]:focus-visible td:last-child::after { color: var(--primary); transform: translate(3px, -50%); }
+
+/* ═══ главная: три входа по уровням (себе → команде → компании) ═══ */
+.lvl { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+.lvl-c { display: grid; grid-template-rows: auto auto 1fr auto; gap: 6px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--card-2); color: var(--fg); min-width: 0; transition: border-color .15s ease, background .15s ease, box-shadow .15s ease; }
+.lvl-c:hover { text-decoration: none; border-color: var(--accent-line); background: var(--card); box-shadow: var(--sh-md); }
+.lvl-k { display: flex; align-items: center; gap: 6px; font: 600 11px/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.lvl-k .i { width: 14px; height: 14px; }
+.lvl-c b { font: 600 clamp(15px, 1.2vw, 17px)/1.25 var(--sans); letter-spacing: -.01em; color: var(--primary); text-wrap: balance; }
+.lvl-p { font-size: 13px; line-height: 1.4; color: var(--muted); }
+.lvl-f { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 10px; border-top: 1px solid var(--hair); }
+.lvl-m { font: 600 13.5px/1.2 var(--mono); color: var(--fg); }
+.lvl-f .i { width: 16px; height: 16px; color: var(--faint); transition: transform .15s ease, color .15s ease; }
+.lvl-c:hover .lvl-f .i { color: var(--primary); transform: translateX(3px); }
+.lvl-more { margin-top: 10px; font-size: 13px; }
+@media (max-width: 760px) {
+  .lvl { grid-template-columns: minmax(0, 1fr); }
+  .lvl-c { grid-template-rows: none; }
+}

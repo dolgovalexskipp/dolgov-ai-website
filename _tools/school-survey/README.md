@@ -4,6 +4,8 @@ Standalone submission service; no public response listing or export. The encrypt
 
 Runtime: Python standard library, systemd unit in this directory, nginx `/school-api/` → `127.0.0.1:8098` on the existing HTTPS virtual host. `/etc/dolgov-school-survey.env` defines `SURVEY_TOKEN`. State is `/var/lib/dolgov-school-survey/answers.sqlite3`, private to the service user.
 
+Location since 2026-11-18: VM `hub-site-svc` (Cloud.ru, Russia), public endpoint `https://svc.dolgovalex.com/school-api/survey`. Deploy with `~/dolgov-hub/site-svc/push.sh survey` (installs only code and unit; environment and database are preserved). The old address `https://leads.dolgovalex.com:8443/school-api/` on founder-os is a proxy to it, so encrypted pages keep working unchanged. Nightly backup: `/var/backups/site-svc` on the VM plus Object Storage prefix `site-svc/`.
+
 Run `python3 test_server.py`. Install only after committing and pushing; preserve existing nginx locations and validate with `nginx -t` before reload. Roll back by removing only the new location and stopping `dolgov-school-survey`; preserve the database.
 
 Export over SSH as an authorized administrator: `python3 /opt/dolgov-school-survey/export.py`. CSV fields are spreadsheet-formula escaped. Download it to a private file, never place it in the website. Back up SQLite using its backup API, not a live file copy.

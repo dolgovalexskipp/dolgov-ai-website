@@ -13,11 +13,11 @@
   const lc = s => s ? s.charAt(0).toLowerCase() + s.slice(1) : "";
 
   /* ─── разделы, вкладки, экраны внутри раздела ─── */
-  const TITLES = { home: "Главная", komandam: "Командам", lichno: "Для себя", harness: "Управление агентами", metod: "Метод", bio: "Обо мне", stati: "Статьи" };
+  const TITLES = { home: "Главная", komandam: "Командам", lichno: "Для себя", harness: "Управление агентами", metod: "Метод", bio: "Обо мне", stati: "Статьи", itogi: "Итоги" };
   /* короткие адреса: раздел и экран внутри (имя экрана) или место на странице (#якорь) */
   const ALIAS = {
     programmy: ["komandam", "obzor"], navyk: ["komandam", "navyk"], agent: ["komandam", "agent"], pilot: ["komandam", "pilot"], sistema: ["komandam", "sistema"],
-    vibecoding: ["lichno", "vibecoding"], pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], mastermind: ["lichno", "pogruzhenie"],
+    "ai-express": ["lichno", "ai-express"], vibecoding: ["lichno", "ai-express"], pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], mastermind: ["lichno", "pogruzhenie"],
     kontur: ["harness", "#hz-corp"], opyt: ["bio", "#bio-teach"], produkty: ["bio", "#bio-prod"], sdelano: ["bio", "#bio-site"],
     "dlya-sebya": ["lichno"], upravlenie: ["harness"], tarify: ["harness", "#hz-tariffs"], podgotovka: ["komandam", "podgotovka"],
     /* старые адреса сайта */
@@ -26,8 +26,9 @@
   /* адрес раздела и экрана внутри него */
   function pathFor(s, sub) {
     if (s === "komandam") return sub && sub !== "obzor" ? `/komandam/${sub}/` : "/komandam/";
-    if (s === "lichno") return sub === "konsultaciya" ? "/konsultaciya/" : sub === "vibecoding" ? "/vibecoding/" : "/pogruzhenie/";
+    if (s === "lichno") return sub === "konsultaciya" ? "/konsultaciya/" : sub === "ai-express" ? "/ai-express/" : "/pogruzhenie/";
     if (s === "stati") return sub && sub !== "spisok" ? `/stati/${sub}/` : "/stati/";
+    if (s === "itogi") return `/itogi/${sub || "kazan-2026-11"}/`;
     return { home: "/", harness: "/upravlenie-agentami/", metod: "/metod/", bio: "/obo-mne/" }[s] || "/";
   }
   function fromPath(path) {
@@ -36,17 +37,20 @@
     const [, a, b] = m;
     if (a === "komandam") return ["komandam", b || "obzor"];
     if (a === "stati") return ["stati", b || "spisok"];
+    if (a === "itogi") return ["itogi", b || "kazan-2026-11"];
     if (b) return null;
-    return { vibecoding: ["lichno", "vibecoding"], pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], "upravlenie-agentami": ["harness"], metod: ["metod"], "obo-mne": ["bio"] }[a] || null;
+    return { "ai-express": ["lichno", "ai-express"], vibecoding: ["lichno", "ai-express"], pogruzhenie: ["lichno", "pogruzhenie"], konsultaciya: ["lichno", "konsultaciya"], "upravlenie-agentami": ["harness"], metod: ["metod"], "obo-mne": ["bio"] }[a] || null;
   }
   /* Яндекс Метрика: цели и просмотры страниц при переходах внутри сайта. Счётчик есть только после согласия на cookie. */
   const YM = 108677290;
   const goal = (name, params) => { try { if (window.ym) window.ym(YM, "reachGoal", name, params); } catch (e) { /* без счётчика молчим */ } };
+  /* цель на любой ссылке или кнопке с data-goal (билеты, Telegram, итоги) */
+  document.addEventListener("click", e => { const g = e.target.closest("[data-goal]"); if (g) goal(g.dataset.goal); }, true);
   const hit = (url, referer) => { try { if (window.ym) window.ym(YM, "hit", url, { title: document.title, referer }); } catch (e) { /* без счётчика молчим */ } };
   /* заголовки и описания страниц: их пишет сборщик страниц в <script id="routes"> */
   let META = {};
   try { META = JSON.parse(document.getElementById("routes")?.textContent || "{}"); } catch (e) { META = {}; }
-  const SUBNAME = { navyk: "Навык", agent: "Агент", pilot: "Пилот", sistema: "Система", vibecoding: "Вайбкодинг с Hakku", pogruzhenie: "Погружение в ИИ", konsultaciya: "Консультация" };
+  const SUBNAME = { navyk: "Навык", agent: "Агент", pilot: "Пилот", sistema: "Система", "ai-express": "AI-экспресс с Hakku", pogruzhenie: "Погружение в ИИ", konsultaciya: "Консультация" };
   const app = $("#ap");
   let opened = [];
   let cur = "home", curSub = "";
@@ -220,7 +224,7 @@
   const chat = $("#chat"), log = $("#chLog"), form = $("#chForm"), input = $("#chIn"), ctxBox = $("#chCtx");
   const L = {};
   let pending = null, busy = false, inForm = false, touched = false, booted = false;
-  const pageName = () => (TITLES[cur] || "Главная") + (SUBNAME[curSub] ? " · " + SUBNAME[curSub] : (cur === "stati" && curSub && curSub !== "spisok" ? " · " + (document.querySelector(`.sub[data-sub="${curSub}"]`)?.dataset.t || "").slice(0, 40) : ""));
+  const pageName = () => (TITLES[cur] || "Главная") + (SUBNAME[curSub] ? " · " + SUBNAME[curSub] : ((cur === "stati" || cur === "itogi") && curSub && curSub !== "spisok" ? " · " + (document.querySelector(`.sub[data-sub="${curSub}"]`)?.dataset.t || "").slice(0, 40) : ""));
   const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
   /* Сервис чата: адрес в <html data-chat-api="https://...">. Без адреса чат работает по демо-сценарию.
      На localhost адрес можно передать параметром ?chat_api=..., на сайте — нельзя (иначе чужая ссылка
@@ -236,6 +240,7 @@
     try { sessionStorage.setItem("chatSid", SID); } catch (e) { /* без хранилища сессия живёт до перезагрузки */ }
   }
   const fmt = t => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+  const TG = `<a class="ch-tg-in" href="https://t.me/dolgovalex" target="_blank" rel="noopener" data-goal="chat_tg_click">Написать Александру в Telegram</a>`;
   const LEAD_MAP = { topic: "topic", details: "detail", role: "role", company: "company", size: "size", format: "format", channel: "channel", time: "time", where: "where", source: "source" };
   async function llm(text) {
     pending = null; busy = true;
@@ -246,13 +251,18 @@
       const r = await fetch(API + "/api/chat", { method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ session: SID, page: pageName(), message: text, history: H.slice(-7, -1) }) });
       d = await r.json();
+      if (!r.ok || !d || !d.reply) throw new Error("chat " + r.status);
     } catch (e) {
-      d = { reply: "Сейчас не могу ответить. Оставьте контакт в форме ниже, Александр ответит сам.", action: "show_form", chips: [] };
+      goal("chat_error");
+      d = { reply: "", action: "show_form", chips: [], offline: true };
     }
     t.remove(); busy = false;
     H.push({ role: "assistant", text: d.reply || "" });
     for (const [k, v] of Object.entries(LEAD_MAP)) if (d.lead && d.lead[k]) L[v] = d.lead[k];
-    const msg = add("bot", fmt(d.reply || ""));
+    const msg = add("bot", d.offline
+      ? `Связь с чатом прервалась, и ответить сейчас я не могу. Оставьте контакт ниже, Александр ответит сам. Или сразу ${TG.replace("Написать Александру в Telegram", "напишите ему в Telegram")}.`
+      : fmt(d.reply || ""));
+    if (d.action && d.action !== "none") goal("chat_ai_" + d.action, { page: pageName() });
     if (d.action === "open_section" && d.section) {
       const name = SUBNAME[d.section] || TITLES[d.section];
       msg.insertAdjacentHTML("beforeend", `<div class="mlink"><button type="button" class="btn btn-outline btn-sm">${icon("arrow-right")}${name ? `Открыть «${name}»` : "Открыть раздел"}</button></div>`);
@@ -266,11 +276,21 @@
 
   function openChat(focus = true) {
     goal("chat_open");
-    if (overlay()) chat.classList.add("open");
+    if (overlay()) { chat.classList.add("open"); fitVV(); }
     else { chat.classList.remove("flash"); void chat.offsetWidth; chat.classList.add("flash"); setTimeout(() => chat.classList.remove("flash"), 700); }
     if (focus && !input.disabled) setTimeout(() => input.focus({ preventScroll: true }), overlay() ? 260 : 0);
   }
-  function closeChat() { chat.classList.remove("open"); }
+  function closeChat() { chat.classList.remove("open"); fitVV(); }
+  /* iOS: клавиатура не уменьшает окно, поэтому чат на телефоне подгоняем под видимую область */
+  const VV = window.visualViewport;
+  function fitVV() {
+    if (!VV || !chat.classList.contains("open") || !matchMedia("(max-width: 760px)").matches) { chat.style.removeProperty("--vvh"); chat.style.removeProperty("--vvt"); chat.classList.remove("kb"); return; }
+    chat.classList.toggle("kb", VV.height < innerHeight * .8);
+    chat.style.setProperty("--vvh", Math.round(VV.height) + "px");
+    chat.style.setProperty("--vvt", Math.round(VV.offsetTop) + "px");
+    scrollEnd();
+  }
+  if (VV) { VV.addEventListener("resize", fitVV); VV.addEventListener("scroll", fitVV); }
   $$("[data-chat-open]").forEach(b => b.addEventListener("click", () => openChat()));
   $$("[data-chat-close]").forEach(b => b.addEventListener("click", closeChat));
   document.addEventListener("keydown", e => { if (e.key === "Escape") { closeChat(); sheet(false); } });
@@ -352,7 +372,7 @@
   const freeze = el => $$("button, input, select", el).forEach(x => { x.disabled = true; });
 
   const T = { diag: "Подобрать программу за 3 минуты", learn: "Обучить команду работе с агентами", proc: "Перевести процесс компании на агентов", solo: "Хочу разобраться сам",
-    signup: "Узнать о встрече", pq: "Вопрос о встрече", cons: "Записаться на консультацию" };
+    signup: "Узнать о встрече", pq: "Вопрос о встрече", cons: "Записаться на консультацию", express: "Билеты и программа" };
   /* подсказка над полем ввода: одна главная кнопка для раздела */
   const CTX = {
     home: [T.diag, () => diag()],
@@ -362,9 +382,10 @@
     metod: ["Как это выглядит на наших задачах?", () => diag()],
     bio: ["Обсудить задачу", () => onTopic(T.learn)],
     stati: ["Задать вопрос", () => input.focus()],
+    itogi: ["Обсудить программу для команды", () => onTopic(T.learn)],
   };
   function context(s) {
-    const c = CTX[s];
+    const c = s === "lichno" && curSub === "ai-express" ? [T.express, () => express()] : CTX[s];
     if (!c || inForm) { ctxBox.hidden = true; return; }
     ctxBox.hidden = false;
     ctxBox.innerHTML = `<span>Вы в разделе «${esc(pageName())}»</span>`;
@@ -380,7 +401,7 @@
       return [`Вы смотрите программу «${prog}». Подскажу, подойдёт ли она вашей команде, и соберу заявку.`, [`Подойдёт ли нам «${prog}»?`, "Что нужно подготовить?", `Обсудить «${prog}»`]];
     if (cur === "komandam") return ["Подберу программу для команды и подскажу стоимость. Можно пройти короткую диагностику или сразу описать задачу.", [T.diag, "Чем «Агент» отличается от «Пилота»?", "Сколько стоит для 20 человек?", T.learn]];
     if (cur === "lichno" && curSub === "konsultaciya") return ["Консультация: два часа один на один, онлайн или в Москве. Какой вопрос хотите разобрать?", [T.cons, "Какие будут публичные встречи?"]];
-    if (cur === "lichno" && curSub === "vibecoding") return ["Готовим публичный «Вайбкодинг: From Zero to Hero» с Hakku. Дата и программа уточняются.", [T.signup, "О чём мероприятие?"]];
+    if (cur === "lichno" && curSub === "ai-express") return ["AI-экспресс с Hakku: 28 ноября, 12:00–18:00, SOK Сити в Москва-Сити. Ведём втроём: Николай Писаренко, Сергей Ершов и я. Билеты от 15 000 ₽ на странице мероприятия.", [T.express, "О чём мероприятие?", "Кому подойдёт?"]];
     if (cur === "lichno") return ["В декабре планируем офлайн-встречу «Погружение в ИИ» о втором мнении, контексте, инструментах и эффективности. Точная дата уточняется.", [T.signup, "Кому подойдёт встреча?"]];
     if (cur === "harness") return ["Расскажу про управление агентами и подберу тариф. Какой процесс хотите перевести на агентов первым?", ["Продажи и КП", "Закупки и тендеры", "Отчётность", "У нас уже есть агенты"]];
     if (cur === "metod") return ["Могу показать, как метод выглядит на ваших задачах.", [T.diag, "Чем это отличается от курсов по промптам?", T.solo]];
@@ -415,8 +436,10 @@
     pending = onTopic;
   }
   async function onTopic(t) {
+    goal("chat_topic", { topic: String(t).slice(0, 60), page: pageName() });
     if (t === T.diag) return diag();
-    if (t === T.signup || t === "Узнать о вайбкодинге с Hakku" || t === "Узнать о декабрьской встрече") return signup();
+    if (t === T.express || t === "AI-экспресс 28 ноября") return express();
+    if (t === T.signup || t === "Узнать о декабрьской встрече") return signup();
     if (t === T.cons) return consult();
     if (t === T.pq) { pending = onTopic; return say("Спрашивайте о темах и формате. Дату, место и условия сообщим позже."); }
     if (API && !SCRIPTED.has(t)) return llm(t);
@@ -424,15 +447,21 @@
     if (!L.format && t === T.learn && SUBNAME[curSub] && cur === "komandam") L.format = SUBNAME[curSub];
     if (t === T.learn) return ask("Сколько человек будет учиться и из каких отделов?", ["До 15 человек", "От 16 до 25", "Больше 25"], onDetail);
     if (t === T.proc) return ask("Какой процесс болит сильнее всего? Например, путь от заявки клиента до отправленного КП.", ["Продажи и КП", "Закупки и тендеры", "Отчётность", "Другой процесс"], onDetail);
-    if (t === T.solo) return ask("Для себя можно выбрать публичное мероприятие о вайбкодинге с Hakku, декабрьскую офлайн-встречу об ИИ или личную консультацию. Что вам ближе?", ["Вайбкодинг с Hakku", "Встреча об ИИ в декабре", "Личная консультация"], onDetail);
+    if (t === T.solo) return ask("Для себя есть AI-экспресс с Hakku 28 ноября, декабрьская офлайн-встреча об ИИ и личная консультация. Что вам ближе?", ["AI-экспресс 28 ноября", "Встреча об ИИ в декабре", "Личная консультация"], d => d === "AI-экспресс 28 ноября" ? express() : d === "Личная консультация" ? consult() : onDetail(d));
     L.topic = "Своя задача"; L.detail = t;
     return askRole();
   }
   async function onDetail(d) { L.detail = d; await askRole(); }
   /* интерес к публичным встречам и запись на консультацию */
+  const EXPRESS_URL = "https://hakku.ai/community/ai-express/";
+  async function express() {
+    goal("chat_ai_express");
+    pending = onTopic;
+    await say(`AI-экспресс: 28 ноября, 12:00–18:00, SOK Сити в Москва-Сити. Тема: всё, что нужно уметь в 2027-м. Ведём Николай Писаренко, Сергей Ершов и я. Билеты от 15 000 ₽, программа и оплата на странице Hakku: <a href="${EXPRESS_URL}" target="_blank" rel="noopener" data-goal="ai_express_click">hakku.ai/community/ai-express</a>.`);
+  }
   async function signup() {
     goal("public_events_interest");
-    const event = curSub === "vibecoding" ? "Вайбкодинг с Hakku" : "Погружение в ИИ в декабре";
+    const event = "Погружение в ИИ в декабре";
     L.topic = event; L.format = "Интерес к анонсу";
     await ask("Когда появятся дата и подробности, сообщить вам о событии «" + event + "»?", ["Да, сообщите", "Сначала задам вопрос"], async d => { if (d === "Сначала задам вопрос") { pending = onTopic; return say("Спрашивайте. Если детали ещё не утверждены, так и скажу."); } L.detail = d; await contact(); });
   }
@@ -461,13 +490,13 @@
     goal("diag_start");
     L.topic = "Подбор программы";
     await ask("Пять коротких вопросов. Сколько человек в компании?", ["До 20", "От 20 до 100", "От 100 до 500", "Больше 500"], async size => {
-      L.size = size;
+      L.size = size; goal("diag_step", { n: 1 });
       await ask("Какая работа съедает больше всего часов руками?", ["Заявки и КП", "Документы и договоры", "Отчёты и сводки", "Ответы клиентам", "Другое"], async work => {
-        L.work = work;
+        L.work = work; goal("diag_step", { n: 2 });
         await ask("Сколько часов в неделю на это уходит у отдела?", ["До 10", "От 10 до 40", "Больше 40"], async hours => {
-          L.hours = hours;
+          L.hours = hours; goal("diag_step", { n: 3 });
           await ask("Сотрудники уже работают с ИИ?", ["Нет", "Пробуют сами", "Есть свои агенты"], async ai => {
-            L.ai = ai;
+            L.ai = ai; goal("diag_step", { n: 4 });
             if (L.role) return report();
             await ask("И последний: кто вы в компании?", ROLES, async r => { L.role = r; await report(); });
           });
@@ -476,6 +505,7 @@
     });
   }
   async function report() {
+    goal("diag_report");
     const month = { "До 10": "до 40 часов в месяц", "От 10 до 40": "от 40 до 160 часов в месяц", "Больше 40": "больше 160 часов в месяц" }[L.hours];
     const tariff = { "До 20": "Старт", "От 20 до 100": "Стандарт", "От 100 до 500": "Бизнес", "Больше 500": "Анлимит" }[L.size];
     let s, why;
@@ -495,7 +525,7 @@
 
   async function askChannel() { await ask("Как удобнее продолжить?", ["Созвониться", "Переписка в Telegram", "Письмом на почту"], onChannel); }
   async function onChannel(c) {
-    L.channel = c;
+    L.channel = c; goal("chat_channel", { channel: c });
     if (c === "Созвониться") {
       return ask("Когда вам удобно созвониться?", ["Завтра до обеда", "Завтра после обеда", "В течение недели"], async t => {
         L.time = t;
@@ -536,6 +566,7 @@
   }
   const how = () => L.channel === "Созвониться" ? `созвон: ${lc(L.time)}, ${lc(L.where)}` : (L.channel === "Письмом на почту" ? "письмо на почту" : "переписка в Telegram");
   async function summary() {
+    goal("lead_summary");
     const rows = [["Задача", L.topic], ["Подробности", L.detail], ["Роль", L.role], ["Предложил", L.format], ["Связь", how()], ["Контакт", `${L.name}, ${L.contact}`]];
     const d = await say(`Вот что я передам Александру:<dl class="sum">${rows.filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("")}</dl><div class="row"><button class="btn btn-primary btn-sm" type="button" data-send>Отправить</button><button class="btn btn-ghost btn-sm" type="button" data-fix>Исправить</button></div>`, 800);
     $("[data-send]", d).addEventListener("click", () => { freeze(d); send(); });
@@ -556,8 +587,9 @@
         ok = r.ok && (await r.json()).ok;
       } catch (e) { ok = false; }
       if (!ok) {
-        await say("Не получилось отправить заявку. Напишите напрямую: @dolgovalex или bonjour@dolgovalex.com.");
-        pending = null; chips([{ label: "Начать заново", action: start }]); return;
+        goal("lead_error");
+        await say(`Заявка не ушла: связь с сервером прервалась. Ваши ответы остались здесь. Нажмите «Отправить ещё раз» или ${TG.replace("Написать Александру в Telegram", "напишите Александру в Telegram")}, почта bonjour@dolgovalex.com.`);
+        pending = null; chips([{ label: "Отправить ещё раз", action: () => { clearChips(); send(); } }, { label: "Начать заново", action: start }]); return;
       }
       goal("lead_sent", { format: L.format || "", page: pageName() });
       await say(`Передал. ${esc(next)}`, 400);

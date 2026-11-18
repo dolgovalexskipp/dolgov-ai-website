@@ -30,8 +30,8 @@ PAGES = {
     "/komandam/sistema/": ("komandam", "sistema", "Система: два дня для управленческой команды", ""),
     "/komandam/podgotovka/": ("komandam", "podgotovka", "Как компании подготовиться к обучению работе с ИИ-агентами",
                               "Что нужно от компании за три недели, две недели и накануне обучения: анкета, данные, рабочая среда, ключи к моделям."),
-    "/vibecoding/": ("lichno", "vibecoding", "Вайбкодинг From Zero to Hero с Hakku",
-                     "Публичное мероприятие с сообществом Hakku о создании продукта с ИИ. Дата и программа уточняются."),
+    "/ai-express/": ("lichno", "ai-express", "AI-экспресс с Hakku 28 ноября: всё, что нужно уметь в 2027-м",
+                     "28 ноября, 12:00–18:00, SOK Сити (Москва-Сити). Ведут Николай Писаренко, Сергей Ершов и Александр Долгов. Билеты от 15 000 ₽."),
     "/pogruzhenie/": ("lichno", "pogruzhenie", "Погружение в ИИ: офлайн-встреча в декабре",
                       "Второе мнение, контекст, инструменты и эффективность. Встреча для всех, кто хочет разобраться, как работает ИИ."),
     "/konsultaciya/": ("lichno", "konsultaciya", "Консультация по ИИ-агентам один на один", ""),
@@ -47,7 +47,8 @@ PAGES = {
 # старые адреса сайта ведут на новые
 REDIRECTS = {"obuchenie": ("/komandam/", "Программы для команд"), "soprovozhdenie": ("/upravlenie-agentami/", "Управление агентами"),
              "mastermind": ("/pogruzhenie/", "Погружение"), "konsultacii": ("/konsultaciya/", "Консультация"),
-             "manifest": ("/metod/", "Метод"), "about": ("/obo-mne/", "Обо мне")}
+             "manifest": ("/metod/", "Метод"), "about": ("/obo-mne/", "Обо мне"), "itogi": ("/itogi/kazan-2026-11/", "Итоги программ"),
+             "vibecoding": ("/ai-express/", "AI-экспресс")}
 
 
 def text(fragment: str) -> str:
@@ -78,10 +79,11 @@ def describe(src: str, view: str, sub):
 def article_pages(src: str):
     """Статьи: экраны раздела «Статьи» с data-t (заголовок) и data-d (описание)."""
     out = {}
-    a, b = view_block(src, "stati")
-    for m in re.finditer(r'<div class="sub" data-sub="([a-z0-9-]+)"[^>]*data-t="([^"]*)"[^>]*data-d="([^"]*)"', src[a:b]):
-        slug, t, d = m.groups()
-        out[f"/stati/{slug}/"] = ("stati", slug, html.unescape(t), html.unescape(d))
+    for view in ("stati", "itogi"):
+        a, b = view_block(src, view)
+        for m in re.finditer(r'<div class="sub" data-sub="([a-z0-9-]+)"[^>]*data-t="([^"]*)"[^>]*data-d="([^"]*)"', src[a:b]):
+            slug, t, d = m.groups()
+            out[f"/{view}/{slug}/"] = (view, slug, html.unescape(t), html.unescape(d))
     return out
 
 
@@ -100,7 +102,7 @@ def set_meta(page: str, path: str, title: str, desc: str) -> str:
 def keep_event_only_where_relevant(page: str, path: str) -> str:
     """Если появится подтверждённое мероприятие, не дублируем его разметку на всех страницах."""
     m = re.search(r'(<script type="application/ld\+json">)(.*?)(</script>)', page, re.S)
-    if not m or path in ("/", "/vibecoding/", "/pogruzhenie/"):
+    if not m or path in ("/", "/ai-express/", "/pogruzhenie/"):
         return page
     data = json.loads(m.group(2))
     data["@graph"] = [g for g in data["@graph"] if g.get("@type") != "Event"]
@@ -147,7 +149,7 @@ def main():
         (ROOT / "tips" / "index.html").write_text(tips_redirect(src))
 
     urls = ["/"] + list(pages)
-    prio = lambda u: "1.0" if u == "/" else ("0.9" if u in ("/vibecoding/", "/pogruzhenie/", "/komandam/") else ("0.6" if u.startswith("/stati/") else "0.8"))  # noqa: E731
+    prio = lambda u: "1.0" if u == "/" else ("0.9" if u in ("/ai-express/", "/pogruzhenie/", "/komandam/") else ("0.6" if u.startswith("/stati/") else "0.8"))  # noqa: E731
     urls.append("/spiker/")
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                       + "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{TODAY}</lastmod><priority>{prio(u)}</priority></url>\n" for u in urls)

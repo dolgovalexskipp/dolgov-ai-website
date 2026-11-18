@@ -265,10 +265,10 @@ body { overflow: hidden; background: var(--page-grad) fixed, var(--page); color:
 .tg-msg .btns span { display: grid; place-items: center; height: 32px; border-radius: var(--r-sm); background: var(--accent-tint); color: var(--accent); font-weight: 500; font-size: 13px; }
 .toast { position: fixed; z-index: 70; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); max-width: calc(100vw - 32px); padding: 10px 16px; border-radius: var(--r-pill); background: var(--primary); color: var(--primary-fg); font-size: 13px; box-shadow: var(--sh-lg); }
 
-/* ═══ невысокий экран ноутбука: бенто прокручивается внутри ═══ */
-@media (min-width: 1024px) and (max-height: 719px) {
-  .ap-view[data-view="home"] { overflow: auto; }
-  .bento { height: auto; grid-template-rows: 250px 214px 196px; }
+/* ═══ бенто не обрезает плитки: строки не уже контента, главная прокручивается, если не влезла ═══ */
+@media (min-width: 1024px) {
+  .ap-view[data-view="home"] { overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+  .bento { grid-template-rows: minmax(min-content, 1.06fr) minmax(min-content, 1.08fr) minmax(min-content, .88fr); }
 }
 
 /* ═══ планшет и узкий ноутбук: ассистент выезжает справа ═══ */
@@ -283,7 +283,7 @@ body { overflow: hidden; background: var(--page-grad) fixed, var(--page); color:
 @media (max-width: 1023px) {
   .ap-view[data-view="home"] { overflow: auto; }
   .bento { height: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: auto; grid-template-areas: "hero hero" "event bio" "progs progs" "proof proof" "meth meth"; }
-  .t-bio .photo { min-height: 180px; }
+  .t-bio .photo { min-height: 180px; height: auto; flex: none; aspect-ratio: 4 / 5; }
   .proof { grid-template-columns: 1fr; gap: 10px; }
   .win { grid-template-columns: 180px minmax(0, 1fr); }
   .quad { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -521,7 +521,9 @@ body { overflow: hidden; background: var(--page-grad) fixed, var(--page); color:
 .ev-f li { display: flex; align-items: center; gap: 6px; }
 .ev-f .i { width: 14px; height: 14px; flex: none; color: rgba(250, 250, 250, .6); }
 .ev-f b { color: #fff; }
-.t-event .btn { margin-top: auto; align-self: flex-start; background: var(--card); color: var(--primary); }
+.t-event .btn { background: var(--card); color: var(--primary); }
+.ev-go { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.ev-price { font: 600 13px/1.2 var(--sans); color: #fff; white-space: nowrap; }
 .t-event .btn:hover { background: #f0f0f0; text-decoration: none; }
 
 .t-progs { grid-area: progs; }
@@ -537,7 +539,7 @@ body { overflow: hidden; background: var(--page-grad) fixed, var(--page); color:
 .pick a span { font-size: 12px; line-height: 1.35; color: var(--muted); }
 .pick-c.co a { background: var(--accent-tint); border-color: var(--accent-line); }
 
-.t-bio .photo { flex: 1 1 auto; min-height: 120px; width: 100%; object-fit: cover; object-position: 60% 30%; background: none; display: block; }
+.t-bio .photo { flex: 1 1 0; height: 0; min-height: 120px; width: 100%; object-fit: cover; object-position: 60% 30%; background: none; display: block; }
 img.photo.big { object-fit: cover; object-position: 60% 30%; display: block; height: auto; }
 .t-bio .tile-h a { color: inherit; }
 
@@ -661,3 +663,52 @@ a.btn-link .i, button.btn-link .i { width: 14px; height: 14px; }
 
 /* подпись «Сделано с ❤️ и AI» одна: в подвале сайта (на телефоне в меню «Ещё»), не в окнах */
 .pane-end:empty { display: none; }
+
+/* итоги программ: фото, NPS, оценки блоков, цитаты */
+.win-nav[aria-label="Итоги программ"] button { height: auto; padding-block: 7px; flex-direction: column; align-items: flex-start; gap: 4px; }
+.win-nav[aria-label="Итоги программ"] button small { margin-left: 0; }
+.ph-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 8px; margin-top: 18px; }
+.ph-grid figure { margin: 0; min-width: 0; aspect-ratio: 3 / 4; border-radius: var(--r-md); overflow: hidden; background: var(--card-2); }
+.ph-grid figure.wide { aspect-ratio: auto; }
+.ph-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sc-grid { display: grid; grid-template-columns: minmax(150px, 200px) minmax(0, 1fr); gap: 18px 28px; align-items: start; margin-top: 10px; }
+.sc-nps { display: grid; gap: 4px; padding: 18px; border-radius: var(--r-lg); background: var(--primary); color: var(--primary-fg); }
+.sc-nps b { font: 700 44px/1 var(--sans); letter-spacing: -.02em; }
+.sc-nps span { font-size: 13.5px; }
+.sc-nps small { font-size: 12px; color: rgba(250, 250, 250, .7); }
+.sc-grid .label + .sc { margin-top: 8px; }
+.sc + .label { margin-top: 18px; }
+.sc { display: grid; gap: 8px; }
+.sc li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(60px, 160px) 34px 48px; align-items: center; gap: 12px; font-size: 13.5px; line-height: 1.35; }
+.sc-bar { height: 6px; border-radius: 3px; background: var(--hair); overflow: hidden; }
+.sc-bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+.sc li b { font: 600 14px/1 var(--mono); text-align: right; }
+.sc li small { font: 500 11px/1 var(--mono); color: var(--faint); }
+.quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+.quotes blockquote { margin: 0; padding: 14px 16px; border-radius: var(--r-md); background: var(--accent-tint); border: 1px solid var(--accent-line); font-size: 14.5px; line-height: 1.5; }
+.exp .btn-link { white-space: nowrap; }
+@media (max-width: 760px) {
+  .ph-grid { grid-template-columns: 1fr 1fr; }
+  .ph-grid figure.wide { grid-column: 1 / -1; }
+  .sc-grid { grid-template-columns: minmax(0, 1fr); }
+  .sc li { grid-template-columns: minmax(0, 1fr) 34px; row-gap: 4px; }
+  .sc li .sc-bar { grid-column: 1 / -1; grid-row: 2; }
+  .sc li small { display: none; }
+  .quotes { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ═══ чат: Telegram и клавиатура телефона ═══ */
+.ch-note .ch-tg { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: var(--primary); text-decoration: none; }
+.ch-note .ch-tg .i { width: 15px; height: 15px; }
+.ch-note .ch-tg:hover { text-decoration: underline; }
+@media (max-width: 760px) {
+  .ap-chat.open { top: var(--vvt, 0px); bottom: auto; height: var(--vvh, 100%); }
+  .ap-chat.kb .ch-note { display: none; }
+  .ap-chat.kb { padding-bottom: 0; }
+}
+
+/* ═══ строки таблицы программ кликабельны: шеврон в последней ячейке ═══ */
+tr[data-go] { cursor: pointer; }
+tr[data-go] td:last-child { position: relative; padding-right: 26px; }
+tr[data-go] td:last-child::after { content: "›"; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 20px; line-height: 1; color: var(--muted); transition: transform .15s ease, color .15s ease; }
+tr[data-go]:hover td:last-child::after, tr[data-go]:focus-visible td:last-child::after { color: var(--primary); transform: translate(3px, -50%); }

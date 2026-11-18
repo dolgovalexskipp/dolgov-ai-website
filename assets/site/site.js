@@ -224,7 +224,7 @@
   const chat = $("#chat"), log = $("#chLog"), form = $("#chForm"), input = $("#chIn"), ctxBox = $("#chCtx");
   const L = {};
   let pending = null, busy = false, inForm = false, touched = false, booted = false;
-  const pageName = () => (TITLES[cur] || "Главная") + (SUBNAME[curSub] ? " · " + SUBNAME[curSub] : ((cur === "stati" || cur === "itogi") && curSub && curSub !== "spisok" ? " · " + (document.querySelector(`.sub[data-sub="${curSub}"]`)?.dataset.t || "").slice(0, 40) : ""));
+  const pageName = () => (TITLES[cur] || "Главная") + (SUBNAME[curSub] ? " · " + SUBNAME[curSub] : (cur === "itogi" && curSub ? " · " + (document.querySelector(`[data-view="itogi"] .win-nav button[data-sub="${curSub}"] b`)?.textContent || "") : (cur === "stati" && curSub && curSub !== "spisok" ? " · " + (document.querySelector(`.sub[data-sub="${curSub}"]`)?.dataset.t || "").slice(0, 40) : "")));
   const wait = ms => new Promise(r => setTimeout(r, reduce ? 0 : ms));
   /* Сервис чата: адрес в <html data-chat-api="https://...">. Без адреса чат работает по демо-сценарию.
      На localhost адрес можно передать параметром ?chat_api=..., на сайте — нельзя (иначе чужая ссылка

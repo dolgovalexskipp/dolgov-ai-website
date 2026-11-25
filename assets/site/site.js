@@ -233,6 +233,7 @@
   /* на своей машине боевой сервис не трогаем: только явный ?chat_api=... */
   const API = ((isLocal ? new URLSearchParams(location.search).get("chat_api") : document.documentElement.dataset.chatApi) || "").replace(/\/$/, "");
   const H = [];
+  let lastAction = "";
   const sendButton = form.querySelector('[type="submit"]');
   function setBusy(on) {
     busy = on;
@@ -241,7 +242,7 @@
     log.setAttribute("aria-busy", String(on));
   }
   function persist() {
-    try { sessionStorage.setItem("chatTranscript", JSON.stringify({ sid: SID, messages: H.slice(-24) })); } catch (e) { /* переписка остаётся в открытой вкладке */ }
+    try { sessionStorage.setItem("chatTranscript", JSON.stringify({ sid: SID, messages: H.slice(-24), action: lastAction, lead: Object.fromEntries(Object.values(LEAD_MAP).filter(k => L[k]).map(k => [k, L[k]])) })); } catch (e) { /* переписка остаётся в открытой вкладке */ }
   }
   let SID = "";
   try { SID = sessionStorage.getItem("chatSid") || ""; } catch (e) { SID = ""; }
@@ -276,8 +277,9 @@
     }
     H.push({ role: "assistant", text: d.reply || "" });
     if (H.length > 24) H.splice(0, H.length - 24);
-    persist();
+    lastAction = ["show_form", "handoff"].includes(d.action) ? d.action : "";
     for (const [k, v] of Object.entries(LEAD_MAP)) if (d.lead && d.lead[k]) L[v] = d.lead[k];
+    persist();
     const msg = add("bot", fmt(d.reply || ""));
     if (d.action && d.action !== "none") goal("chat_ai_" + d.action, { page: pageName() });
     if (d.action === "open_section" && d.section) {
@@ -443,7 +445,7 @@
   async function start(quiet = false, fresh = false) {
     if (busy) return;
     if (fresh) {
-      SID = crypto.randomUUID();
+      SID = crypto.randomUUID(); lastAction = "";
       try { sessionStorage.setItem("chatSid", SID); sessionStorage.removeItem("chatTranscript"); } catch (e) { /* без хранилища */ }
     }
     log.innerHTML = ""; touched = false; H.length = 0;
@@ -541,7 +543,7 @@
     const d = await say(`<b>Разбор</b><dl class="sum rep">${rows.map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("")}</dl><div class="mlink"><button type="button" class="btn btn-outline btn-sm">${icon("arrow-right")}Открыть «${SUBNAME[s] || TITLES[s]}»</button></div>`, 1100);
     $("button", d).addEventListener("click", () => { go(s); if (overlay()) closeChat(); });
     await ask("Передать этот разбор Александру?", ["Созвониться", "Переписка в Telegram", "Письмом на почту", "Пока не надо"], async c => {
-      if (c === "Пока не надо") { await say("Хорошо. Разбор останется здесь, вернуться к нему можно в любой момент."); chips([{ label: "Начать заново", action: start }]); return; }
+      if (c === "Пока не надо") { await say("Хорошо. Разбор останется здесь, вернуться к нему можно в любой момент."); chips([{ label: "Начать заново", action: () => start(false, true) }]); return; }
       await onChannel(c);
     });
   }
@@ -596,6 +598,8 @@
     $("[data-fix]", d).addEventListener("click", () => { freeze(d); add("me", "Исправить"); contact(); });
   }
   async function send() {
+    if (busy) return;
+    setBusy(true);
     add("me", "Отправить");
     const next = L.channel === "Созвониться"
       ? `Александр или его ассистент напишет вам, чтобы подтвердить звонок: ${lc(L.time)}, ${lc(L.where)}.`
@@ -606,13 +610,13 @@
         const r = await fetch(API + "/api/lead", { method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ session: SID, name: L.name, contact: L.contact, consent: true, channel: L.channel || "", time: L.time || "",
             place: L.where || "", source: L.source || "", topic: L.topic || "", details: L.detail || "", role: L.role || "",
-            company: L.company || "", size: L.size || "", format: L.format || "", seen: [...seen].join(", ").slice(0, 300), page: pageName() }) });
+            company: L.company || "", size: L.size || "", format: L.format || "", seen: [...seen].join(", ").slice(0, 300), page: pageName().slice(0, 60) }), signal: AbortSignal.timeout(30000) });
         ok = r.ok && (await r.json()).ok;
       } catch (e) { ok = false; }
       if (!ok) {
         goal("lead_error");
         await say(`Заявка не ушла: связь с сервером прервалась. Ваши ответы остались здесь. Нажмите «Отправить ещё раз» или ${TG.replace("Написать Александру в Telegram", "напишите Александру в Telegram")}, почта bonjour@dolgovalex.com.`);
-        pending = null; chips([{ label: "Отправить ещё раз", action: () => { clearChips(); send(); } }, { label: "Начать заново", action: start }]); return;
+        setBusy(false); pending = null; chips([{ label: "Отправить ещё раз", action: () => { clearChips(); send(); } }, { label: "Начать заново", action: () => start(false, true) }]); return;
       }
       goal("lead_sent", { format: L.format || "", page: pageName() });
       await say(`Передал. ${esc(next)}`, 400);
@@ -620,8 +624,9 @@
       await say(`Передал. ${esc(next)} Если вопрос срочный, напишите напрямую: @dolgovalex.`, 900);
       tg();
     }
+    setBusy(false); lastAction = ""; persist();
     pending = null;
-    chips([{ label: "Начать заново", action: start }]);
+    chips([{ label: "Начать заново", action: () => start(false, true) }]);
   }
   function tg() {
     const rows = [["Имя", L.name], ["Контакт", L.contact], ["Задача", L.topic], ["Подробности", L.detail], ["Роль", L.role], ["Предложил", L.format], ["Связь", how()], ["Откуда", L.source], ["Смотрел", [...seen].join(", ") || "только главную"]];
@@ -667,6 +672,10 @@
             H.push(...messages);
             for (const m of H) add(m.role === "user" ? "me" : "bot", fmt(m.text));
             touched = true; context(cur);
+            if (saved.lead && typeof saved.lead === "object") {
+              for (const k of Object.values(LEAD_MAP)) if (typeof saved.lead[k] === "string") L[k] = saved.lead[k].slice(0, 200);
+            }
+            if (["show_form", "handoff"].includes(saved.action)) { lastAction = saved.action; await contact(); }
             if (H.at(-1).role === "user") chips([{ label: "Повторить вопрос", action: () => llm(H.at(-1).text, true) }]);
             return;
           }

@@ -211,7 +211,7 @@ body { overflow: hidden; background: var(--page-grad) fixed, var(--page); color:
 .tl > div > span:last-child { color: var(--muted); }
 
 /* ═══ ассистент ═══ */
-.ap-chat { grid-area: chat; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; background: var(--card); border: 1px solid var(--hair); border-radius: var(--r-lg); box-shadow: var(--sh-sm); overflow: hidden; }
+.ap-chat { grid-area: chat; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto auto; background: var(--card); border: 1px solid var(--hair); border-radius: var(--r-lg); box-shadow: var(--sh-sm); overflow: hidden; }
 .ch-head { display: flex; align-items: center; gap: 10px; padding: 10px 8px 10px 14px; border-bottom: 1px solid var(--border); }
 .ch-ava { width: 34px; height: 34px; flex: none; border-radius: 50%; background: var(--primary); color: var(--primary-fg); display: grid; place-items: center; }
 .ch-who { min-width: 0; margin-right: auto; }
@@ -734,4 +734,35 @@ tr[data-go]:hover td:last-child::after, tr[data-go]:focus-visible td:last-child:
 @media (max-width: 760px) {
   .lvl { grid-template-columns: minmax(0, 1fr); }
   .lvl-c { grid-template-rows: none; }
+}
+
+/* Общий ритм разделов и доступные элементы управления. */
+:root { --space-section: 32px; --space-card: 16px; }
+.win-pane { scrollbar-gutter: stable; overscroll-behavior: contain; }
+.pane-head, .pane-sec, .pane-end { width: 100%; max-width: 960px; margin-inline: auto; }
+.pane-sec { margin-top: var(--space-section); }
+.win-nav button, .win-nav .nav-out { min-height: 40px; height: auto; padding-block: 10px; line-height: 1.35; }
+.win-nav .nav-out .i { flex: none; margin-left: auto; }
+.ch-log { overscroll-behavior: contain; scrollbar-gutter: stable; }
+.ch-log > * { flex-shrink: 0; }
+.msg { max-width: 100%; line-height: 1.6; }
+.msg.me { max-width: 90%; }
+.chip { min-height: 36px; }
+.ch-compose textarea { min-height: 44px; }
+.ch-compose .btn { min-width: 44px; min-height: 44px; }
+.ch-compose .btn:disabled { opacity: .45; cursor: wait; }
+.ch-ctx { padding-block: 8px; }
+.ch-note { border-top: 1px solid var(--hair); padding-top: 10px; }
+@media (min-width: 1024px) {
+  .bento { height: auto; min-height: 100%; grid-template-rows: auto auto auto; align-content: start; }
+  .t-bio .photo { flex: none; height: auto; min-height: 0; aspect-ratio: 4 / 5; }
+}
+@media (max-width: 760px) {
+  :root { --space-section: 28px; }
+  .win-nav { align-items: center; }
+  .win-nav button { min-height: 40px; }
+  .win-nav .nav-out { flex: none; white-space: nowrap; margin-top: 0; border-top: 0; }
+  .ch-head .btn { min-width: 44px; min-height: 44px; }
+  .ch-note { font-size: 11px; }
+  .ch-note .ch-tg { font-size: 13px; }
 }

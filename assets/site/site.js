@@ -233,6 +233,16 @@
   /* на своей машине боевой сервис не трогаем: только явный ?chat_api=... */
   const API = ((isLocal ? new URLSearchParams(location.search).get("chat_api") : document.documentElement.dataset.chatApi) || "").replace(/\/$/, "");
   const H = [];
+  const sendButton = form.querySelector('[type="submit"]');
+  function setBusy(on) {
+    busy = on;
+    sendButton.disabled = on;
+    $("#chReset").disabled = on;
+    log.setAttribute("aria-busy", String(on));
+  }
+  function persist() {
+    try { sessionStorage.setItem("chatTranscript", JSON.stringify({ sid: SID, messages: H.slice(-24) })); } catch (e) { /* переписка остаётся в открытой вкладке */ }
+  }
   let SID = "";
   try { SID = sessionStorage.getItem("chatSid") || ""; } catch (e) { SID = ""; }
   if (!SID) {
@@ -242,26 +252,33 @@
   const fmt = t => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
   const TG = `<a class="ch-tg-in" href="https://t.me/dolgovalex" target="_blank" rel="noopener" data-goal="chat_tg_click">Написать Александру в Telegram</a>`;
   const LEAD_MAP = { topic: "topic", details: "detail", role: "role", company: "company", size: "size", format: "format", channel: "channel", time: "time", where: "where", source: "source" };
-  async function llm(text) {
-    pending = null; busy = true;
-    H.push({ role: "user", text });
+  async function llm(text, retry = false) {
+    if (busy) return;
+    pending = null; setBusy(true); clearChips();
+    if (!retry) H.push({ role: "user", text });
+    persist();
     const t = add("bot typing", "<i></i><i></i><i></i>");
     let d;
     try {
       const r = await fetch(API + "/api/chat", { method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ session: SID, page: pageName(), message: text, history: H.slice(-7, -1) }) });
+        body: JSON.stringify({ session: SID, page: pageName().slice(0, 60), message: text, history: H.slice(-25, -1) }), signal: AbortSignal.timeout(55000) });
       d = await r.json();
       if (!r.ok || !d || !d.reply) throw new Error("chat " + r.status);
     } catch (e) {
       goal("chat_error");
-      d = { reply: "", action: "show_form", chips: [], offline: true };
+      d = { reply: "Связь с чатом прервалась. Попробуйте ещё раз или напишите Александру напрямую.", action: "none", chips: [], model_status: "unavailable" };
     }
-    t.remove(); busy = false;
+    t.remove(); setBusy(false);
+    if (d.model_status === "unavailable" || d.handoff_reason === "чат недоступен") {
+      add("bot", `Сейчас модель не отвечает. Можно повторить вопрос — контекст разговора сохранён. Или ${TG.replace("Написать Александру в Telegram", "напишите Александру в Telegram")}.`);
+      chips([{ label: "Повторить вопрос", action: () => llm(text, true) }]);
+      return;
+    }
     H.push({ role: "assistant", text: d.reply || "" });
+    if (H.length > 24) H.splice(0, H.length - 24);
+    persist();
     for (const [k, v] of Object.entries(LEAD_MAP)) if (d.lead && d.lead[k]) L[v] = d.lead[k];
-    const msg = add("bot", d.offline
-      ? `Связь с чатом прервалась, и ответить сейчас я не могу. Оставьте контакт ниже, Александр ответит сам. Или сразу ${TG.replace("Написать Александру в Telegram", "напишите ему в Telegram")}.`
-      : fmt(d.reply || ""));
+    const msg = add("bot", fmt(d.reply || ""));
     if (d.action && d.action !== "none") goal("chat_ai_" + d.action, { page: pageName() });
     if (d.action === "open_section" && d.section) {
       const name = SUBNAME[d.section] || TITLES[d.section];
@@ -306,7 +323,7 @@
   function add(cls, html) {
     const d = document.createElement("div");
     d.className = "msg " + cls;
-    if (cls === "me") touched = true;
+    if (cls === "me") { touched = true; ctxBox.hidden = true; }
     d.innerHTML = html;
     log.append(d);
     scrollEnd();
@@ -343,7 +360,7 @@
   }
   function answer(text, typed = false) {
     if (busy) return;
-    if (API && typed && (!pending || pending === onTopic)) { clearChips(); add("me", esc(text)); llm(text); return; }
+    if (API && !inForm) { clearChips(); add("me", esc(text)); llm(text); return; }
     if (!pending) { add("me", esc(text)); say("Записал, добавлю к заявке."); return; }
     clearChips();
     add("me", esc(text));
@@ -355,15 +372,15 @@
     if (busy || inForm) return;
     clearChips(); pending = null;
     add("me", esc(label));
-    fn();
+    if (API) llm(label); else fn();
   }
   function autosize() { input.style.height = "auto"; input.style.height = Math.min(input.scrollHeight, 120) + "px"; }
   input.addEventListener("input", autosize);
-  input.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); } });
+  input.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); form.requestSubmit(); } });
   form.addEventListener("submit", e => {
     e.preventDefault();
     const v = input.value.trim();
-    if (!v || input.disabled) return;
+    if (!v || input.disabled || busy) return;
     input.value = ""; autosize();
     if (!touched) goal("chat_message");
     answer(v, true);
@@ -386,7 +403,7 @@
   };
   function context(s) {
     const c = s === "lichno" && curSub === "ai-express" ? [T.express, () => express()] : CTX[s];
-    if (!c || inForm) { ctxBox.hidden = true; return; }
+    if (!c || inForm || touched) { ctxBox.hidden = true; return; }
     ctxBox.hidden = false;
     ctxBox.innerHTML = `<span>Вы в разделе «${esc(pageName())}»</span>`;
     const b = document.createElement("button");
@@ -401,17 +418,18 @@
       return [`Вы смотрите программу «${prog}». Подскажу, подойдёт ли она вашей команде, и соберу заявку.`, [`Подойдёт ли нам «${prog}»?`, "Что нужно подготовить?", `Обсудить «${prog}»`]];
     if (cur === "komandam") return ["Подберу программу для команды и подскажу стоимость. Можно пройти короткую диагностику или сразу описать задачу.", [T.diag, "Чем «Агент» отличается от «Пилота»?", "Сколько стоит для 20 человек?", T.learn]];
     if (cur === "lichno" && curSub === "konsultaciya") return ["Консультация: два часа один на один, онлайн или в Москве. Какой вопрос хотите разобрать?", [T.cons, "Какие будут публичные встречи?"]];
-    if (cur === "lichno" && curSub === "ai-express") return ["AI-экспресс с Hakku: 28 ноября, 12:00–18:00, SOK Сити в Москва-Сити. Ведём втроём: Николай Писаренко, Сергей Ершов и я. Билеты от 15 000 ₽ на странице мероприятия.", [T.express, "О чём мероприятие?", "Кому подойдёт?"]];
+    if (cur === "lichno" && curSub === "ai-express") return ["AI-экспресс с Hakku: 28 ноября, 12:00–18:00, SOK Сити в Москва-Сити. Ведут Николай Писаренко, Сергей Ершов и Александр Долгов. Билеты от 15 000 ₽ на странице мероприятия.", [T.express, "О чём мероприятие?", "Кому подойдёт?"]];
     if (cur === "lichno") return ["В декабре планируем офлайн-встречу «Погружение в ИИ» о втором мнении, контексте, инструментах и эффективности. Точная дата уточняется.", [T.signup, "Кому подойдёт встреча?"]];
     if (cur === "harness") return ["Расскажу про управление агентами и подберу тариф. Какой процесс хотите перевести на агентов первым?", ["Продажи и КП", "Закупки и тендеры", "Отчётность", "У нас уже есть агенты"]];
     if (cur === "metod") return ["Могу показать, как метод выглядит на ваших задачах.", [T.diag, "Чем это отличается от курсов по промптам?", T.solo]];
     if (cur === "bio") return ["Можно обсудить обучение для команды, выступление или публичные встречи.", ["Пригласить выступить", T.learn, T.solo]];
     if (cur === "stati") return ["Подскажу, с чего начать, или отвечу на вопрос по работе с агентами.", ["С чего начать работу с агентами?", "Как сделать, чтобы ИИ помнил контекст?", T.solo]];
-    return ["Здравствуйте. Отвечу на вопросы о программах, публичных встречах и управлении агентами. За три минуты подберу программу. Или сразу опишите задачу.", [T.diag, T.learn, T.proc, T.solo]];
+    return ["Привет. Это ИИ по материалам Александра. Помогу разобраться с обучением и агентами: с чего начать, что попробовать на вашей задаче и какой формат подойдёт. Что хотите изменить в своей работе?", [T.diag, T.learn, T.proc, T.solo]];
   }
   const SCRIPTED = new Set(Object.values(T));
   /* кнопка приветствия: сценарий, если он есть, иначе вопрос нейросети (или общий сценарий без неё) */
   function pick(label) {
+    if (API) return llm(label);
     if (cur === "harness" && ["Продажи и КП", "Закупки и тендеры", "Отчётность"].includes(label)) { L.topic = T.proc; L.detail = label; return askRole(); }
     if (label === "У нас уже есть агенты") { L.role = "Агенты уже есть"; L.topic = T.proc; L.detail = label; return askRole(); }
     if (/^Обсудить «/.test(label)) { L.format = SUBNAME[curSub]; return onTopic(T.learn); }
@@ -422,7 +440,12 @@
 
   const ROLES = ["Собственник", "Руководитель отдела", "Отвечаю за обучение"];
 
-  async function start(quiet = false) {
+  async function start(quiet = false, fresh = false) {
+    if (busy) return;
+    if (fresh) {
+      SID = crypto.randomUUID();
+      try { sessionStorage.setItem("chatSid", SID); sessionStorage.removeItem("chatTranscript"); } catch (e) { /* без хранилища */ }
+    }
     log.innerHTML = ""; touched = false; H.length = 0;
     const role = L.role;
     Object.keys(L).forEach(k => delete L[k]);
@@ -432,7 +455,7 @@
     if (!API) add("sys", "Прототип: чат идёт по готовому сценарию, без нейросети.");
     const [text, list] = greet();
     await say(esc(text), quiet ? 250 : 650);
-    chips(list.map(l => ({ label: l, action: () => { clearChips(); add("me", esc(l)); pick(l); } })));
+    chips(list.slice(0, 3).map(l => ({ label: l, action: () => { clearChips(); add("me", esc(l)); pick(l); } })));
     pending = onTopic;
   }
   async function onTopic(t) {
@@ -607,7 +630,7 @@
     $("#tgDemo").hidden = false;
   }
   $("#tgClose").addEventListener("click", () => { $("#tgDemo").hidden = true; });
-  $("#chReset").addEventListener("click", start);
+  $("#chReset").addEventListener("click", () => start(false, true));
 
   /* cookie: Яндекс Метрика включается только после согласия */
   const CK = "cookieConsent";
@@ -634,5 +657,23 @@
     if (r) { const [rs, rsub] = r; if (rsub && rsub.startsWith("#")) route(rs, null, "replace", rsub.slice(1)); else route(rs, rsub, "replace"); }
     else { const pr = fromPath(location.pathname) || ["home"]; route(pr[0], pr[1], "none", t); }
   }
-  start().then(() => { booted = true; });
+  async function restore() {
+    if (API) {
+      try {
+        const saved = JSON.parse(sessionStorage.getItem("chatTranscript") || "null");
+        if (saved?.sid === SID && Array.isArray(saved.messages) && saved.messages.length) {
+          const messages = saved.messages.slice(-24).filter(m => ["user", "assistant"].includes(m.role) && typeof m.text === "string" && m.text.length <= 4000);
+          if (messages.length) {
+            H.push(...messages);
+            for (const m of H) add(m.role === "user" ? "me" : "bot", fmt(m.text));
+            touched = true; context(cur);
+            if (H.at(-1).role === "user") chips([{ label: "Повторить вопрос", action: () => llm(H.at(-1).text, true) }]);
+            return;
+          }
+        }
+      } catch (e) { /* повреждённая локальная история — новый разговор */ }
+    }
+    await start();
+  }
+  restore().then(() => { booted = true; });
 })();

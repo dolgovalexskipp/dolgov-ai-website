@@ -20,7 +20,7 @@
 <link rel="preload" href="/assets/ds/fonts/geist-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/ds/tokens.css">
 <link rel="stylesheet" href="/assets/ds/components.css">
-<link rel="stylesheet" href="/assets/site/site.css?v=20261118d">
+<link rel="stylesheet" href="/assets/site/site.css?v=20261125a">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -78,7 +78,7 @@
       <a href="/stati/" data-s="stati" aria-current="page"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#newspaper"/></svg><span>Статьи</span></a>
     </nav>
     <div class="ap-top-r">
-      <button class="btn btn-primary ap-chat-open" type="button" data-chat-open><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#message-square"/></svg><span>Чат</span></button>
+      <button class="btn btn-primary ap-chat-open" type="button" data-chat-open aria-label="Открыть чат"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#message-square"/></svg><span>Чат</span></button>
     </div>
   </header>
 
@@ -1101,7 +1101,7 @@
   <aside class="ap-chat" id="chat" aria-label="Чат">
     <header class="ch-head">
       <span class="ch-ava" aria-hidden="true"><svg class="i"><use href="/assets/ds/icons.svg#message-square"/></svg></span>
-      <div class="ch-who"><b>Чат</b><small>отвечает ИИ по материалам сайта</small></div>
+      <div class="ch-who"><b>Разберём вашу задачу</b><small>ИИ по материалам Александра</small></div>
       <button class="btn btn-ghost btn-icon" type="button" id="chReset" title="Начать заново" aria-label="Начать диалог заново"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#plus"/></svg></button>
       <button class="btn btn-ghost btn-icon ch-close" type="button" data-chat-close aria-label="Закрыть чат"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#x"/></svg></button>
     </header>
@@ -1109,7 +1109,7 @@
     <div class="ch-ctx" id="chCtx" hidden></div>
     <form class="ch-compose" id="chForm" autocomplete="off">
       <label class="vh" for="chIn">Сообщение в чат</label>
-      <textarea id="chIn" class="ym-disable-keys" rows="1" placeholder="Опишите задачу своими словами"></textarea>
+      <textarea id="chIn" class="ym-disable-keys" rows="1" maxlength="1500" placeholder="Опишите задачу своими словами"></textarea>
       <button class="btn btn-primary btn-icon" type="submit" aria-label="Отправить"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#send"/></svg></button>
     </form>
     <p class="ch-note"><a class="ch-tg" href="https://t.me/dolgovalex" target="_blank" rel="noopener" data-goal="chat_tg_click"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#send"/></svg>Написать Александру в Telegram</a><br>Отвечает ИИ. Не пишите паспортные данные и коммерческую тайну. <a href="/privacy/">Политика обработки данных</a> · почта bonjour@dolgovalex.com</p>
@@ -1129,7 +1129,7 @@
     <a href="/upravlenie-agentami/" data-s="harness"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#workflow"/></svg><span>Агенты</span></a>
     <button type="button" id="moreBtn" aria-expanded="false" aria-controls="moreSheet"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#menu"/></svg><span>Ещё</span></button>
   </nav>
-  <button class="ap-ask" type="button" data-chat-open><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#message-square"/></svg><span>Чат</span></button>
+  <button class="ap-ask" type="button" data-chat-open aria-label="Открыть чат"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#message-square"/></svg><span>Чат</span></button>
   <div class="ap-sheet" id="moreSheet" hidden>
     <a href="/metod/"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#compass"/></svg>Метод</a>
     <a href="/obo-mne/"><svg class="i" aria-hidden="true"><use href="/assets/ds/icons.svg#badge-check"/></svg>Обо мне</a>
@@ -1144,6 +1144,6 @@
   </div>
 
 </div>
-<script src="/assets/site/site.js?v=20261118d"></script>
+<script src="/assets/site/site.js?v=20261125a"></script>
 </body>
 </html>
